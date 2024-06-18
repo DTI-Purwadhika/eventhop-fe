@@ -13,7 +13,7 @@ type FileUploaderProps = {
   setFiles: Dispatch<SetStateAction<File[]>>;
 };
 
-export function FileUploader({
+function FileUploader({
   imageUrl,
   onFieldChange,
   setFiles,
@@ -63,3 +63,5 @@ export function FileUploader({
     </div>
   );
 }
+
+export default FileUploader;

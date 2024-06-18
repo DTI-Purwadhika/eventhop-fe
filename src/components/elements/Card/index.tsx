@@ -1,15 +1,11 @@
 //import { formatDateTime } from "@/libs/utils";
 import { auth } from "@clerk/nextjs/server";
-import Image from "next/image";
+import { Image } from "@/components/elements";
 import Link from "next/link";
-import { DeleteConfirmation } from "./DeleteConfirmation";
+import DeleteConfirmation from "../Alert";
+import { CardType } from "./type";
 
-type CardProps = {
-  event: any;
-  hasOrderLink?: boolean;
-  hidePrice?: boolean;
-};
-const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
+const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
   const { sessionClaims } = auth();
   const userId = sessionClaims?.userId;
 
@@ -30,8 +26,8 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
             <Image
               src="/assets/images/edit.png"
               alt="edit"
-              width={10}
-              height={10}
+              width="xxs"
+              height="xxs"
             />
           </Link>
 
@@ -75,8 +71,8 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
               <Image
                 src="/assets/icons/arrow.svg"
                 alt="search"
-                width={10}
-                height={10}
+                width="xxs"
+                height="xxs"
               />
             </Link>
           )}

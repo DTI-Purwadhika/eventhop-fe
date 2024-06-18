@@ -19,12 +19,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { eventFormSchema } from "@/libs/validator";
 import { eventDefaultValues } from "@/constants";
-import Dropdown from "./Dropdown";
+import Dropdown from "../../forms/Dropdown";
 import { Textarea } from "@/components/ui/textarea";
-import { FileUploader } from "./FileUploader";
+import FileInput from "../../forms/FileInput";
 import { useState } from "react";
 import Image from "next/image";
-import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "../../ui/checkbox";
 
 type EventFormProps = {
   userId: number;
@@ -111,7 +111,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl className="h-72">
-                  <FileUploader
+                  <FileInput
                     onFieldChange={field.onChange}
                     imageUrl={field.value}
                     setFiles={setFiles}
