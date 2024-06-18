@@ -5,6 +5,8 @@
 /.pnp
 .pnp.*
 .yarn/*
+.yarn/
+.vscode/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
