@@ -20,8 +20,8 @@ const HeroCon = () => (
         <Image
           src="/assets/images/hero.jpg"
           alt="hero image"
-          width="lg"
-          height="xxl"
+          width={350}
+          height={1000}
           className="max-h-[70vh] 2xl:max-h-[50vh] rounded-2xl"
         />
       </div>

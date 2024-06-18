@@ -26,8 +26,8 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
             <Image
               src="/assets/images/edit.png"
               alt="edit"
-              width="xxs"
-              height="xxs"
+              width={10}
+              height={10}
             />
           </Link>
 
@@ -71,8 +71,8 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
               <Image
                 src="/assets/icons/arrow.svg"
                 alt="search"
-                width="xxs"
-                height="xxs"
+                width={10}
+                height={10}
               />
             </Link>
           )}

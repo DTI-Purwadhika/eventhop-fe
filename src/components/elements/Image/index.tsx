@@ -1,4 +1,3 @@
-import { sizeJudge } from "@/constants";
 import { ImageType } from "./type";
 import Image, { StaticImageData } from "next/image";
 
@@ -6,15 +5,15 @@ const ImageCom = ({
   src,
   alt,
   type = "rounded",
-  width = "md",
-  height = "md",
+  width,
+  height,
   className,
   ...props
 }: ImageType) => {
   const nextImage: StaticImageData = {
     src: src,
-    width: sizeJudge(width),
-    height: sizeJudge(height),
+    width: width,
+    height: height,
   };
   return (
     <Image

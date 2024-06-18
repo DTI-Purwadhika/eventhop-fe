@@ -1,5 +1,3 @@
-import { ImageType } from "@/components/elements/Image/type";
-
 export const headerLinks = [
   {
     label: "Home",
@@ -25,23 +23,4 @@ export const eventDefaultValues = {
   categoryId: "",
   price: 0,
   url: "",
-};
-
-export const sizeJudge = (size: ImageType["width"]) => {
-  switch (size) {
-    case "xxs":
-      return 10;
-    case "xs":
-      return 16;
-    case "sm":
-      return 24;
-    case "md":
-      return 32;
-    case "lg":
-      return 350;
-    case "xl":
-      return 500;
-    case "xxl":
-      return 1000;
-  }
 };
