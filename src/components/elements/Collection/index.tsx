@@ -1,15 +1,6 @@
 import Card from "../Card";
+import { CollectionType } from "./type";
 
-type CollectionProps = {
-  data: any;
-  emptyTitle: string;
-  emptyDescription: string;
-  type: "all_events" | "event_organized" | "my_tickets";
-  limit: number;
-  page: number | string;
-  totalPages?: number;
-  urlParamName?: string;
-};
 const Collection = ({
   data,
   emptyTitle,
@@ -19,7 +10,7 @@ const Collection = ({
   page,
   totalPages,
   urlParamName,
-}: CollectionProps) => {
+}: CollectionType) => {
   return (
     <>
       {data.length > 0 ? (

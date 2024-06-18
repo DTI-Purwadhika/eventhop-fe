@@ -5,7 +5,7 @@ const Text = ({
   children,
   size = 14,
   type = "p",
-  weight = "normal",
+  weight = "regular",
   color = "grey-500",
   align = "left",
 }: ChildType & TextType) => {
