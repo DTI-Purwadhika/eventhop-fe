@@ -1,4 +1,4 @@
-import { formatDateTime } from "@/libs/utils";
+//import { formatDateTime } from "@/libs/utils";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
@@ -56,7 +56,8 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
           </div>
         )}
         <p className="p-medium-16 p-medium-18 text-grey-500">
-          {formatDateTime(event.startDateTime).dateTime}
+          {event.startDateTime}
+          {/* {formatDateTime(event.startDateTime).dateTime} */}
         </p>
 
         <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
