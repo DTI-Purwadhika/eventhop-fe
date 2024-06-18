@@ -38,8 +38,10 @@ export const sizeJudge = (size: ImageType["width"]) => {
     case "md":
       return 32;
     case "lg":
-      return 64;
+      return 350;
     case "xl":
-      return 128;
+      return 500;
+    case "xxl":
+      return 1000;
   }
 };

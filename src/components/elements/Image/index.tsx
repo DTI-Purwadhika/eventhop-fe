@@ -8,6 +8,7 @@ const ImageCom = ({
   type = "rounded",
   width = "md",
   height = "md",
+  className,
   ...props
 }: ImageType) => {
   const nextImage: StaticImageData = {
@@ -15,7 +16,14 @@ const ImageCom = ({
     width: sizeJudge(width),
     height: sizeJudge(height),
   };
-  return <Image src={nextImage} alt={alt} {...props} />;
+  return (
+    <Image
+      src={nextImage}
+      alt={alt}
+      {...props}
+      className={"object-contain object-center " + className}
+    />
+  );
 };
 
 export default ImageCom;
