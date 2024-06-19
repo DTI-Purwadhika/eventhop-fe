@@ -13,24 +13,19 @@ const Collection = ({
 }: CollectionType) => {
   return (
     <>
-      {data.length > 0 ? (
+      {data && data.length > 0 ? (
         <div className="flex flex-col items-center gap-10">
           <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10 xl:grid-cols-4">
-            {data.map((item: any, index: number) => {
-              const hasOrderLink = type === "event_organized";
-              const hidePrice = type === "my_tickets";
-              return (
-                <li key={item._id} className="flex justify-center">
-                  <Card
-                    event={item}
-                    hasOrderLink={hasOrderLink}
-                    hidePrice={hidePrice}
-                  />
-                </li>
-              );
-            })}
+            {data.map((item: any) => (
+              <li key={item._id} className="flex justify-center">
+                <Card
+                  event={item}
+                  hasOrderLink={type === "event_organized"}
+                  hidePrice={type === "my_tickets"}
+                />
+              </li>
+            ))}
           </ul>
-          {data[0].title}
         </div>
       ) : (
         <div className="wrapper flex-center text-center min-h-[200px] w-full flex-col gap-3 rounded-[14px] bg-grey-50 py-28">
@@ -41,4 +36,5 @@ const Collection = ({
     </>
   );
 };
+
 export default Collection;

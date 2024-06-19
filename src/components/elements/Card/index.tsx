@@ -1,14 +1,15 @@
 //import { formatDateTime } from "@/libs/utils";
-import { auth } from "@clerk/nextjs/server";
+import { getAuth } from "@clerk/nextjs/server";
 import { Image } from "@/components/elements";
 import Link from "next/link";
 import DeleteConfirmation from "../Alert";
 import { CardType } from "./type";
 
 const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId;
-
+  // const { sessionClaims } = getAuth();
+  // const userId = sessionClaims?.userId;
+  const userId = 1;
+  console.log(event);
   const isEventCreator = event.creatorId === userId;
 
   return (
@@ -16,7 +17,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
       <Link
         href={`/events/${event._id}`}
         style={{
-          backgroundImage: `url(${event.imageUrl})`,
+          backgroundImage: `url(${event.main_image})`,
         }}
         className="flex-center flex-grow bg-gray-50 bg-center text-gray-500"
       />
@@ -36,33 +37,30 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
       )}
       <Link
         href={`/events/${event._id}`}
-        style={{
-          backgroundImage: `url(${event.imageUrl})`,
-        }}
         className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4"
       >
         {!hidePrice && (
           <div className="flex gap-2">
-            <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-60 ">
-              {event.isFree ? "FREE" : `$${event.price}`}
+            <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-60 whitespace-nowrap">
+              {event.price === null ? "FREE" : `Rp ${event.price}`}
             </span>
             <p className="p-semibold-14 w-min rounded-full bg-grey-500/10 px-4 py-1 text-grey-500">
-              {event.category.name}
+              {event.category}
             </p>
           </div>
         )}
         <p className="p-medium-16 p-medium-18 text-grey-500">
-          {event.startDateTime}
+          {event.start_date}
           {/* {formatDateTime(event.startDateTime).dateTime} */}
         </p>
 
         <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">
-          {event.title}
+          {event.name}
         </p>
 
         <div className="flex-between w-full">
           <p className="p-medium-14 md:p-medium-16 text-grey-600">
-            {event.organizer.name}
+            {event.organizer}
           </p>
 
           {hasOrderLink && (

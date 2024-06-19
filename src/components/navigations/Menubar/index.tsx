@@ -1,6 +1,8 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { headerLinks } from "@/constants";
 import { Link } from "@/components/navigations";
-import { GetPathName } from "@/utils/getPathName";
 
 const MenuItem = ({ pathName }: { pathName: string }) =>
   headerLinks.map((link) => (
@@ -14,10 +16,13 @@ const MenuItem = ({ pathName }: { pathName: string }) =>
     </li>
   ));
 
-const Menubar = () => (
-  <ul className="flex w-full flex-col items-start gap-5 md:flex-row md:flex-between">
-    <MenuItem pathName={GetPathName()} />
-  </ul>
-);
+const Menubar = () => {
+  const GetPathName = usePathname();
+  return (
+    <ul className="flex w-full flex-col items-start gap-5 md:flex-row md:flex-between">
+      <MenuItem pathName={GetPathName} />
+    </ul>
+  );
+};
 
 export default Menubar;
