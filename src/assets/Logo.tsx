@@ -1,7 +1,7 @@
 import { Image } from "@/components/elements";
 import { Link } from "@/components/navigations";
 
-const Logo = () => (
+export const Logo = () => (
   <Link href="/">
     <Image
       src="/assets/images/logo.png"
@@ -11,5 +11,3 @@ const Logo = () => (
     />
   </Link>
 );
-
-export default Logo;

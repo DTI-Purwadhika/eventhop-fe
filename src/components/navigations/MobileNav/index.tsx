@@ -2,16 +2,11 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { Image } from "@/components/elements";
 import { Menubar } from "../";
+import { MenuIco } from "@/assets/Icon";
 
 const Trigger = () => (
   <SheetTrigger className="align-middle">
-    <Image
-      src="/assets/icons/menu.svg"
-      alt="menu"
-      width={24}
-      height={24}
-      className="cursor-pointer"
-    />
+    <MenuIco />
   </SheetTrigger>
 );
 

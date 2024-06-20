@@ -1,4 +1,4 @@
-import { Logo } from "@/assets";
+import { Logo } from "@/assets/Logo";
 import { Text } from "@/components/typhographies";
 
 const Footer = () => (

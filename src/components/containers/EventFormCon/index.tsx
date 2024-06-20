@@ -25,6 +25,7 @@ import FileInput from "../../forms/FileInput";
 import { useState } from "react";
 import Image from "next/image";
 import { Checkbox } from "../../ui/checkbox";
+import { LinkIco, DateIco, LocationIco } from "@/assets/Icon";
 
 type EventFormProps = {
   userId: number;
@@ -131,12 +132,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/location-grey.svg"
-                      alt="location"
-                      width={24}
-                      height={24}
-                    />
+                    <LocationIco />
                     <Input
                       placeholder="Event Location"
                       {...field}
@@ -158,12 +154,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/calendar.svg"
-                      alt="calendar"
-                      width={24}
-                      height={24}
-                    />
+                    <DateIco />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       Start Date:
                     </p>
@@ -188,12 +179,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/calendar.svg"
-                      alt="calendar"
-                      width={24}
-                      height={24}
-                    />
+                    <DateIco />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       End Date:
                     </p>
@@ -249,12 +235,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/link.svg"
-                      alt="url"
-                      width={24}
-                      height={24}
-                    />
+                    <LinkIco />
                     <Input
                       placeholder="Url"
                       {...field}
