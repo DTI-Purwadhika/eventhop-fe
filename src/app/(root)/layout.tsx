@@ -1,11 +1,7 @@
-import Footer from "@/components/shared/Footer";
-import Header from "@/components/shared/Header";
+import type { ChildType } from "@/types";
+import { Header, Footer } from "@/components/layouts";
 
-const RootLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => (
+const RootLayout = ({ children }: ChildType) => (
   <div className="flex flex-col h-screen">
     <Header />
     <main className="flex-1">{children}</main>

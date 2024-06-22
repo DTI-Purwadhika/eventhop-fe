@@ -57,10 +57,10 @@ export type DeleteEventParams = {
 };
 
 export type GetAllEventsParams = {
-  query: string;
-  category: string;
-  limit: number;
-  page: number;
+  filter: string;
+  category?: string;
+  limit?: number;
+  page?: number;
 };
 
 export type GetEventsByUserParams = {
@@ -147,3 +147,7 @@ export type SearchParamProps = {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+export type ChildType = Readonly<{
+  children: React.ReactNode;
+}>;
