@@ -8,11 +8,12 @@ const Text = ({
   weight = "regular",
   color = "grey-500",
   align = "left",
+  className = "",
 }: ChildType & TextType) => {
   const TextType = (type || "p") as keyof JSX.IntrinsicElements;
   return (
     <TextType
-      className={`text-${align} ${type}-${weight}-${size} text-${color}`}
+      className={`text-${align} ${type}-${weight}-${size} text-${color} ${className}`}
     >
       {children}
     </TextType>

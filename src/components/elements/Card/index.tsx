@@ -16,7 +16,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
   return (
     <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
       <Link
-        href={`/events/${event.code}`}
+        href={`/events/${event.id}`}
         style={{
           backgroundImage: `url(${event.main_image})`,
         }}
@@ -24,7 +24,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
       />
       {isEventCreator && !hidePrice && (
         <div className="absolute top-2 right-2 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
-          <Link href={`/events/${event.code}/update`}>
+          <Link href={`/events/${event.id}/update`}>
             <Image
               src="/assets/images/edit.png"
               alt="edit"
@@ -33,11 +33,11 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
             />
           </Link>
 
-          <DeleteConfirmation eventId={event.code} />
+          <DeleteConfirmation eventId={event.id} />
         </div>
       )}
       <Link
-        href={`/events/${event.code}`}
+        href={`/events/${event.id}`}
         className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4"
       >
         {!hidePrice && (
@@ -65,7 +65,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
           </p>
 
           {hasOrderLink && (
-            <Link href={`/orders?eventId=${event.code}`} className="flex gap-2">
+            <Link href={`/orders?eventId=${event.id}`} className="flex gap-2">
               <p className="text-primary-500">Order Details</p>
               <Icon name="ArrowIco" />
             </Link>

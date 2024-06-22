@@ -4,4 +4,5 @@ export default interface TextType {
   weight?: "regular" | "medium" | "semibold" | "bold";
   color?: string;
   align?: "left" | "center" | "right";
+  className?: string;
 }
