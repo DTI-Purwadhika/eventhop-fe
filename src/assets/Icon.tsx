@@ -1,15 +1,31 @@
-import { Image } from "@/components/elements";
 import { Heading, Text } from "@/components/typhographies";
+import { Image } from "@/components/elements";
 
-export const DeleteIco = () => (
-  <Image src="/assets/icons/delete.svg" alt="edit" width={20} height={20} />
-);
-
-export const ArrowIco = () => (
+const ArrowIco = () => (
   <Image src="/assets/icons/arrow.svg" alt="edit" width={20} height={20} />
 );
 
-export const UploadIco = () => (
+const DateIco = () => (
+  <Image src="/assets/icons/calendar.svg" alt="edit" width={20} height={20} />
+);
+
+const DeleteIco = () => (
+  <Image src="/assets/icons/delete.svg" alt="edit" width={20} height={20} />
+);
+
+const LinkIco = () => (
+  <Image src="/assets/icons/link.svg" alt="edit" width={20} height={20} />
+);
+
+const LocationIco = () => (
+  <Image src="/assets/icons/location.svg" alt="edit" width={20} height={20} />
+);
+
+const MenuIco = () => (
+  <Image src="/assets/icons/menu.svg" alt="edit" width={20} height={20} />
+);
+
+const UploadIco = () => (
   <>
     <Image src="/assets/icons/upload.svg" alt="edit" width={20} height={20} />
     <Heading size="h3">Drag photo here</Heading>
@@ -19,18 +35,19 @@ export const UploadIco = () => (
   </>
 );
 
-export const MenuIco = () => (
-  <Image src="/assets/icons/menu.svg" alt="edit" width={20} height={20} />
-);
+const Icons = {
+  DeleteIco,
+  ArrowIco,
+  UploadIco,
+  MenuIco,
+  LinkIco,
+  DateIco,
+  LocationIco,
+};
 
-export const LinkIco = () => (
-  <Image src="/assets/icons/link.svg" alt="edit" width={20} height={20} />
-);
+const Icon: React.FC<{ name: keyof typeof Icons }> = ({ name }) => {
+  const IconCom = Icons[name];
+  return IconCom ? <IconCom /> : null;
+};
 
-export const DateIco = () => (
-  <Image src="/assets/icons/calendar.svg" alt="edit" width={20} height={20} />
-);
-
-export const LocationIco = () => (
-  <Image src="/assets/icons/location.svg" alt="edit" width={20} height={20} />
-);
+export default Icon;

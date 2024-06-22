@@ -4,7 +4,7 @@ import { Image } from "@/components/elements";
 import Link from "next/link";
 import DeleteConfirmation from "../Alert";
 import { CardType } from "./type";
-import { ArrowIco } from "@/assets/Icon";
+import Icon from "@/assets/Icon";
 
 const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
   // const { sessionClaims } = getAuth();
@@ -67,7 +67,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
           {hasOrderLink && (
             <Link href={`/orders?eventId=${event.code}`} className="flex gap-2">
               <p className="text-primary-500">Order Details</p>
-              <ArrowIco />
+              <Icon name="ArrowIco" />
             </Link>
           )}
         </div>

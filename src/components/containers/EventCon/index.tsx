@@ -1,42 +1,31 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Collection from "@/components/elements/Collection";
-import EventConType from "./type";
-import getEventData from "@/utils/getEventData";
+import { GetAllEventsParams } from "@/types";
 
-const EventCon = ({ groupBy }: EventConType) => {
-  const [events, setEvents] = useState([]);
+const EventCon = (eventProp: GetAllEventsParams) => {
+  let headTitle = "";
 
-  useEffect(() => {
-    const fetchTheEvent = async () => {
-      try {
-        const events = await getEventData();
-        setEvents(events.data);
-      } catch (error) {
-        console.error("Error fetching event data:", error);
-      }
-    };
-
-    fetchTheEvent();
-  }, []);
-
+  switch (eventProp.filter) {
+    case "popular":
+      headTitle = "Currently Popular Event at EVENT HOP!";
+      break;
+    case "month":
+      headTitle = "This Event Almost Start!";
+      break;
+    case "location":
+      headTitle = "Best Event Near You!";
+      break;
+    default:
+      headTitle = "All Events at EVENT HOP!";
+      break;
+  }
   return (
     <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-      <h2 className="h2-bold">
-        Trusted By <br /> Thousands of Events
-      </h2>
-      <div className="flex w-full flex-col gap-5 md:flex-row">
-        Search CategoryFilter
-      </div>
+      <h2 className="h2-bold">{headTitle}</h2>
       <Collection
-        data={events}
-        emptyTitle="Events Not Found"
-        emptyDescription="Sorry, we couldn't find any events matching your search. Please try again with different keywords."
+        data={eventProp}
+        emptyTitle="Events Event"
+        emptyDescription="Sorry, we couldn't find any events."
         type="all_events"
-        limit={6}
-        page={1}
-        totalPages={2}
       />
     </section>
   );

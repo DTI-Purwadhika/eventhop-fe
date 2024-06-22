@@ -10,22 +10,19 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/forms";
 import { eventFormSchema } from "@/libs/validator";
 import { eventDefaultValues } from "@/constants";
 import Dropdown from "../../forms/Dropdown";
 import { Textarea } from "@/components/ui/textarea";
 import FileInput from "../../forms/FileInput";
 import { useState } from "react";
-import Image from "next/image";
 import { Checkbox } from "../../ui/checkbox";
-import { LinkIco, DateIco, LocationIco } from "@/assets/Icon";
+import Icon from "@/assets/Icon";
 
 type EventFormProps = {
   userId: number;
@@ -41,10 +38,8 @@ const EventForm = ({ userId, type }: EventFormProps) => {
     defaultValues: initialValues,
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof eventFormSchema>) {
     // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
   }
 
@@ -61,11 +56,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Input
-                    placeholder="Event title"
-                    {...field}
-                    className="input-field"
-                  />
+                  <Input placeholder="Event title" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -132,12 +123,8 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <LocationIco />
-                    <Input
-                      placeholder="Event Location"
-                      {...field}
-                      className="input-field"
-                    />
+                    <Icon name="LocationIco" />
+                    <Input placeholder="Event Location" field={field} />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -154,7 +141,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <DateIco />
+                    <Icon name="DateIco" />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       Start Date:
                     </p>
@@ -179,7 +166,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <DateIco />
+                    <Icon name="DateIco" />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       End Date:
                     </p>
@@ -208,11 +195,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                     <span className="text-grey-500 p-semibold-18">Rp</span>
-                    <Input
-                      placeholder="Price"
-                      {...field}
-                      className="p-regular-16 border-0 bg-grey-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
+                    <Input placeholder="Price" {...field} />
                     <div className="flex whitespace-nowrap">
                       <Checkbox className="mr-2 h-5 w-5 border-2 border-primary-500" />
                       <label
@@ -235,12 +218,8 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <LinkIco />
-                    <Input
-                      placeholder="Url"
-                      {...field}
-                      className="input-field"
-                    />
+                    <Icon name="LinkIco" />
+                    <Input placeholder="Url" {...field} />
                   </div>
                 </FormControl>
                 <FormMessage />

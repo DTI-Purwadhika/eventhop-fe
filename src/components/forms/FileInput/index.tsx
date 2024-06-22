@@ -4,10 +4,10 @@ import { useCallback } from "react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { convertFileToUrl } from "@/libs/utils";
 import { useDropzone } from "@uploadthing/react/hooks";
-import { UploadIco } from "@/assets/Icon";
 import { FileType } from "./type";
 import { Button } from "@/components/forms";
 import { Image } from "@/components/elements";
+import Icon from "@/assets/Icon";
 
 const UploadedImg = ({ imageUrl }: { imageUrl: string }) => (
   <div className="flex h-full w-full flex-1 justify-center ">
@@ -23,7 +23,7 @@ const UploadedImg = ({ imageUrl }: { imageUrl: string }) => (
 
 const DropZone = () => (
   <div className="flex-center flex-col py-5 text-grey-500">
-    <UploadIco />
+    <Icon name="UploadIco" />
     <Button>Select from computer</Button>
   </div>
 );

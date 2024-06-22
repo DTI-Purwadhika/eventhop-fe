@@ -2,11 +2,11 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { Image } from "@/components/elements";
 import { Menubar } from "../";
-import { MenuIco } from "@/assets/Icon";
+import Icon from "@/assets/Icon";
 
 const Trigger = () => (
   <SheetTrigger className="align-middle">
-    <MenuIco />
+    <Icon name="MenuIco" />
   </SheetTrigger>
 );
 

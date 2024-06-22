@@ -15,7 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { DeleteIco } from "@/assets/Icon";
+import Icon from "@/assets/Icon";
 
 // import { deleteEvent } from '@/lib/actions/event.actions'
 
@@ -26,7 +26,7 @@ const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <DeleteIco />
+        <Icon name="DeleteIco" />
       </AlertDialogTrigger>
 
       <AlertDialogContent className="bg-white">

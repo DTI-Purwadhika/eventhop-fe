@@ -1,5 +1,7 @@
+import { ControllerRenderProps } from "react-hook-form";
+
 export type InputType = {
   placeholder: string;
-  field: any;
-  icon: any;
+  field?: ControllerRenderProps<any, any>;
+  icon?: string;
 };

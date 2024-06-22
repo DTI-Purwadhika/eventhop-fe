@@ -1,22 +1,38 @@
-import Card from "../Card";
+"use client";
+
+import { useEffect, useState } from "react";
+import { GetAllEventsParams } from "@/types";
 import { CollectionType } from "./type";
+import getEventData from "@/utils/getEventData";
+import Card from "../Card";
 
 const Collection = ({
   data,
   emptyTitle,
   emptyDescription,
   type,
-  limit,
-  page,
-  totalPages,
-  urlParamName,
 }: CollectionType) => {
+  const [collectData, setCollectData] = useState([]);
+
+  useEffect(() => {
+    const fetchTheEvent = async (eventProp: GetAllEventsParams) => {
+      try {
+        const events = await getEventData(eventProp);
+        setCollectData(events.data);
+      } catch (error) {
+        console.error("Error fetching event data:", error);
+      }
+    };
+
+    fetchTheEvent(data);
+  }, [data]);
+
   return (
     <>
-      {data && data.length > 0 ? (
+      {collectData && collectData.length > 0 ? (
         <div className="flex flex-col items-center gap-10">
           <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10 xl:grid-cols-4">
-            {data.map((item: any) => (
+            {collectData.map((item: any) => (
               <li key={item._id} className="flex justify-center">
                 <Card
                   event={item}
