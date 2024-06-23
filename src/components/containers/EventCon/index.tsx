@@ -23,7 +23,7 @@ const EventCon = (eventProp: GetAllEventsParams) => {
       <h2 className="h2-bold">{headTitle}</h2>
       <Collection
         data={eventProp}
-        emptyTitle="Events Event"
+        emptyTitle="No Events"
         emptyDescription="Sorry, we couldn't find any events."
         type="all_events"
       />

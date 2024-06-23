@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { GetAllEventsParams } from "@/types";
 import { CollectionType } from "./type";
+import { Pagination } from "@/components/layouts";
+import { Card } from "../";
 import getEventData from "@/utils/getEventData";
-import Card from "../Card";
 
 const Collection = ({
   data,
@@ -13,19 +14,25 @@ const Collection = ({
   type,
 }: CollectionType) => {
   const [collectData, setCollectData] = useState([]);
+  const [totalData, setTotalData] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchTheEvent = async (eventProp: GetAllEventsParams) => {
+      data.page = currentPage;
       try {
         const events = await getEventData(eventProp);
-        setCollectData(events.data);
+        if (events) {
+          setCollectData(events.data);
+          setTotalData(parseInt(events.totalPages || "0"));
+        }
       } catch (error) {
         console.error("Error fetching event data:", error);
       }
     };
 
     fetchTheEvent(data);
-  }, [data]);
+  }, [currentPage, data]);
 
   return (
     <>
@@ -42,6 +49,14 @@ const Collection = ({
               </li>
             ))}
           </ul>
+          {totalData / data.limit > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPosts={totalData}
+              postsPerPage={data.limit}
+              setCurrentPage={setCurrentPage}
+            />
+          )}
         </div>
       ) : (
         <div className="wrapper flex-center text-center min-h-[200px] w-full flex-col gap-3 rounded-[14px] bg-grey-50 py-28">
