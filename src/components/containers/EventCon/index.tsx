@@ -1,10 +1,11 @@
 import Collection from "@/components/elements/Collection";
+import { Heading } from "@/components/typhographies";
 import { GetAllEventsParams } from "@/types";
 
-const EventCon = (eventProp: GetAllEventsParams) => {
+const EventCon = ({ filter }: GetAllEventsParams) => {
   let headTitle = "";
 
-  switch (eventProp.filter) {
+  switch (filter) {
     case "popular":
       headTitle = "Currently Popular Event at EVENT HOP!";
       break;
@@ -15,14 +16,15 @@ const EventCon = (eventProp: GetAllEventsParams) => {
       headTitle = "Best Event Near You!";
       break;
     default:
-      headTitle = "All Events at EVENT HOP!";
+      headTitle = "";
       break;
   }
   return (
     <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-      <h2 className="h2-bold">{headTitle}</h2>
+      <Heading size="h2">{headTitle}</Heading>
       <Collection
-        data={eventProp}
+        filter={filter}
+        limit={4}
         emptyTitle="No Events"
         emptyDescription="Sorry, we couldn't find any events."
         type="all_events"

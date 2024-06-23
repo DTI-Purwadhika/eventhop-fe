@@ -7,7 +7,11 @@ const getEventData = async ({
   page = 1,
 }: GetAllEventsParams) => {
   const eventData = process.env.NEXT_PUBLIC_EVENT_API;
-  const fetchUrl = `${eventData}/get-events?_limit=${limit}&_page=${page}`;
+  let fetchUrl = `${eventData}/get-events?_limit=${limit}&_page=${page}`;
+
+  if (category && category !== "all") {
+    fetchUrl += `&category=${category}`;
+  }
 
   console.log(fetchUrl);
   try {

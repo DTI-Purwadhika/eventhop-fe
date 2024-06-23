@@ -8,20 +8,25 @@ import { Card } from "../";
 import getEventData from "@/utils/getEventData";
 
 const Collection = ({
-  data,
-  emptyTitle,
-  emptyDescription,
+  filter = "",
+  limit = 6,
+  emptyTitle = "No Data Found",
+  emptyDescription = "There is no data for your requirement",
+  category,
   type,
-}: CollectionType) => {
+}: CollectionType & GetAllEventsParams) => {
   const [collectData, setCollectData] = useState([]);
   const [totalData, setTotalData] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const fetchTheEvent = async (eventProp: GetAllEventsParams) => {
-      data.page = currentPage;
+    const fetchTheEvent = async ({
+      filter,
+      limit,
+      page,
+    }: GetAllEventsParams) => {
       try {
-        const events = await getEventData(eventProp);
+        const events = await getEventData({ filter, limit, page, category });
         if (events) {
           setCollectData(events.data);
           setTotalData(parseInt(events.totalPages || "0"));
@@ -30,15 +35,15 @@ const Collection = ({
         console.error("Error fetching event data:", error);
       }
     };
-
-    fetchTheEvent(data);
-  }, [currentPage, data]);
+    const page = currentPage;
+    fetchTheEvent({ filter, limit, page });
+  }, [currentPage, filter, limit, category]);
 
   return (
     <>
       {collectData && collectData.length > 0 ? (
         <div className="flex flex-col items-center gap-10">
-          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10 xl:grid-cols-4">
+          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-10">
             {collectData.map((item: any) => (
               <li key={item._id} className="flex justify-center">
                 <Card
@@ -49,11 +54,11 @@ const Collection = ({
               </li>
             ))}
           </ul>
-          {totalData / data.limit > 1 && (
+          {totalData / limit > 1 && (
             <Pagination
               currentPage={currentPage}
               totalPosts={totalData}
-              postsPerPage={data.limit}
+              postsPerPage={limit}
               setCurrentPage={setCurrentPage}
             />
           )}

@@ -4,9 +4,9 @@ const Home = () => (
   <>
     <HeroCon />
     <CategoryCon />
-    <EventCon filter="popular" limit={6} />
-    <EventCon filter="month" limit={6} />
-    <EventCon filter="location" limit={6} />
+    <EventCon filter="popular" />
+    <EventCon filter="month" />
+    <EventCon filter="location" />
   </>
 );
 

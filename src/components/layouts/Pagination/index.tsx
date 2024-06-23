@@ -92,7 +92,11 @@ const Page = ({
   return (
     <Pagination>
       <PaginationContent>
-        <PaginationItem className={`${currentPage === 1 ? "hidden" : ""}`}>
+        <PaginationItem
+          className={`${
+            currentPage === 1 || currentPage === 2 ? "hidden" : ""
+          }`}
+        >
           <PaginationFirst href="#" onClick={handleFirstPage} />
         </PaginationItem>
         <PaginationItem className={`${currentPage === 1 ? "hidden" : ""}`}>
@@ -107,7 +111,12 @@ const Page = ({
           <PaginationNext href="#" onClick={handleNextPage} />
         </PaginationItem>
         <PaginationItem
-          className={`${currentPage === pageNumbers.length ? "hidden" : ""}`}
+          className={`${
+            currentPage === pageNumbers.length ||
+            currentPage === pageNumbers.length - 1
+              ? "hidden"
+              : ""
+          }`}
         >
           <PaginationLast href="#" onClick={handleLastPage} />
         </PaginationItem>
