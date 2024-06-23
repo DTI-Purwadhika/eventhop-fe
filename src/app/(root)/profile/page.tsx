@@ -24,7 +24,8 @@ const ProfilePage = async () => {
       </section>
       <section className="wrapper my-8">
         <Collection
-          data={[]}
+          filter=""
+          limit={4}
           emptyTitle="No event ticket purchased yet"
           emptyDescription="No worries - you can buy now"
           type="my_tickets"
@@ -43,7 +44,8 @@ const ProfilePage = async () => {
       </section>
       <section className="wrapper my-8">
         <Collection
-          data={[]}
+          filter=""
+          limit={4}
           emptyTitle="No event have been created yet"
           emptyDescription="Create one?"
           type="event_organized"
