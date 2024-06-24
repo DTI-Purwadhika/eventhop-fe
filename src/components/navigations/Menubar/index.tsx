@@ -18,6 +18,7 @@ const MenuItem = ({ pathName }: { pathName: string }) =>
 
 const Menubar = () => {
   const GetPathName = usePathname();
+
   return (
     <ul className="flex w-full flex-col items-start gap-5 md:flex-row md:flex-between">
       <MenuItem pathName={GetPathName} />

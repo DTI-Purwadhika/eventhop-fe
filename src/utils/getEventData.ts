@@ -13,7 +13,6 @@ const getEventData = async ({
     fetchUrl += `&category=${category}`;
   }
 
-  console.log(fetchUrl);
   try {
     const response = await fetch(fetchUrl);
     if (!response.ok) {
@@ -21,7 +20,6 @@ const getEventData = async ({
     }
     const data = await response.json();
     const totalPages = response.headers.get("X-Total-Count");
-    console.log(response.headers.get("X-Total-Count"));
     return { data, totalPages };
   } catch (error) {
     console.error("Can't catch event data:", error);

@@ -39,7 +39,6 @@ const EventForm = ({ userId, type }: EventFormProps) => {
   });
 
   function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    // Do something with the form values.
     console.log(values);
   }
 
@@ -125,6 +124,20 @@ const EventForm = ({ userId, type }: EventFormProps) => {
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                     <Icon name="LocationIco" />
                     <Input placeholder="Event Location" field={field} />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="seats"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                    <Input placeholder="Available Seats" field={field} />
                   </div>
                 </FormControl>
                 <FormMessage />

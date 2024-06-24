@@ -19,5 +19,6 @@ export const eventFormSchema = z.object({
   endDateTime: z.date(),
   categoryId: z.string(),
   price: z.number(),
-  url: z.string().url(),
+  url: z.string().url().optional(),
+  seats: z.number().min(1, { message: "Seats must be at least 1" }),
 });
