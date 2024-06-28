@@ -122,7 +122,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="LocationIco" />
+                    <Icon name="MapPin" />
                     <Input placeholder="Event Location" field={field} />
                   </div>
                 </FormControl>
@@ -154,7 +154,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="DateIco" />
+                    <Icon name="Calendar" />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       Start Date:
                     </p>
@@ -179,7 +179,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="DateIco" />
+                    <Icon name="Calendar" />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       End Date:
                     </p>
@@ -231,7 +231,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="LinkIco" />
+                    <Icon name="Link" />
                     <Input placeholder="Url" {...field} />
                   </div>
                 </FormControl>

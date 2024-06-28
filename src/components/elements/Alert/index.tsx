@@ -25,7 +25,7 @@ const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Icon name="DeleteIco" />
+        <Icon name="Trash" />
       </AlertDialogTrigger>
 
       <AlertDialogContent className="bg-white">
