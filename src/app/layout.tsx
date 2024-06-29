@@ -13,11 +13,9 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: ChildType) => (
-  <ClerkProvider>
-    <html lang="en">
-      <body className={bodyFont}>{children}</body>
-    </html>
-  </ClerkProvider>
+  <html lang="en">
+    <body className={bodyFont}>{children}</body>
+  </html>
 );
 
 export default RootLayout;
