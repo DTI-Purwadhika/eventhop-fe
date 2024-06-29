@@ -2,6 +2,7 @@
   "name": "event-hop",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -52,9 +53,5 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
-  "packageManager": "yarn@4.3.1",
-  "volta": {
-    "node": "20.15.0",
-    "yarn": "4.3.1"
-  }
+  "packageManager": "pnpm@9.4.0"
 }
