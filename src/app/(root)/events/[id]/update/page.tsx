@@ -1,9 +1,8 @@
 import EventForm from "@/components/containers/EventFormCon";
-import { auth } from "@clerk/nextjs/server";
 
 const UpdateEvent = () => {
-  const { sessionClaims } = auth();
-  const userId = sessionClaims?.userId;
+  // // const { sessionClaims } = auth();
+  // const userId = sessionClaims?.userId;
 
   return (
     <>

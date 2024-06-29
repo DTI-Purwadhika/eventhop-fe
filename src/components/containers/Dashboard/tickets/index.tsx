@@ -1,10 +1,9 @@
 import { Collection } from "@/components/elements";
 import { Button } from "@/components/forms";
 import { Heading } from "@/components/typhographies";
-import { auth } from "@clerk/nextjs/server";
 
 const Tickets = async () => {
-  const { sessionClaims } = auth();
+  // const { sessionClaims } = auth();
   const userId = sessionClaims?.userId as string;
 
   //const organizedEvents = await getEventByUser();

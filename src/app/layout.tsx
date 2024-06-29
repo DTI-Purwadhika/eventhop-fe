@@ -1,6 +1,5 @@
 import type { ChildType } from "@/types";
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
 import { bodyFont } from "@/assets/Font";
 import "@/styles/globals.css";
 

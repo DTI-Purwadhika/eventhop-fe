@@ -12,7 +12,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useFormState } from "react-dom";
-import { login } from "@/libs/actions";
 
 const loginInitialState = {
   message: "",
@@ -25,7 +24,6 @@ const loginInitialState = {
 };
 
 const Login = () => {
-  const [formState, formAction] = useFormState(login, loginInitialState);
   return (
     <div className="mx-auto max-w-md space-y-6">
       <div className="space-y-2 text-center">

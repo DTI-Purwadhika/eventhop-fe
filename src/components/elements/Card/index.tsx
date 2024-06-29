@@ -1,5 +1,4 @@
 //import { formatDateTime } from "@/libs/utils";
-import { getAuth } from "@clerk/nextjs/server";
 import { Image } from "@/components/elements";
 import Link from "next/link";
 import DeleteConfirmation from "../Alert";
