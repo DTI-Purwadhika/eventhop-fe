@@ -1,8 +1,6 @@
 import EventForm from "@/components/containers/EventFormCon";
 
 const CreateEvent = () => {
-  // const { sessionClaims } = auth();
-  // const userId = sessionClaims?.userId;
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
@@ -11,7 +9,7 @@ const CreateEvent = () => {
         </h3>
       </section>
       <div className="wrapper my-8">
-        <EventForm userId={Number(userId)} type="create" />
+        <EventForm type="create" />
       </div>
     </>
   );

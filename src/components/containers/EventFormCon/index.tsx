@@ -23,13 +23,16 @@ import FileInput from "../../forms/FileInput";
 import { useState } from "react";
 import { Checkbox } from "../../ui/checkbox";
 import Icon from "@/assets/Icon";
+import { useSession } from "next-auth/react";
 
 type EventFormProps = {
-  userId: number;
   type: "create" | "update";
 };
-const EventForm = ({ userId, type }: EventFormProps) => {
+const EventForm = ({ type }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
+
+  const session = useSession();
+  const userId = session.data?.user?.id;
 
   const initialValues = eventDefaultValues;
 

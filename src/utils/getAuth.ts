@@ -1,5 +1,12 @@
 import NextAuth, { User, NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import TwitterProvider from "next-auth/providers/twitter";
+import FacebookProvider from "next-auth/providers/facebook";
+// import EmailProvider from "next-auth/providers/nodemailer";
+
+// import TikTok from "next-auth/providers/tiktok";
+
 export const BASE_PATH = "/api/auth";
 
 const authOptions: NextAuthConfig = {
@@ -39,6 +46,24 @@ const authOptions: NextAuthConfig = {
           : null;
       },
     }),
+    // EmailProvider({
+    //   server: process.env.EMAIL_SERVER,
+    //   from: process.env.EMAIL_FROM,
+    //   maxAge: 60 * 60,
+    // }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    }),
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET,
+    }),
+    // TikTok,
   ],
   basePath: BASE_PATH,
   secret: process.env.NEXTAUTH_SECRET,
