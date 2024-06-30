@@ -13,6 +13,10 @@ const getEventData = async ({
     fetchUrl += `&category=${category}`;
   }
 
+  if (filter && filter !== "") {
+    fetchUrl += `&${filter}`;
+  }
+
   try {
     const response = await fetch(fetchUrl);
     if (!response.ok) {
