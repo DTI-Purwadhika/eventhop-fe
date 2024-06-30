@@ -10,7 +10,7 @@ import type { ChildType } from "@/types";
 const RootLayout = ({ children }: ChildType) => (
   <ResizablePanelGroup
     direction="horizontal"
-    className="max-h-screen w-full rounded-lg border"
+    className="w-full rounded-lg border"
   >
     <SidebarProvider>
       <ResizablePanel defaultSize={17}>

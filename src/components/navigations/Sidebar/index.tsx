@@ -1,4 +1,3 @@
-"use client";
 import {
   Command,
   CommandEmpty,
@@ -11,36 +10,28 @@ import Icon, { Icons } from "@/assets/Icon";
 
 import { adminLinks, organizerLinks, userLinks } from "@/constants";
 import { Text } from "@/components/typhographies";
-import { SidebarContext } from "@/contexts/SidebarContext";
-import { useContext } from "react";
 import { Link } from "..";
 
 const SidebarItem = ({
   icon,
   label,
   route,
-  activePage,
-  setActivePage,
 }: {
   icon: keyof typeof Icons;
   label: string;
   route: string;
-  activePage: any;
-  setActivePage: any;
 }) => (
-  <CommandItem className={`${activePage === route && "bg-accent"}`}>
-    <Link href="#" onClick={() => setActivePage(route)} size="full">
+  <CommandItem>
+    <Link href={`/dashboard${route}`} size="full">
       <Icon name={icon} className="ml-2 mr-2 h-4 w-4" />
-      <Text>{route === activePage ? <b>{label}</b> : label}</Text>
+      <Text>{label}</Text>
     </Link>
   </CommandItem>
 );
 
 const Sidebar = () => {
-  const [activePage, setActivePage] = useContext(SidebarContext);
-
   return (
-    <Command className="pt-2 h-screen">
+    <Command className="pt-2 max-h-screen">
       <CommandInput placeholder="Type a menu..." />
       <CommandList className="max-h-screen py-2">
         <CommandEmpty>No results found.</CommandEmpty>
@@ -52,8 +43,6 @@ const Sidebar = () => {
               icon={link.icon}
               label={link.label}
               route={link.route}
-              activePage={activePage}
-              setActivePage={setActivePage}
             />
           ))}
         </CommandGroup>
@@ -64,8 +53,6 @@ const Sidebar = () => {
               icon={link.icon}
               label={link.label}
               route={link.route}
-              activePage={activePage}
-              setActivePage={setActivePage}
             />
           ))}
         </CommandGroup>
@@ -76,8 +63,6 @@ const Sidebar = () => {
               icon={link.icon}
               label={link.label}
               route={link.route}
-              activePage={activePage}
-              setActivePage={setActivePage}
             />
           ))}
         </CommandGroup>
