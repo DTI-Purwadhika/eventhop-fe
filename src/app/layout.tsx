@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: ChildType) => (
-  <html lang="en">
+  <html lang="en" className="overflow-hidden">
     <body className={bodyFont}>
       <SessionProvider>{children}</SessionProvider>
     </body>

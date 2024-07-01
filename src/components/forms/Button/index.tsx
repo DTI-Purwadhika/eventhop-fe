@@ -15,7 +15,7 @@ const ButtonCom = ({
 }: ChildType & ButtonType) => (
   <Button
     size="lg"
-    className={`button rounded-full w-full sm:w-fit color-primary-500 ${className}`}
+    className={`rounded-2xl sm:w-fit ${className}`}
     variant={variant}
     onClick={onClick}
     disabled={disabled}

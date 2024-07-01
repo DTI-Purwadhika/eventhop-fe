@@ -28,7 +28,7 @@ const Menubar = ({ isLogin }: { isLogin: boolean }) => {
   const GetPathName = usePathname();
   console.log(isLogin);
   return (
-    <ul className="flex w-full flex-col items-start gap-5 md:gap-10 md:flex-row md:justify-center">
+    <ul className="flex w-full flex-col items-start gap-12 md:gap-10 md:flex-row md:justify-evenly">
       <MenuItem pathName={GetPathName} isLogin={isLogin} />
     </ul>
   );

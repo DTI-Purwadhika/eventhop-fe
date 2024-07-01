@@ -58,8 +58,11 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
   };
 
   return (
-    <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-      <Heading size="h2">Find your suitable Event!</Heading>
+    <section
+      id="events"
+      className="my-8 mx-4 md:mx-12 flex flex-col gap-8 md:gap-12"
+    >
+      <Heading size="h2">Discover Your Hopportunity!</Heading>
       <div className="grid grid-cols-8">
         <div className="col-span-6">
           <Search />

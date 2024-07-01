@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { auth, BASE_PATH } from "@/utils/getAuth";
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|event).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|assets|images|favicon.ico|event).*)",
+  ],
 };
 
 export default auth((req) => {
