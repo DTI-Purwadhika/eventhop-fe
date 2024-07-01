@@ -1,9 +1,9 @@
-//import { formatDateTime } from "@/libs/utils";
 import { Image } from "@/components/elements";
 import Link from "next/link";
 import DeleteConfirmation from "../Alert";
 import { CardType } from "./type";
 import Icon from "@/assets/Icon";
+import { dateOnly } from "@/libs/dateFormatter";
 
 const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
   // const { sessionClaims } = getAuth();
@@ -49,8 +49,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
           </div>
         )}
         <p className="p-medium-16 p-medium-18 text-grey-500">
-          {event.start_date}
-          {/* {formatDateTime(event.startDateTime).dateTime} */}
+          {dateOnly(event.start_date)}
         </p>
 
         <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">

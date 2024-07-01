@@ -1,5 +1,6 @@
 import { Collection, Image } from "@/components/elements";
 import { Heading, Text } from "@/components/typhographies";
+import { dateOnly } from "@/libs/dateFormatter";
 import { SearchParamProps } from "@/types";
 import getEventById from "@/utils/getEventDetail";
 
@@ -55,8 +56,8 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
                   height={32}
                 />
                 <div className="p-medium-16 lg:p-regular-20 flex flex-wrap items-center">
-                  <p>{event.start_date}</p>
-                  <p>{event.end_date}</p>
+                  <p>{dateOnly(event.start_date)}</p>
+                  <p>{dateOnly(event.end_date)}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
