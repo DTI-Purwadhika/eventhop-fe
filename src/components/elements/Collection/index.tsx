@@ -14,6 +14,7 @@ const Collection = ({
   emptyDescription = "There is no data for your requirement",
   category,
   type,
+  sort = "nameAz",
 }: CollectionType & GetAllEventsParams) => {
   const [collectData, setCollectData] = useState([]);
   const [totalData, setTotalData] = useState(0);
@@ -26,7 +27,13 @@ const Collection = ({
       page,
     }: GetAllEventsParams) => {
       try {
-        const events = await getEventData({ filter, limit, page, category });
+        const events = await getEventData({
+          filter,
+          limit,
+          page,
+          category,
+          sort,
+        });
         if (events) {
           setCollectData(events.data);
           setTotalData(parseInt(events.totalPages || "0"));
@@ -37,7 +44,7 @@ const Collection = ({
     };
     const page = currentPage;
     fetchTheEvent({ filter, limit, page });
-  }, [currentPage, filter, limit, category]);
+  }, [currentPage, filter, limit, category, sort]);
 
   return (
     <>

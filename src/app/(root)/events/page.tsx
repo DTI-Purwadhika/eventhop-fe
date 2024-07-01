@@ -1,6 +1,4 @@
 import { CategoryCon } from "@/components/containers";
-import { Search, Filterbar, Sortbar } from "@/components/navigations";
-import { ArrowDownWideNarrow } from "lucide-react";
 
 const SearchPage = () => {
   return (

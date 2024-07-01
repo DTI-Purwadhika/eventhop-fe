@@ -61,6 +61,15 @@ export type GetAllEventsParams = {
   category?: string;
   limit?: number;
   page?: number;
+  sort?:
+    | "nameAz"
+    | "nameZa"
+    | "newest"
+    | "oldest"
+    | "early_date"
+    | "far_date"
+    | "low_price"
+    | "high_price";
 };
 
 export type GetEventsByUserParams = {

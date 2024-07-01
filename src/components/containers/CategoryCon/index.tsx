@@ -5,13 +5,14 @@ import { Heading, Text } from "@/components/typhographies";
 import { ArrowDownWideNarrow } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { GetAllEventsParams } from "@/types";
 
 const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
   const [category, setCategory] = useState("all");
   const [filter, setFilter] = useState("");
+  const [sort, setSort] = useState<GetAllEventsParams["sort"]>("nameAz");
   const [addFilter, setAddFilter] = useState("");
   const [isFree, setIsFree] = useState(false);
-  const [isAsc, setIsAsc] = useState(true);
 
   const [startPrice, setStartPrice] = useState<number>(0);
   const [endPrice, setEndPrice] = useState<number | null>(null);
@@ -30,8 +31,7 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
         filterVar += `${addFilter}`;
       }
       setFilter(filterVar);
-      console.log(filterVar);
-    }, 425);
+    }, 125);
 
     return () => clearTimeout(delayDebounceFn);
   }, [search, addFilter]);
@@ -61,13 +61,10 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
     <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
       <Heading size="h2">Find your suitable Event!</Heading>
       <div className="grid grid-cols-8">
-        <div className="col-span-1">
-          <ArrowDownWideNarrow />
-        </div>
-        <div className="col-span-5">
+        <div className="col-span-6">
           <Search />
         </div>
-        <div className="col-span-2">
+        <div className="col-span-2 gap-4 flex flex-row justify-end">
           <Filterbar
             startPrice={startPrice}
             endPrice={endPrice}
@@ -81,7 +78,7 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
             setCategory={setCategory}
             category={category}
           />
-          <Sortbar />
+          <Sortbar setSort={setSort} sort={sort} />
         </div>
       </div>
       <div className="hidden lg:block">
@@ -94,6 +91,7 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
         type="all_events"
         emptyTitle="No Events in This Category"
         emptyDescription="Try choose another category."
+        sort={sort}
       />
     </section>
   );

@@ -1,20 +1,39 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { ListFilter } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
+import { GetAllEventsParams } from "@/types";
+import { Button } from "@/components/forms";
 
-const Sortbar = () => {
+const Sortbar = ({ sort, setSort }: { sort: any; setSort: any }) => {
+  const handleSort = (value: any) => {
+    setSort(value);
+  };
   return (
     <Drawer>
       <DrawerTrigger>
         <ListFilter />
       </DrawerTrigger>
-      <DrawerContent className="bg-white">
-        <RadioGroup defaultValue="name" className="mx-8 mt-4 mb-8">
+      <DrawerContent className="bg-white px-8 pb-8">
+        <RadioGroup
+          defaultValue={sort}
+          className="mt-4 mb-8"
+          onValueChange={handleSort as any}
+        >
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="name" id="r1" />
-            <Label htmlFor="r1">Name</Label>
+            <RadioGroupItem value="nameAz" id="r0" />
+            <Label htmlFor="r0">Name A-Z</Label>
+          </div>
+          <Separator />
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="nameZa" id="r1" />
+            <Label htmlFor="r1">Name Z-A</Label>
           </div>
           <Separator />
           <div className="flex items-center space-x-2">
@@ -47,6 +66,9 @@ const Sortbar = () => {
             <Label htmlFor="r7">Highest Price</Label>
           </div>
         </RadioGroup>
+        <DrawerClose>
+          <Button>Submit</Button>
+        </DrawerClose>
       </DrawerContent>
     </Drawer>
   );

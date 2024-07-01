@@ -5,6 +5,7 @@ const getEventData = async ({
   category,
   limit = 6,
   page = 1,
+  sort = "nameAz",
 }: GetAllEventsParams) => {
   const eventData = process.env.NEXT_PUBLIC_EVENT_API;
   let fetchUrl = `${eventData}/get-events?_limit=${limit}&_page=${page}`;
@@ -15,6 +16,33 @@ const getEventData = async ({
 
   if (filter && filter !== "") {
     fetchUrl += `&${filter}`;
+  }
+
+  switch (sort) {
+    case "nameAz":
+      fetchUrl += `&_sort=name&_order=asc`;
+      break;
+    case "nameZa":
+      fetchUrl += `&_sort=name&_order=desc`;
+      break;
+    case "newest":
+      fetchUrl += `&_sort=id&_order=desc`;
+      break;
+    case "oldest":
+      fetchUrl += `&_sort=id&_order=asc`;
+      break;
+    case "early_date":
+      fetchUrl += `&_sort=start_date&_order=asc`;
+      break;
+    case "far_date":
+      fetchUrl += `&_sort=start_date&_order=desc`;
+      break;
+    case "high_price":
+      fetchUrl += `&_sort=price&_order=desc`;
+      break;
+    case "low_price":
+      fetchUrl += `&_sort=price&_order=asc`;
+      break;
   }
 
   try {
