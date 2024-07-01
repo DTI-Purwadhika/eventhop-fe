@@ -31,7 +31,6 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
     { _id: 1, name: "Category 1" },
     { _id: 2, name: "Category 2" },
   ]);
-  const [newCategory, setNewCategory] = useState<string>("");
 
   const handleAddCategory = () => {};
 
@@ -52,17 +51,6 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
             Open
           </AlertDialogTrigger>
           <AlertDialogContent className="bg-white">
-            <AlertDialogHeader>
-              <AlertDialogTitle>New Category</AlertDialogTitle>
-              <AlertDialogDescription>
-                <Input
-                  type="text"
-                  placeholder="Category Name"
-                  className="input-field mt-3"
-                  onChange={(e) => setNewCategory(e.target.value)}
-                />
-              </AlertDialogDescription>
-            </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
               <AlertDialogAction

@@ -19,6 +19,8 @@ const InputCom = ({
       type={type}
       disabled={isDisabled}
       value={value}
+      min={0}
+      step={1}
     />
   </div>
 );
