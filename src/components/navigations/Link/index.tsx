@@ -7,10 +7,11 @@ const index = ({
   href,
   size = "fit",
   onClick,
+  className,
 }: LinkType & ChildType) => (
   <Link
     href={href}
-    className={`flex ${size == "full" && "w-full"}`}
+    className={`flex ${size == "full" && "w-full"} ${className}`}
     onClick={onClick}
   >
     {children}

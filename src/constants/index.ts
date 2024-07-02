@@ -61,6 +61,11 @@ export const organizerLinks: {
     icon: "Calendar",
   },
   {
+    label: "Manage Promo",
+    route: "/vouchers",
+    icon: "TicketPercent",
+  },
+  {
     label: "Report",
     route: "/report",
     icon: "LineChart",

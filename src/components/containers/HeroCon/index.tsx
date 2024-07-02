@@ -15,19 +15,19 @@ const HeroCon = () => (
         Host, Hop, <br className="hidden md:block lg:hidden" />
         Hooray!
       </h1>
-      <p className="p-regular-14 lg:p-regular-16 block md:hidden lg:block">
+      <p className="p-regular-14 xl:p-regular-16 block md:hidden lg:block">
         Every Hopper Invited! Event Hop is more than just an Event s-Hop-ping
         Center, it’s a lively Event Hub where you can hop into any Hopportunity
         Knocks events!
       </p>
-      <p className="p-regular-14 lg:p-regular-16 text-left md:text-center lg:text-left">
+      <p className="p-regular-14 xl:p-regular-16 text-left md:text-center lg:text-left">
         Host your own and Hop on the Hooray train!
       </p>
-      <Button url="#events" className="md:mx-auto lg:mx-0">
+      <Button url="#events" className="md:mx-auto xl:mx-0">
         Hop Now
       </Button>
     </div>
-    <div className="hidden md:block md:w-1/6 md:bg-gray-800 md:bg-opacity-70 md:rounded-2xl md:py-4 md:text-white justify-center gap-8 mt-6 relative md:absolute md:bottom-4 md:right-4 lg:right-6 lg:bottom-8 px-4 md:px-8">
+    <div className="hidden lg:block lg:w-1/6 lg:bg-gray-800 lg:bg-opacity-70 lg:rounded-2xl lg:py-4 lg:text-white justify-center gap-8 mt-6 relative lg:absolute lg:bottom-4 lg:right-4 xl:right-6 xl:bottom-8 px-4 lg:px-8">
       <h4 className="text-2xl font-black text-left mb-4">Hop Here!</h4>
       <Collection filter="" limit={2} type="all_events" isSmall />
     </div>

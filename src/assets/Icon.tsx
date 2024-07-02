@@ -16,6 +16,7 @@ import {
   MoveUpRight,
   Trash,
   FileUp,
+  TicketPercent,
 } from "lucide-react";
 
 const Upload = () => (
@@ -45,6 +46,7 @@ export const Icons = {
   UserRound,
   UsersRound,
   Upload,
+  TicketPercent,
 };
 
 const Icon: React.FC<{ name: keyof typeof Icons; className?: string }> = ({

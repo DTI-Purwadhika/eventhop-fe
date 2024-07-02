@@ -1,25 +1,21 @@
-import { Sidebar } from "@/components/navigations";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
-import { SidebarProvider } from "@/contexts/SidebarContext";
+import { Sidebar } from "@/components/layouts";
+import DashboardHead from "@/components/layouts/Header/DashboardHead";
 import type { ChildType } from "@/types";
 
 const RootLayout = ({ children }: ChildType) => (
-  <ResizablePanelGroup
-    direction="horizontal"
-    className="w-full rounded-lg border"
-  >
-    <SidebarProvider>
-      <ResizablePanel defaultSize={17}>
-        <Sidebar />
-      </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={83}>{children}</ResizablePanel>
-    </SidebarProvider>
-  </ResizablePanelGroup>
+  <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+    <div className="hidden border-r md:block">
+      <Sidebar />
+    </div>
+    <div className="flex flex-col">
+      <header className="flex md:hidden h-14 items-center gap-4 border-b bg-muted/40 px-4">
+        <DashboardHead />
+      </header>
+      <main className="flex flex-1 flex-col gap-4 py-4 px-6 lg:gap-6 lg:py-6 lg:px-8">
+        {children}
+      </main>
+    </div>
+  </div>
 );
 
 export default RootLayout;

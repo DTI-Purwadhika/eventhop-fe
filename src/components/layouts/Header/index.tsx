@@ -8,8 +8,8 @@ const Header = async () => {
   const session = await auth();
 
   return (
-    <header className="w-screen md:relative z-50 md:-mx-4 md:-mt-2">
-      <div className="w-full flex justify-between md:absolute">
+    <header className="w-screen relative  z-50 md:-mx-4 md:-mt-2">
+      <div className="w-full flex justify-between static md:absolute">
         <div className="bg-white rounded-br-full pl-1 pr-7 pb-7 hidden md:block">
           <Logo />
         </div>
