@@ -1,9 +1,7 @@
-import { Logo } from "@/assets/Logo";
 import { Text } from "@/components/typhographies";
 
 const Footer = () => (
-  <footer className="wrapper flex flex-center flex-between flex-col gap-4 p-5 border-t sm:flex-row">
-    {/* <Logo /> */}
+  <footer className="flex flex-center flex-between flex-col border-t py-3 sm:flex-row">
     <Text align="center">2024 Event Hop © All rights reserved.</Text>
   </footer>
 );

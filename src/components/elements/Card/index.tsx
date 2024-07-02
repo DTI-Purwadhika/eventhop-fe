@@ -5,7 +5,12 @@ import { CardType } from "./type";
 import Icon from "@/assets/Icon";
 import { dateOnly } from "@/libs/dateFormatter";
 
-const Card = ({ event, hasOrderLink, hidePrice }: CardType) => {
+const Card = ({
+  event,
+  hasOrderLink,
+  hidePrice,
+  isSmall = false,
+}: CardType) => {
   // const { sessionClaims } = getAuth();
   // const userId = sessionClaims?.userId;
   const userId = 1;

@@ -6,6 +6,7 @@ import { CollectionType } from "./type";
 import { Pagination } from "@/components/layouts";
 import { Card } from "../";
 import getEventData from "@/utils/getEventData";
+import SmallCard from "../Card/SmallCard";
 
 const Collection = ({
   filter = "",
@@ -15,6 +16,7 @@ const Collection = ({
   category,
   type,
   sort = "nameAz",
+  isSmall = false,
 }: CollectionType & GetAllEventsParams) => {
   const [collectData, setCollectData] = useState([]);
   const [totalData, setTotalData] = useState(0);
@@ -50,18 +52,24 @@ const Collection = ({
     <>
       {collectData && collectData.length > 0 ? (
         <div className="flex flex-col items-center gap-10">
-          <ul className="grid grid-cols-1 gap-5  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-10">
+          <ul
+            className={`grid grid-cols-1 gap-5 ${!isSmall && "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-10"} `}
+          >
             {collectData.map((item: any) => (
               <li key={item._id} className="flex justify-center">
-                <Card
-                  event={item}
-                  hasOrderLink={type === "event_organized"}
-                  hidePrice={type === "my_tickets"}
-                />
+                {isSmall ? (
+                  <SmallCard event={item} />
+                ) : (
+                  <Card
+                    event={item}
+                    hasOrderLink={type === "event_organized"}
+                    hidePrice={type === "my_tickets"}
+                  />
+                )}
               </li>
             ))}
           </ul>
-          {totalData / limit > 1 && (
+          {totalData / limit > 1 && !isSmall && (
             <Pagination
               currentPage={currentPage}
               totalPosts={totalData}

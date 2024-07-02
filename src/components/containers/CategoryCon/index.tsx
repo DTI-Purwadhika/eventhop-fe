@@ -1,8 +1,7 @@
 "use client";
 import { Category, Collection } from "@/components/elements";
 import { Filterbar, Search, Sortbar } from "@/components/navigations";
-import { Heading, Text } from "@/components/typhographies";
-import { ArrowDownWideNarrow } from "lucide-react";
+import { Heading } from "@/components/typhographies";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { GetAllEventsParams } from "@/types";
@@ -31,7 +30,7 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
         filterVar += `${addFilter}`;
       }
       setFilter(filterVar);
-    }, 125);
+    }, 175);
 
     return () => clearTimeout(delayDebounceFn);
   }, [search, addFilter]);
@@ -54,20 +53,19 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
     // }
 
     setAddFilter(filter);
-    console.log(filter);
   };
 
   return (
     <section
       id="events"
-      className="my-8 mx-4 md:mx-12 flex flex-col gap-8 md:gap-12"
+      className="my-8 mx-4 md:ml-36 md:mr-12 flex flex-col gap-8 md:gap-12"
     >
       <Heading size="h2">Discover Your Hopportunity!</Heading>
       <div className="grid grid-cols-8">
         <div className="col-span-6">
           <Search />
         </div>
-        <div className="col-span-2 gap-4 flex flex-row justify-end">
+        <div className="md:hidden col-span-2 gap-4 flex flex-row justify-end">
           <Filterbar
             startPrice={startPrice}
             endPrice={endPrice}

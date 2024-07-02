@@ -1,6 +1,7 @@
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 import { Image } from "@/components/elements";
+import { Heading } from "@/components/typhographies";
 import { Link, Menubar, Search } from "../";
 import Icon from "@/assets/Icon";
 
@@ -12,10 +13,17 @@ const Trigger = () => (
 
 const Content = () => (
   <SheetContent className="flex flex-col gap-6 bg-white md:hidden">
-    <Image src="/assets/images/logo.png" alt="logo" width={128} height={38} />
-    <Separator className="border border-gray-50" />
+    <Image
+      src="/assets/images/logo.png"
+      alt="logo"
+      width={128}
+      height={128}
+      className="mt-4 mx-auto"
+    />
+    <Heading size="h3" align="center" className="-mt-6 mb-4 text-gray-800">
+      Eventhop
+    </Heading>
     <Menubar isLogin={true} />
-    <Link href="/api/auth/signout">Sign Out</Link>
   </SheetContent>
 );
 

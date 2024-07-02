@@ -10,7 +10,6 @@ import { Button, DatePicker, Dropdown, Input } from "@/components/forms";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Heading, Text } from "@/components/typhographies";
-import { Category } from "@/components/elements";
 
 const Filterbar = ({
   startPrice,
@@ -50,13 +49,13 @@ const Filterbar = ({
       <DrawerTrigger>
         <Filter />
       </DrawerTrigger>
-      <DrawerContent className="bg-white px-8 pb-8 h-4/5">
-        <div className="my-4 overflow-y-auto h-full">
+      <DrawerContent className="bg-white px-8 pb-8 h-fit">
+        <div className="my-4 pb-4 overflow-y-auto h-full">
           <Heading size="h3">Filter</Heading>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-5">
             <Heading size="h4">Category</Heading>
             <div>
-              <Category category={category} setCategory={setCategory} />
+              <Dropdown value={category} setCategory={setCategory} />
             </div>
             <Heading size="h4">Price Range</Heading>
             <div>
@@ -116,7 +115,9 @@ const Filterbar = ({
           </div>
         </div>
         <DrawerClose>
-          <Button onClick={handleSubmit}>Submit</Button>
+          <Button className="w-full -mb-4" onClick={handleSubmit}>
+            Submit
+          </Button>
         </DrawerClose>
       </DrawerContent>
     </Drawer>

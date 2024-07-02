@@ -6,61 +6,47 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 
-import { startTransition, useState } from "react";
-import { Input } from "../../ui/input";
+import { useEffect, useState } from "react";
+import getCategories from "@/utils/getCategories";
 
 type DropdownProps = {
   value: string;
-  onChangeHandler?: () => void;
+  setCategory?: any;
 };
 
-const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
-  const [categories, setCategories] = useState<any[]>([
-    { _id: 1, name: "Category 1" },
-    { _id: 2, name: "Category 2" },
-  ]);
+const getCategory = async () => {
+  const response = await getCategories();
+  return response;
+};
 
-  const handleAddCategory = () => {};
+const Dropdown = ({ value, setCategory }: DropdownProps) => {
+  const [categories, setCategories] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = getCategory();
+    fetchCategories.then((data) => setCategories(data));
+  }, []);
+
+  const onChangeHandler = (value: string) => {
+    setCategory(value);
+  };
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
       <SelectTrigger className="select-field">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="max-h-[40vh]">
+        <SelectItem key={0} value={"all"}>
+          All
+        </SelectItem>
         {categories.length > 0 &&
           categories.map((item) => (
-            <SelectItem key={item._id} value={item._id}>
+            <SelectItem key={item.id} value={item.name.toLowerCase()}>
               {item.name}
             </SelectItem>
           ))}
-        <AlertDialog>
-          <AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 focus:text-primary-500">
-            Open
-          </AlertDialogTrigger>
-          <AlertDialogContent className="bg-white">
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => startTransition(handleAddCategory)}
-              >
-                Add
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
       </SelectContent>
     </Select>
   );

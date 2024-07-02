@@ -14,4 +14,6 @@ export type ButtonType = {
     | undefined;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
+  size?: "small" | "large";
+  backgroundColor?: string;
 };

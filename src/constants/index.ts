@@ -13,6 +13,14 @@ export const headerLinks = [
     label: "My Dashboard",
     route: "/dashboard",
   },
+  {
+    label: "Login",
+    route: "/api/auth/signin",
+  },
+  {
+    label: "Logout",
+    route: "/api/auth/signout",
+  },
 ];
 
 export const userLinks: {

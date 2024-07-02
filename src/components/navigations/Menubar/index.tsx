@@ -17,7 +17,12 @@ const MenuItem = ({
       className={`${
         pathName === link.route && "text-primary-500"
       } p-medium-16 whitespace-nowrap ${
-        !isLogin && link.route === "/dashboard" ? "hidden" : "flex-center"
+        !isLogin &&
+        (link.route === "/dashboard" || link.route === "/api/auth/signout")
+          ? "hidden"
+          : isLogin && link.route === "/api/auth/signin"
+            ? "hidden"
+            : "flex"
       }`}
     >
       <Link href={link.route}>{link.label}</Link>
@@ -26,9 +31,8 @@ const MenuItem = ({
 
 const Menubar = ({ isLogin }: { isLogin: boolean }) => {
   const GetPathName = usePathname();
-  console.log(isLogin);
   return (
-    <ul className="flex w-full flex-col items-start gap-12 md:gap-10 md:flex-row md:justify-evenly">
+    <ul className="flex w-full flex-col items-start gap-8 md:gap-12 md:flex-row md:justify-evenly">
       <MenuItem pathName={GetPathName} isLogin={isLogin} />
     </ul>
   );
