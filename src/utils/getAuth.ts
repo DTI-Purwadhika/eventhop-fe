@@ -1,7 +1,7 @@
 import NextAuth, { User, NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import getUserById from "./getUser";
+import getUserByEmail from "./getUser";
 // import TwitterProvider from "next-auth/providers/twitter";
 // import FacebookProvider from "next-auth/providers/facebook";
 // import EmailProvider from "next-auth/providers/nodemailer";
@@ -23,7 +23,6 @@ const authHandler = async (email: string, password: string) => {
       body: JSON.stringify({
         username: email,
         password: password,
-        expiresInMins: 1,
       }),
     }).then((res) => res.json());
     console.log("response: ", response);
@@ -50,7 +49,6 @@ const authOptions: NextAuthConfig = {
 
       authorize: async (credentials: any) => {
         const user = await authHandler(credentials.email, credentials.password);
-        console.log("user: ", user);
         return user
           ? {
               id: user.id,
@@ -85,19 +83,14 @@ const authOptions: NextAuthConfig = {
     // TikTok,
   ],
   callbacks: {
-    async signIn({ user, account }) {
-      console.log(user.email);
-      if (await getUserById(user.email || "")) {
+    async signIn({ user }) {
+      if (await getUserByEmail(user.email || "")) {
         return true;
       }
       return false;
     },
-    async session({ session, user }) {
-      console.log("session: ", session.sessionToken);
-      if (new Date(session.expires) < new Date()) {
-        console.log("session expired");
-        signOut();
-      }
+    async session({ session, token }: any) {
+      session.user = token.user as User;
       return session;
     },
     async jwt({ token }) {
@@ -105,7 +98,16 @@ const authOptions: NextAuthConfig = {
       return token;
     },
   },
-
+  session: {
+    strategy: "jwt",
+    maxAge: 3 * 60 * 60,
+    updateAge: 20 * 60,
+  },
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token",
+    },
+  },
   basePath: BASE_PATH,
   secret: process.env.NEXTAUTH_SECRET,
 };

@@ -27,7 +27,7 @@ const dummyUser = [
     image: "https://i.pravatar.cc/300",
   },
 ];
-const getUserById = async (email: string) => {
+const getUserByEmail = async (email: string) => {
   const userData = process.env.NEXT_PUBLIC_EVENT_API;
 
   try {
@@ -41,4 +41,4 @@ const getUserById = async (email: string) => {
   }
 };
 
-export default getUserById;
+export default getUserByEmail;
