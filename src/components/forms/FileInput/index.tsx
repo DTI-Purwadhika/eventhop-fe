@@ -23,7 +23,7 @@ const UploadedImg = ({ imageUrl }: { imageUrl: string }) => (
 
 const DropZone = () => (
   <div className="flex-center flex-col py-5 text-grey-500">
-    <Icon name="UploadIco" />
+    <Icon name="Upload" />
     <Button>Select from computer</Button>
   </div>
 );

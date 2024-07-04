@@ -1,30 +1,35 @@
-import { Image } from "@/components/elements";
+import { Collection, Image } from "@/components/elements";
 import { Button } from "@/components/forms";
 
 const HeroCon = () => (
-  <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
-    <div className="wrapper grid grid-cols-1 gap-5 md:grid-cols-2 2xl:gap-0">
-      <div className="flex flex-col justify-center gap-8">
-        <h1 className="h1-bold">
-          Let&apos;s Hop to your next Event with Event Hop!
-        </h1>
-        <p className="p-regular-16 md:p-regular-18">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto
-          consectetur minus a tempora quidem sit nobis, sequi unde qui
-          voluptatem accusantium deleniti repellendus? Alias, nam reprehenderit
-          nulla similique temporibus iusto.
-        </p>
-        <Button url="#events">Explore Now</Button>
-      </div>
-      <div className="flex w-full justify-end">
-        <Image
-          src="/assets/images/hero.jpg"
-          alt="hero image"
-          width={350}
-          height={1000}
-          className="max-h-[70vh] 2xl:max-h-[50vh] rounded-2xl"
-        />
-      </div>
+  <section className="relative">
+    <Image
+      src="/assets/images/banner.jpg"
+      alt="hero image"
+      width={1344}
+      height={768}
+      className="relative max-h-[90vh] w-full object-cover object-center rounded-2xl"
+    />
+    <div className="md:w-2/6 md:bg-gray-800 md:bg-opacity-70 md:rounded-2xl md:py-4 md:ml-4 lg:ml-6 md:text-white flex flex-col justify-center gap-8 mt-6 relative md:absolute md:bottom-4 lg:bottom-8 px-4 md:px-8">
+      <h1 className="h2-bold text-left md:text-center lg:text-left">
+        Host, Hop, <br className="hidden md:block lg:hidden" />
+        Hooray!
+      </h1>
+      <p className="p-regular-14 xl:p-regular-16 block md:hidden lg:block">
+        Every Hopper Invited! Event Hop is more than just an Event s-Hop-ping
+        Center, it’s a lively Event Hub where you can hop into any Hopportunity
+        Knocks events!
+      </p>
+      <p className="p-regular-14 xl:p-regular-16 text-left md:text-center lg:text-left">
+        Host your own and Hop on the Hooray train!
+      </p>
+      <Button url="#events" className="md:mx-auto xl:mx-0">
+        Hop Now
+      </Button>
+    </div>
+    <div className="hidden lg:block lg:w-1/6 lg:bg-gray-800 lg:bg-opacity-70 lg:rounded-2xl lg:py-4 lg:text-white justify-center gap-8 mt-6 relative lg:absolute lg:bottom-4 lg:right-4 xl:right-6 xl:bottom-8 px-4 lg:px-8">
+      <h4 className="text-2xl font-black text-left mb-4">Hop Here!</h4>
+      <Collection filter="" limit={2} type="all_events" isSmall />
     </div>
   </section>
 );

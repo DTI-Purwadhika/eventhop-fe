@@ -2,7 +2,6 @@
 
 import { useTransition } from "react";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 
 import {
   AlertDialog,
@@ -26,7 +25,7 @@ const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Icon name="DeleteIco" />
+        <Icon name="Trash" />
       </AlertDialogTrigger>
 
       <AlertDialogContent className="bg-white">

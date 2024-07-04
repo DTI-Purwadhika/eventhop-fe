@@ -6,6 +6,7 @@ const Heading = ({
   size,
   align = "left",
   weight = "bold",
+  className = "",
 }: ChildType & HeadingType) => {
   const map: Record<HeadingType["size"], keyof JSX.IntrinsicElements> = {
     h1: "h1",
@@ -15,7 +16,11 @@ const Heading = ({
     h5: "h5",
   };
   const Head = map[size];
-  return <Head className={`text-${align} ${size}-${weight}`}>{children}</Head>;
+  return (
+    <Head className={`text-${align} ${size}-${weight} ${className}`}>
+      {children}
+    </Head>
+  );
 };
 
 export default Heading;

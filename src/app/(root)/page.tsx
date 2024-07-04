@@ -1,11 +1,17 @@
-import { EventCon, HeroCon } from "@/components/containers";
+import { CategoryCon, EventCon, HeroCon } from "@/components/containers";
 
 const Home = () => (
   <>
     <HeroCon />
-    <EventCon filter="popular" />
-    <EventCon filter="month" />
-    <EventCon filter="location" />
+    <div className="w-full">
+      <aside></aside>
+      <div>
+        <CategoryCon />
+        <EventCon filter="popular" />
+        <EventCon filter="month" />
+        <EventCon filter="location" />
+      </div>
+    </div>
   </>
 );
 

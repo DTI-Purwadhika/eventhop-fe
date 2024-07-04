@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 response.json
+*storybook.log
+
+/src/stories

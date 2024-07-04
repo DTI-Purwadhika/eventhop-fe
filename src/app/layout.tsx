@@ -1,7 +1,8 @@
 import type { ChildType } from "@/types";
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
+import { SessionProvider } from "next-auth/react";
 import { bodyFont } from "@/assets/Font";
+
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -13,11 +14,11 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: ChildType) => (
-  <ClerkProvider>
-    <html lang="en">
-      <body className={bodyFont}>{children}</body>
-    </html>
-  </ClerkProvider>
+  <html lang="en" className="overflow-hidden">
+    <body className={bodyFont}>
+      <SessionProvider>{children}</SessionProvider>
+    </body>
+  </html>
 );
 
 export default RootLayout;

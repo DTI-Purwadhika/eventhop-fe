@@ -23,13 +23,16 @@ import FileInput from "../../forms/FileInput";
 import { useState } from "react";
 import { Checkbox } from "../../ui/checkbox";
 import Icon from "@/assets/Icon";
+import { useSession } from "next-auth/react";
 
 type EventFormProps = {
-  userId: number;
   type: "create" | "update";
 };
-const EventForm = ({ userId, type }: EventFormProps) => {
+const EventForm = ({ type }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
+
+  const session = useSession();
+  const userId = session.data?.user?.id;
 
   const initialValues = eventDefaultValues;
 
@@ -39,7 +42,6 @@ const EventForm = ({ userId, type }: EventFormProps) => {
   });
 
   function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    // Do something with the form values.
     console.log(values);
   }
 
@@ -69,10 +71,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Dropdown
-                    onChangeHandler={field.onChange}
-                    value={field.value}
-                  />
+                  <Dropdown setCategory={field.onChange} value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -123,8 +122,22 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="LocationIco" />
+                    <Icon name="MapPin" />
                     <Input placeholder="Event Location" field={field} />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="seats"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl>
+                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                    <Input placeholder="Available Seats" field={field} />
                   </div>
                 </FormControl>
                 <FormMessage />
@@ -141,7 +154,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="DateIco" />
+                    <Icon name="Calendar" />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       Start Date:
                     </p>
@@ -166,7 +179,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="DateIco" />
+                    <Icon name="Calendar" />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       End Date:
                     </p>
@@ -218,7 +231,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="LinkIco" />
+                    <Icon name="Link" />
                     <Input placeholder="Url" {...field} />
                   </div>
                 </FormControl>

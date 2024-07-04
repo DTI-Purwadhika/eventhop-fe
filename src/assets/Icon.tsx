@@ -1,33 +1,27 @@
 import { Heading, Text } from "@/components/typhographies";
-import { Image } from "@/components/elements";
+import {
+  Calendar,
+  CalendarRange,
+  LineChart,
+  MessageCircleMore,
+  MessageCircleQuestion,
+  PieChart,
+  Ticket,
+  UserRound,
+  UsersRound,
+  Home,
+  Link,
+  MapPin,
+  Menu,
+  MoveUpRight,
+  Trash,
+  FileUp,
+  TicketPercent,
+} from "lucide-react";
 
-const ArrowIco = () => (
-  <Image src="/assets/icons/arrow.svg" alt="edit" width={20} height={20} />
-);
-
-const DateIco = () => (
-  <Image src="/assets/icons/calendar.svg" alt="edit" width={20} height={20} />
-);
-
-const DeleteIco = () => (
-  <Image src="/assets/icons/delete.svg" alt="edit" width={20} height={20} />
-);
-
-const LinkIco = () => (
-  <Image src="/assets/icons/link.svg" alt="edit" width={20} height={20} />
-);
-
-const LocationIco = () => (
-  <Image src="/assets/icons/location.svg" alt="edit" width={20} height={20} />
-);
-
-const MenuIco = () => (
-  <Image src="/assets/icons/menu.svg" alt="edit" width={20} height={20} />
-);
-
-const UploadIco = () => (
+const Upload = () => (
   <>
-    <Image src="/assets/icons/upload.svg" alt="edit" width={20} height={20} />
+    <FileUp />
     <Heading size="h3">Drag photo here</Heading>
     <Text size={12} weight="medium">
       SVG, PNG, JPG
@@ -35,19 +29,32 @@ const UploadIco = () => (
   </>
 );
 
-const Icons = {
-  DeleteIco,
-  ArrowIco,
-  UploadIco,
-  MenuIco,
-  LinkIco,
-  DateIco,
-  LocationIco,
+export const Icons = {
+  Calendar,
+  CalendarRange,
+  Home,
+  Link,
+  LineChart,
+  MapPin,
+  Menu,
+  MessageCircleMore,
+  MessageCircleQuestion,
+  MoveUpRight,
+  PieChart,
+  Ticket,
+  Trash,
+  UserRound,
+  UsersRound,
+  Upload,
+  TicketPercent,
 };
 
-const Icon: React.FC<{ name: keyof typeof Icons }> = ({ name }) => {
+const Icon: React.FC<{ name: keyof typeof Icons; className?: string }> = ({
+  name,
+  className,
+}) => {
   const IconCom = Icons[name];
-  return IconCom ? <IconCom /> : null;
+  return IconCom ? <IconCom className={className} /> : null;
 };
 
 export default Icon;

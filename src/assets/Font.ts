@@ -1,9 +1,16 @@
-import { Poppins } from "next/font/google";
+import { Lato, Fredoka } from "next/font/google";
 
-const poppins = Poppins({
+const lato = Lato({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
+  weight: ["300", "400", "700"],
+  variable: "--font-lato",
 });
 
-export const bodyFont = poppins.variable;
+const fredoka = Fredoka({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-fredoka",
+});
+
+export const bodyFont = lato.variable;
+export const titleFont = fredoka.variable;
