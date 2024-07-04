@@ -4,7 +4,7 @@ import { Filterbar, Search, Sortbar } from "@/components/navigations";
 import { Heading } from "@/components/typhographies";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { GetAllEventsParams } from "@/types";
+import { GetAllEventsParams } from "@/shares/types";
 
 const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
   const [category, setCategory] = useState("all");

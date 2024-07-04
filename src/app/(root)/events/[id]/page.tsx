@@ -1,8 +1,8 @@
 import { Collection, Image } from "@/components/elements";
 import { Heading, Text } from "@/components/typhographies";
-import { dateOnly } from "@/libs/dateFormatter";
-import { SearchParamProps } from "@/types";
-import getEventById from "@/utils/getEventDetail";
+import { dateOnly } from "@/shares/libs/dateFormatter";
+import { SearchParamProps } from "@/shares/types";
+import { getEventById } from "@/services/event";
 
 const EventDetails = async ({ params: { id } }: SearchParamProps) => {
   const event = await getEventById(id);

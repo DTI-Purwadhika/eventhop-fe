@@ -1,10 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { dateOnly } from "@/libs/dateFormatter";
+import { dateOnly } from "@/shares/libs/dateFormatter";
 import { ColumnDef } from "@tanstack/react-table";
 
 export type EventType = {
-  id: number;
+  id: string;
   name: string;
   category: string;
   location: string;

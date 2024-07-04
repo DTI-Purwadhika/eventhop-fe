@@ -1,4 +1,4 @@
-import { Icons } from "@/assets/Icon";
+import { Icons } from "@/shares/assets/Icon";
 
 export const headerLinks = [
   {
@@ -15,11 +15,11 @@ export const headerLinks = [
   },
   {
     label: "Login",
-    route: "/api/auth/signin",
+    route: "/sign/signin",
   },
   {
     label: "Logout",
-    route: "/api/auth/signout",
+    route: "/sign/signout",
   },
 ];
 

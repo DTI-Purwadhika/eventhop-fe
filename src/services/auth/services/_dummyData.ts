@@ -1,4 +1,4 @@
-const dummyUser = [
+export const dummyUser = [
   {
     id: "1",
     username: "john_doe",
@@ -27,18 +27,3 @@ const dummyUser = [
     image: "https://i.pravatar.cc/300",
   },
 ];
-const getUserByEmail = async (email: string) => {
-  const userData = process.env.NEXT_PUBLIC_EVENT_API;
-
-  try {
-    // const response = await fetch(`${userData}/get + email`);
-    // const data = await response.json();
-    // const user = data.users.find((user: any) => user.email === email);
-    const user = dummyUser.find((user: any) => user.email === email);
-    return user;
-  } catch (error) {
-    console.error("Can't catch user data:", error);
-  }
-};
-
-export default getUserByEmail;

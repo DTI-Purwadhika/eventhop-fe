@@ -8,7 +8,7 @@ import {
 import { ListFilter } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
-import { GetAllEventsParams } from "@/types";
+import { GetAllEventsParams } from "@/shares/types";
 import { Button } from "@/components/forms";
 
 const Sortbar = ({ sort, setSort }: { sort: any; setSort: any }) => {

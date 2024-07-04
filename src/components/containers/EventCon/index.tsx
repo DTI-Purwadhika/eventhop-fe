@@ -1,6 +1,6 @@
 import Collection from "@/components/elements/Collection";
 import { Heading } from "@/components/typhographies";
-import { GetAllEventsParams } from "@/types";
+import { GetAllEventsParams } from "@/shares/types";
 
 const EventCon = ({ filter }: GetAllEventsParams) => {
   let headTitle = "";

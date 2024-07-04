@@ -2,7 +2,7 @@
 
 import { Link } from "@/components/navigations";
 import { Button } from "@/components/ui/button";
-import { ChildType } from "@/types";
+import { ChildType } from "@/shares/types";
 import { ButtonType } from "./type";
 
 const ButtonCom = ({

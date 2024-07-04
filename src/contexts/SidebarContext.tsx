@@ -1,6 +1,6 @@
 "use client";
 
-import { ChildType } from "@/types";
+import { ChildType } from "@/shares/types";
 import { createContext, useState } from "react";
 
 const SidebarContext = createContext([{}, () => {}]);

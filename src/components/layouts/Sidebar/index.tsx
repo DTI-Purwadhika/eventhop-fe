@@ -4,9 +4,9 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import Icon, { Icons } from "@/assets/Icon";
+import Icon, { Icons } from "@/shares/assets/Icon";
 
-import { adminLinks, organizerLinks, userLinks } from "@/constants";
+import { adminLinks, organizerLinks, userLinks } from "@/constants/routes";
 import { Text } from "@/components/typhographies";
 import { Link, UserButton } from "@/components/navigations";
 import BasicCard from "@/components/elements/Card/BasicCard";

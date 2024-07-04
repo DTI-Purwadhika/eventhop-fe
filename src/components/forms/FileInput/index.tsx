@@ -2,12 +2,12 @@
 
 import { useCallback } from "react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
-import { convertFileToUrl } from "@/libs/utils";
+import { convertFileToUrl } from "@/shares/libs/utils";
 import { useDropzone } from "@uploadthing/react/hooks";
 import { FileType } from "./type";
 import { Button } from "@/components/forms";
 import { Image } from "@/components/elements";
-import Icon from "@/assets/Icon";
+import Icon from "@/shares/assets/Icon";
 
 const UploadedImg = ({ imageUrl }: { imageUrl: string }) => (
   <div className="flex h-full w-full flex-1 justify-center ">

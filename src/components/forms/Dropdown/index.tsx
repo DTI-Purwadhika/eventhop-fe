@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/select";
 
 import { useEffect, useState } from "react";
-import getCategories from "@/utils/getCategories";
+import getCategories from "@/services/category";
 
 type DropdownProps = {
   value: string;

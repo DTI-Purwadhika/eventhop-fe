@@ -15,14 +15,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/forms";
-import { eventFormSchema } from "@/libs/validator";
-import { eventDefaultValues } from "@/constants";
+import { eventFormSchema } from "@/shares/libs/validator";
+import { eventDefaultValues } from "@/constants/routes";
 import Dropdown from "../../forms/Dropdown";
 import { Textarea } from "@/components/ui/textarea";
 import FileInput from "../../forms/FileInput";
 import { useState } from "react";
 import { Checkbox } from "../../ui/checkbox";
-import Icon from "@/assets/Icon";
+import Icon from "@/shares/assets/Icon";
 import { useSession } from "next-auth/react";
 
 type EventFormProps = {

@@ -2,8 +2,8 @@ import { Image } from "@/components/elements";
 import Link from "next/link";
 import DeleteConfirmation from "../Alert";
 import { CardType } from "./type";
-import Icon from "@/assets/Icon";
-import { dateOnly } from "@/libs/dateFormatter";
+import Icon from "@/shares/assets/Icon";
+import { dateOnly } from "@/shares/libs/dateFormatter";
 import { Text } from "@/components/typhographies";
 
 const SmallCard = ({

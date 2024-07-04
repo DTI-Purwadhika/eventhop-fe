@@ -1,14 +1,9 @@
 import NextAuth, { User, NextAuthConfig } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import getUserByEmail from "./getUser";
-// import TwitterProvider from "next-auth/providers/twitter";
-// import FacebookProvider from "next-auth/providers/facebook";
+import Credentials from "next-auth/providers/credentials";
+import checkUser from "./services/checkUser";
+import { BASE_PATH } from "@/constants/config";
 // import EmailProvider from "next-auth/providers/nodemailer";
-
-// import TikTok from "next-auth/providers/tiktok";
-
-export const BASE_PATH = "/api/auth";
 
 // dummy
 // username: "emilys",
@@ -25,7 +20,6 @@ const authHandler = async (email: string, password: string) => {
         password: password,
       }),
     }).then((res) => res.json());
-    console.log("response: ", response);
 
     if (response.message === "Invalid credentials") {
       throw new Error("Failed to fetch data");
@@ -72,19 +66,10 @@ const authOptions: NextAuthConfig = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    // FacebookProvider({
-    //   clientId: process.env.FACEBOOK_CLIENT_ID,
-    //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    // }),
-    // TwitterProvider({
-    //   clientId: process.env.TWITTER_CLIENT_ID,
-    //   clientSecret: process.env.TWITTER_CLIENT_SECRET,
-    // }),
-    // TikTok,
   ],
   callbacks: {
     async signIn({ user }) {
-      if (await getUserByEmail(user.email || "")) {
+      if (await checkUser(user.email || "")) {
         return true;
       }
       return false;
@@ -94,7 +79,6 @@ const authOptions: NextAuthConfig = {
       return session;
     },
     async jwt({ token }) {
-      console.log("token: ", token);
       return token;
     },
   },

@@ -1,14 +1,14 @@
-import { GetAllEventsParams } from "@/types";
+import { restService } from "@/services/restService";
+import { GetAllEventsParams } from "@/shares/types";
 
-const getEventData = async ({
+const getEvents = async ({
   filter,
   category,
   limit = 6,
   page = 1,
   sort = "nameAz",
 }: GetAllEventsParams) => {
-  const eventData = process.env.NEXT_PUBLIC_EVENT_API;
-  let fetchUrl = `${eventData}/get-events?_limit=${limit}&_page=${page}`;
+  let fetchUrl = `get-events?_limit=${limit}&_page=${page}`;
 
   if (category && category !== "all") {
     fetchUrl += `&category=${category}`;
@@ -17,6 +17,8 @@ const getEventData = async ({
   if (filter && filter !== "") {
     fetchUrl += `&${filter}`;
   }
+
+  //fetchUrl + `&_sort=${sort.replace("_", "")}&_order=${sort.endsWith("Az") ? "asc" : "desc"}`;
 
   switch (sort) {
     case "nameAz":
@@ -44,18 +46,9 @@ const getEventData = async ({
       fetchUrl += `&_sort=price&_order=asc`;
       break;
   }
+  const response = await restService(fetchUrl);
 
-  try {
-    const response = await fetch(fetchUrl);
-    if (!response.ok) {
-      throw new Error("Failed to fetch event data");
-    }
-    const data = await response.json();
-    const totalPages = response.headers.get("X-Total-Count");
-    return { data, totalPages };
-  } catch (error) {
-    console.error("Can't catch event data:", error);
-  }
+  return { data: response?.result, totalPages: response?.totalData };
 };
 
-export default getEventData;
+export default getEvents;

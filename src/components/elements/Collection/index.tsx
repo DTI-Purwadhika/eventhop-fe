@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GetAllEventsParams } from "@/types";
+import { GetAllEventsParams } from "@/shares/types";
 import { CollectionType } from "./type";
 import { Pagination } from "@/components/layouts";
 import { Card } from "../";
-import getEventData from "@/utils/getEventData";
+import { getEvents } from "@/services/event";
 import SmallCard from "../Card/SmallCard";
 
 const Collection = ({
@@ -29,13 +29,14 @@ const Collection = ({
       page,
     }: GetAllEventsParams) => {
       try {
-        const events = await getEventData({
+        const events = await getEvents({
           filter,
           limit,
           page,
           category,
           sort,
         });
+
         if (events) {
           setCollectData(events.data);
           setTotalData(parseInt(events.totalPages || "0"));

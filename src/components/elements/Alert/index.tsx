@@ -14,7 +14,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import Icon from "@/assets/Icon";
+import Icon from "@/shares/assets/Icon";
 
 // import { deleteEvent } from '@/lib/actions/event.actions'
 

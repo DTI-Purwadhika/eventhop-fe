@@ -1,7 +1,7 @@
-import type { ChildType } from "@/types";
+import type { ChildType } from "@/shares/types";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
-import { bodyFont } from "@/assets/Font";
+import { bodyFont } from "@/shares/assets/Font";
 
 import "@/styles/globals.css";
 

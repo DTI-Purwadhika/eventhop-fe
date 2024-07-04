@@ -1,5 +1,5 @@
 import type { LinkType } from "./type";
-import type { ChildType } from "@/types";
+import type { ChildType } from "@/shares/types";
 import Link from "next/link";
 
 const index = ({

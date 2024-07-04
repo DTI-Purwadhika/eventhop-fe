@@ -2,7 +2,7 @@
 import { Image } from "@/components/elements";
 import { Input } from "@/components/forms";
 import { useRouter, useSearchParams } from "next/navigation";
-import { formUrlQuery, removeKeysFromQuery } from "@/libs/utils";
+import { formUrlQuery, removeKeysFromQuery } from "@/shares/libs/utils";
 import { useEffect, useState } from "react";
 
 const Search = ({ placeholder = "Search Event" }: { placeholder?: string }) => {

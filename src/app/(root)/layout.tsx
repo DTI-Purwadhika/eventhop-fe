@@ -1,4 +1,4 @@
-import type { ChildType } from "@/types";
+import type { ChildType } from "@/shares/types";
 import { Header, Footer } from "@/components/layouts";
 
 const RootLayout = ({ children }: ChildType) => (

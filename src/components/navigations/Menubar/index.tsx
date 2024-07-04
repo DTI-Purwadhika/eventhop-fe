@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { headerLinks } from "@/constants";
+import { headerLinks } from "@/constants/routes";
 import { Link } from "@/components/navigations";
 
 const MenuItem = ({
@@ -18,9 +18,9 @@ const MenuItem = ({
         pathName === link.route && "text-primary-500"
       } p-medium-16 whitespace-nowrap ${
         !isLogin &&
-        (link.route === "/dashboard" || link.route === "/api/auth/signout")
+        (link.route === "/dashboard" || link.route === "/sign/signout")
           ? "hidden"
-          : isLogin && link.route === "/api/auth/signin"
+          : isLogin && link.route === "/sign/signin"
             ? "hidden"
             : "flex"
       }`}

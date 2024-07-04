@@ -1,6 +1,6 @@
 import { Sidebar } from "@/components/layouts";
 import DashboardHead from "@/components/layouts/Header/DashboardHead";
-import type { ChildType } from "@/types";
+import type { ChildType } from "@/shares/types";
 
 const RootLayout = ({ children }: ChildType) => (
   <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
