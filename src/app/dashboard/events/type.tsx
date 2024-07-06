@@ -1,6 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { dateOnly } from "@/shares/libs/dateFormatter";
+import { dateFormatter } from "@/shares/libs/dateFormatter";
 import { ColumnDef } from "@tanstack/react-table";
 
 export type EventType = {
@@ -14,7 +13,7 @@ export type EventType = {
 
 export const eventsList: EventType[] = [
   {
-    id: 1,
+    id: "1",
     name: "Tech Conference 2025",
     category: "Technology",
     startDate: "2024-08-15",
@@ -22,7 +21,7 @@ export const eventsList: EventType[] = [
     price: 0,
   },
   {
-    id: 2,
+    id: "2",
     name: "Music Festival",
     category: "Music",
     startDate: "2024-10-25",
@@ -30,7 +29,7 @@ export const eventsList: EventType[] = [
     price: 100000,
   },
   {
-    id: 3,
+    id: "3",
     name: "Art Expo 2024",
     category: "Art",
     startDate: "2024-09-15",
@@ -38,7 +37,7 @@ export const eventsList: EventType[] = [
     price: 80000,
   },
   {
-    id: 4,
+    id: "4",
     name: "Business Summit",
     category: "Business",
     startDate: "2024-09-10",
@@ -73,21 +72,21 @@ export const columns: ColumnDef<EventType>[] = [
     },
   },
   {
-    accessorKey: "startDate",
+    accessorKey: "start_date",
     header: "Event Date",
-    cell: ({ row }) => dateOnly(row.getValue("startDate")),
+    cell: ({ row }) => (
+      <>
+        <div className="lg:hidden">
+          {dateFormatter(row.getValue("start_date"), "d/MM/yyyy")}
+        </div>
+        <div className="hidden lg:block">
+          {dateFormatter(row.getValue("start_date"))}
+        </div>
+      </>
+    ),
   },
   {
     accessorKey: "location",
     header: "Location",
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <div className="flex items-center gap-1">
-        <Button>Edit</Button>
-        <Button>Delete</Button>
-      </div>
-    ),
   },
 ];

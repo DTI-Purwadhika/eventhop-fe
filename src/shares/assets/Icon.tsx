@@ -17,6 +17,8 @@ import {
   Trash,
   FileUp,
   TicketPercent,
+  Pencil,
+  Plus,
 } from "lucide-react";
 
 const Upload = () => (
@@ -47,13 +49,15 @@ export const Icons = {
   UsersRound,
   Upload,
   TicketPercent,
+  Pencil,
+  Plus,
 };
 
-const Icon: React.FC<{ name: keyof typeof Icons; className?: string }> = ({
+const Icon: React.FC<{ name: string; className?: string }> = ({
   name,
   className,
 }) => {
-  const IconCom = Icons[name];
+  const IconCom = Icons[name as keyof typeof Icons];
   return IconCom ? <IconCom className={className} /> : null;
 };
 

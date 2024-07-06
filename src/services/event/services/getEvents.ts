@@ -1,5 +1,5 @@
 import { restService } from "@/services/restService";
-import { GetAllEventsParams } from "@/shares/types";
+import { SearchType } from "@/shares/types/search";
 
 const getEvents = async ({
   filter,
@@ -7,7 +7,7 @@ const getEvents = async ({
   limit = 6,
   page = 1,
   sort = "nameAz",
-}: GetAllEventsParams) => {
+}: SearchType) => {
   let fetchUrl = `get-events?_limit=${limit}&_page=${page}`;
 
   if (category && category !== "all") {

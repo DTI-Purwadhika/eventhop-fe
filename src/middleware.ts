@@ -16,7 +16,7 @@ export default auth((req) => {
         // `${BASE_PATH}/signin?callbackUrl=${encodeURIComponent(
         //   reqUrl?.pathname
         // )}`,
-        `${BASE_PATH}/sign/signin`,
+        `${BASE_PATH}/signin`,
         req.url
       )
     );

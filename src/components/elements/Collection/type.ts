@@ -1,7 +1,9 @@
+import { ColumnDef } from "@tanstack/react-table";
+
 export type CollectionType = {
-  emptyTitle?: string;
-  emptyDescription?: string;
-  type: "all_events" | "event_organized" | "my_tickets";
-  isSearch?: boolean;
+  limit: number;
+  column?: ColumnDef<any>[];
+  type?: string;
   isSmall?: boolean;
+  collection?: "card" | "table";
 };

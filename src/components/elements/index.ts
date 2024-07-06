@@ -3,3 +3,4 @@ export { default as Image } from "./Image";
 export { default as Alert } from "./Alert";
 export { default as Collection } from "./Collection";
 export { default as Category } from "./Category";
+export { default as ThemeChanger } from "./ThemeChanger";

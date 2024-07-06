@@ -1,6 +1,7 @@
 import type { ChildType } from "@/shares/types";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { bodyFont } from "@/shares/assets/Font";
 
 import "@/styles/globals.css";
@@ -16,7 +17,14 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: ChildType) => (
   <html lang="en" className="overflow-hidden">
     <body className={bodyFont}>
-      <SessionProvider>{children}</SessionProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <SessionProvider>{children}</SessionProvider>
+      </ThemeProvider>
     </body>
   </html>
 );

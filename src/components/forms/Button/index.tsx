@@ -4,6 +4,7 @@ import { Link } from "@/components/navigations";
 import { Button } from "@/components/ui/button";
 import { ChildType } from "@/shares/types";
 import { ButtonType } from "./type";
+import Icon from "@/shares/assets/Icon";
 
 const ButtonCom = ({
   children,
@@ -12,15 +13,31 @@ const ButtonCom = ({
   variant = "default",
   onClick = () => {},
   disabled = false,
+  iconOnly = "sm",
+  icon,
+  size = "lg",
 }: ChildType & ButtonType) => (
   <Button
-    size="lg"
-    className={`rounded-2xl sm:w-fit ${className}`}
+    size={iconOnly === "all" ? "icon" : size}
+    className={`rounded-xl sm:w-fit ${className}`}
     variant={variant}
     onClick={onClick}
     disabled={disabled}
   >
-    <Link href={url}>{children}</Link>
+    <Link href={url} className="flex gap-2">
+      {icon && <Icon name={icon} className={`h-5 w-5`} />}
+      <div
+        className={
+          iconOnly === "md"
+            ? "hidden lg:block"
+            : iconOnly === "sm"
+              ? "hidden md:block"
+              : "hidden"
+        }
+      >
+        {children}
+      </div>
+    </Link>
   </Button>
 );
 export default ButtonCom;

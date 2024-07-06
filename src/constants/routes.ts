@@ -1,4 +1,5 @@
 import { Icons } from "@/shares/assets/Icon";
+import { BASE_PATH } from "./config";
 
 export const headerLinks = [
   {
@@ -15,11 +16,11 @@ export const headerLinks = [
   },
   {
     label: "Login",
-    route: "/sign/signin",
+    route: `${BASE_PATH}/signin`,
   },
   {
     label: "Logout",
-    route: "/sign/signout",
+    route: `${BASE_PATH}/signout`,
   },
 ];
 

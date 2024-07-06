@@ -17,15 +17,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface DataTableProps<TData, TValue> {
+import { Button } from "@/components/forms";
+import Icon from "@/shares/assets/Icon";
+
+interface DataTableType<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  currentPage: number;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+  currentPage = 1,
+}: DataTableType<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
@@ -38,18 +43,27 @@ export function DataTable<TData, TValue>({
       <TableHeader>
         {table.getHeaderGroups().map((headerGroup) => (
           <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
-              return (
-                <TableHead key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </TableHead>
-              );
-            })}
+            <TableHead key={headerGroup.id} className="hidden md:table-cell">
+              No.
+            </TableHead>
+            {headerGroup.headers.map((header, index) => (
+              <TableHead
+                key={header.id}
+                className={
+                  index === 1 || index === 4
+                    ? "hidden lg:table-cell"
+                    : index === 2
+                      ? "hidden md:table-cell"
+                      : ""
+                }
+              >
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
+              </TableHead>
+            ))}
+            <TableHead key={headerGroup.id + "-action"}>Action</TableHead>
           </TableRow>
         ))}
       </TableHeader>
@@ -60,11 +74,40 @@ export function DataTable<TData, TValue>({
               key={row.id}
               data-state={row.getIsSelected() && "selected"}
             >
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              <TableCell key={row.id} className="hidden md:table-cell">
+                {row.index + currentPage}
+              </TableCell>
+              {row.getVisibleCells().map((cell, index) => (
+                <TableCell
+                  key={cell.id}
+                  className={
+                    index === 1 || index === 4
+                      ? "hidden lg:table-cell"
+                      : index === 2
+                        ? "hidden md:table-cell"
+                        : ""
+                  }
+                >
+                  <div className={`line-clamp-3 md:line-clamp-2`}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </div>
                 </TableCell>
               ))}
+              <TableCell key={`${row.id}-actions`}>
+                <div className="flex flex-col md:flex-row items-end gap-1">
+                  <Button icon="Pencil" iconOnly="sm" size="sm">
+                    Edit
+                  </Button>
+                  <Button
+                    icon="Trash"
+                    iconOnly="md"
+                    size="sm"
+                    variant="destructive"
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </TableCell>
             </TableRow>
           ))
         ) : (

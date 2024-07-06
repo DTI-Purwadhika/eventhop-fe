@@ -10,6 +10,7 @@ import { adminLinks, organizerLinks, userLinks } from "@/constants/routes";
 import { Text } from "@/components/typhographies";
 import { Link, UserButton } from "@/components/navigations";
 import BasicCard from "@/components/elements/Card/BasicCard";
+import { ThemeChanger } from "@/components/elements";
 
 const SidebarItem = ({
   icon,
@@ -33,6 +34,7 @@ const Sidebar = () => (
     <div className="flex h-14 items-center justify-start gap-4 border-b px-4 lg:h-[60px] lg:px-6">
       <UserButton />
       Hoppy Morning! Asep!
+      <ThemeChanger />
     </div>
     <div className="flex-1">
       <Command className="flex w-full items-start text-sm lg:text-base font-medium">

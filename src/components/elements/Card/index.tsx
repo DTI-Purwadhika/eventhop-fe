@@ -3,7 +3,7 @@ import Link from "next/link";
 import DeleteConfirmation from "../Alert";
 import { CardType } from "./type";
 import Icon from "@/shares/assets/Icon";
-import { dateOnly } from "@/shares/libs/dateFormatter";
+import { dateFormatter } from "@/shares/libs/dateFormatter";
 
 const Card = ({
   event,
@@ -54,7 +54,7 @@ const Card = ({
           </div>
         )}
         <p className="p-medium-16 p-medium-18 text-grey-500">
-          {dateOnly(event.start_date)}
+          {dateFormatter(event.start_date)}
         </p>
 
         <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">

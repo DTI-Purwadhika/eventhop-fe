@@ -1,3 +1,4 @@
+import { Icons } from "@/shares/assets/Icon";
 import { MouseEventHandler } from "react";
 
 export type ButtonType = {
@@ -14,6 +15,8 @@ export type ButtonType = {
     | undefined;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
-  size?: "small" | "large";
+  size?: "default" | "sm" | "lg" | "icon" | null | undefined;
   backgroundColor?: string;
+  icon?: string;
+  iconOnly?: "sm" | "md" | "lg" | "all";
 };

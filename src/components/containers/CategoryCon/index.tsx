@@ -90,8 +90,6 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
         category={category}
         limit={limit}
         type="all_events"
-        emptyTitle="No Events in This Category"
-        emptyDescription="Try choose another category."
         sort={sort}
       />
     </section>
