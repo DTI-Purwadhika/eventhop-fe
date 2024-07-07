@@ -7,6 +7,7 @@ const getEvents = async ({
   limit = 6,
   page = 1,
   sort = "nameAz",
+  userId,
 }: SearchType) => {
   let fetchUrl = `events?_limit=${limit}&_page=${page}`;
 
@@ -46,6 +47,11 @@ const getEvents = async ({
       fetchUrl += `&_sort=price&_order=asc`;
       break;
   }
+
+  if (userId) {
+    fetchUrl += `&organizer.id=${userId}`;
+  }
+  console.log(fetchUrl);
   const response = await restService(fetchUrl);
 
   return { data: response?.result, totalPages: response?.totalData };

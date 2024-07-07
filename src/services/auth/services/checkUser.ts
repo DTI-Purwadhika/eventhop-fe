@@ -1,5 +1,5 @@
 import { dummyUser } from "./_dummyData";
-import { restService } from "@/services/restService";
+// import { restService } from "@/services/restService";
 
 const checkUser = async (userEmail: string) => {
   // dummy code

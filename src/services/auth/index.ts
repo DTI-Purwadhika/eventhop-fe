@@ -5,12 +5,8 @@ import checkUser from "./services/checkUser";
 import { BASE_PATH } from "@/constants/config";
 // import EmailProvider from "next-auth/providers/nodemailer";
 
-// dummy
-// username: "emilys",
-// password: "emilyspass",
 const authHandler = async (email: string, password: string) => {
   const eventData = process.env.NEXT_PUBLIC_LOG_API;
-
   try {
     const response = await fetch(`${eventData}`, {
       method: "POST",
@@ -69,16 +65,43 @@ const authOptions: NextAuthConfig = {
   ],
   callbacks: {
     async signIn({ user }) {
-      if (await checkUser(user.email || "")) {
+      const userLogged = await checkUser(user.email || "");
+      console.log("from sign in : ");
+      console.log(user);
+      if (userLogged) {
         return true;
       }
       return false;
     },
     async session({ session, token }: any) {
-      session.user = token.user as User;
+      // Add user data to the session object
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.role = token.role;
+        session.user.username = token.username;
+        session.user.image = token.image;
+        session.user.token = token.token;
+        session.user.refreshToken = token.refreshToken;
+      }
+      console.log(session.user);
       return session;
     },
-    async jwt({ token }) {
+    async jwt({ token, user }: any) {
+      // Initial sign in
+      console.log("check user : ");
+      console.log(user);
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.role = user.role;
+        token.username = user.username;
+        token.image = user.image;
+        token.token = user.token;
+        token.refreshToken = user.refreshToken;
+      }
       return token;
     },
   },

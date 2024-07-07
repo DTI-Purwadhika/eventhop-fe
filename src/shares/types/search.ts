@@ -3,6 +3,8 @@ export type SearchType = {
   limit?: number;
   page?: number;
   category?: string;
+  userId?: string;
+  type?: "organized_event" | "my_event";
   sort?:
     | "nameAz"
     | "nameZa"

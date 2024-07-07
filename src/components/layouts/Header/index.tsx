@@ -1,6 +1,5 @@
 import { Logo } from "@/shares/assets/Logo";
 import { auth } from "@/services/auth";
-import { Button } from "@/components/forms";
 import { Menubar, Authbar } from "@/components/navigations";
 import { Heading } from "@/components/typhographies";
 
