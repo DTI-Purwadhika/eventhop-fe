@@ -9,8 +9,8 @@ export type VoucherType = {
   amount: number;
   event_name: string;
   quota: number;
-  code: string;
-  exp: string;
+  voucher_code: string;
+  expire_date: string;
 };
 
 export const columns: ColumnDef<VoucherType>[] = [
@@ -48,8 +48,8 @@ export const columns: ColumnDef<VoucherType>[] = [
     header: "Quota",
   },
   {
-    accessorKey: "code",
-    header: "Code",
+    accessorKey: "voucher_code",
+    header: "VoucherCode",
   },
   {
     accessorKey: "expire_date",

@@ -16,6 +16,7 @@ const ButtonCom = ({
   iconOnly = "sm",
   icon,
   size = "lg",
+  type = "button",
 }: ChildType & ButtonType) => (
   <Button
     size={iconOnly === "all" ? "icon" : size}
@@ -23,6 +24,7 @@ const ButtonCom = ({
     variant={variant}
     onClick={onClick}
     disabled={disabled}
+    type={type}
   >
     <Link href={url} className="flex gap-2">
       {icon && <Icon name={icon} className={`h-5 w-5`} />}

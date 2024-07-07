@@ -1,12 +1,19 @@
 "use client";
 
 import { z } from "zod";
+import { Button, Input, Dropdown, FileInput } from "@/components/forms";
+import { eventDefaultValues } from "@/constants/routes";
+import { eventFormSchema } from "@/shares/libs/validator";
+import { EventFormProps } from "./type";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
+import Icon from "@/shares/assets/Icon";
+
 import "react-datepicker/dist/react-datepicker.css";
 
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,31 +21,19 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/forms";
-import { eventFormSchema } from "@/shares/libs/validator";
-import { eventDefaultValues } from "@/constants/routes";
-import Dropdown from "../../forms/Dropdown";
-import { Textarea } from "@/components/ui/textarea";
-import FileInput from "../../forms/FileInput";
-import { useState } from "react";
-import { Checkbox } from "../../ui/checkbox";
-import Icon from "@/shares/assets/Icon";
-import { useSession } from "next-auth/react";
+import TickerTier from "./TickerTier";
 
-type EventFormProps = {
-  type: "create" | "update";
-};
 const EventForm = ({ type }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
 
-  const session = useSession();
-  const userId = session.data?.user?.id;
-
-  const initialValues = eventDefaultValues;
-
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
-    defaultValues: initialValues,
+    defaultValues: eventDefaultValues,
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "ticketTiers",
   });
 
   function onSubmit(values: z.infer<typeof eventFormSchema>) {
@@ -47,208 +42,180 @@ const EventForm = ({ type }: EventFormProps) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-5"
-      >
-        <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Input placeholder="Event title" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+          <fieldset className="grid gap-6 rounded-lg border p-4">
+            <legend className="-ml-1 px-1 text-sm font-medium">
+              What&apos;s Hoppin&apos;?
+            </legend>
 
-          <FormField
-            control={form.control}
-            name="categoryId"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <Dropdown setCategory={field.onChange} value={field.value} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl className="h-72">
-                  <Textarea
-                    placeholder="Event Description"
-                    {...field}
-                    className="textarea rounded-2xl"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl className="h-72">
-                  <FileInput
-                    onFieldChange={field.onChange}
-                    imageUrl={field.value}
-                    setFiles={setFiles}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="location"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="MapPin" />
-                    <Input placeholder="Event Location" field={field} />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="seats"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Input placeholder="Available Seats" field={field} />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="startDateTime"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="Calendar" />
-                    <p className="ml-3 whitespace-nowrap text-grey-600">
-                      Start Date:
-                    </p>
-                    <DatePicker
-                      selected={new Date(field.value)}
-                      onChange={(date: Date | null) => field.onChange(date)}
-                      showTimeSelect
-                      timeInputLabel="Time:"
-                      dateFormat="dd/MM/yyyy h:mm aa"
-                      wrapperClassName="datePicker"
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input placeholder="Event title" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl className="h-36 md:h-48 lg:h-72">
+                    <Textarea
+                      placeholder="Event Description"
+                      {...field}
+                      className="textarea rounded-2xl"
                     />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="endDateTime"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="Calendar" />
-                    <p className="ml-3 whitespace-nowrap text-grey-600">
-                      End Date:
-                    </p>
-                    <DatePicker
-                      selected={new Date(field.value)}
-                      onChange={(date: Date | null) => field.onChange(date)}
-                      showTimeSelect
-                      timeInputLabel="Time:"
-                      dateFormat="dd/MM/yyyy h:mm aa"
-                      wrapperClassName="datePicker"
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </fieldset>
+
+          <fieldset className="grid gap-6 rounded-lg border p-4">
+            <legend className="-ml-1 px-1 text-sm font-medium">
+              How Does It Look, Hopper?
+            </legend>
+
+            <FormField
+              control={form.control}
+              name="categoryId"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Dropdown
+                      setCategory={field.onChange}
+                      value={field.value}
                     />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl className="h-72">
+                    <FileInput
+                      onFieldChange={field.onChange}
+                      imageUrl={field.value}
+                      setFiles={setFiles}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </fieldset>
 
-        <div className="flex flex-col gap-5 md:flex-row">
-          <FormField
-            control={form.control}
-            name="price"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <span className="text-grey-500 p-semibold-18">Rp</span>
-                    <Input placeholder="Price" {...field} />
-                    <div className="flex whitespace-nowrap">
-                      <Checkbox className="mr-2 h-5 w-5 border-2 border-primary-500" />
-                      <label
-                        htmlFor="isFree"
-                        className="pr-3 mt-0.5 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                      >
-                        Free Ticket
-                      </label>
-                    </div>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="url"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormControl>
-                  <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Icon name="Link" />
-                    <Input placeholder="Url" {...field} />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+          <div>
+            <fieldset className="grid gap-6 rounded-lg border p-4 h-fit">
+              <legend className="-ml-1 px-1 text-sm font-medium">
+                Where, When, to Hop In?
+              </legend>
+              <FormField
+                control={form.control}
+                name="location"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                        <Icon name="MapPin" />
+                        <Input placeholder="Event Location" field={field} />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="startDateTime"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormControl>
+                        <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                          <Icon name="Calendar" />
+                          <p className="ml-3 whitespace-nowrap text-grey-600">
+                            Start Date:
+                          </p>
+                          <DatePicker
+                            selected={new Date(field.value)}
+                            onChange={(date: Date | null) =>
+                              field.onChange(date)
+                            }
+                            showTimeSelect
+                            timeInputLabel="Time:"
+                            dateFormat="dd/MM/yyyy h:mm aa"
+                            wrapperClassName="datePicker"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="endDateTime"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormControl>
+                        <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                          <Icon name="Calendar" />
+                          <p className="ml-3 whitespace-nowrap text-grey-600">
+                            End Date:
+                          </p>
+                          <DatePicker
+                            selected={new Date(field.value)}
+                            onChange={(date: Date | null) =>
+                              field.onChange(date)
+                            }
+                            showTimeSelect
+                            timeInputLabel="Time:"
+                            dateFormat="dd/MM/yyyy h:mm aa"
+                            wrapperClassName="datePicker"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </fieldset>
+          </div>
 
-        <Button
-          type="submit"
-          size="lg"
-          disabled={form.formState.isSubmitting}
-          className="button col-span-2 w-full"
-        >
-          {form.formState.isSubmitting ? "Submitting..." : `${type} Event`}
-        </Button>
+          <fieldset className="grid gap-6 rounded-lg border p-4">
+            <legend className="-ml-1 px-1 text-sm font-medium">
+              Hop on the Train!
+            </legend>
+            {fields.map((field, index) => (
+              <TickerTier key={field.id} control={form.control} index={index} />
+            ))}
+            <Button
+              type="button"
+              onClick={() => append({ tier_name: "", price: 0, quota: 0 })}
+            >
+              Add Tier
+            </Button>
+          </fieldset>
+        </div>
+        <div className="flex justify-end">
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting ? "Submitting..." : `${type} Event`}
+          </Button>
+        </div>
       </form>
     </Form>
   );

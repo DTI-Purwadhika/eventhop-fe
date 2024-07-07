@@ -113,6 +113,12 @@ export const eventDefaultValues = {
   startDateTime: new Date(),
   endDateTime: new Date(),
   categoryId: "",
-  price: 0,
   url: "",
+  ticketTiers: [
+    {
+      tier_name: "",
+      price: 0,
+      quota: 0,
+    },
+  ],
 };

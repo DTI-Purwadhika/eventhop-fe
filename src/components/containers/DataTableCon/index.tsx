@@ -49,7 +49,7 @@ const DataTableCon = ({
             {`${title === "Events" ? "Host" : "Add"} a new ${title}`}
           </Button>
         </div>
-        <TabsContent value="all">
+        <TabsContent value="all" className="w-full overflow-x-auto">
           <DataTable
             columns={columns}
             data={data}

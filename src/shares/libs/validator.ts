@@ -18,7 +18,15 @@ export const eventFormSchema = z.object({
   startDateTime: z.date(),
   endDateTime: z.date(),
   categoryId: z.string(),
-  price: z.number(),
   url: z.string().url().optional(),
-  seats: z.number().min(1, { message: "Seats must be at least 1" }),
+  ticketTiers: z.array(
+    z.object({
+      tier_name: z
+        .string()
+        .min(3, { message: "Tier Name must be at least 3 characters" })
+        .max(100, { message: "Tier Name must be less than 100 characters" }),
+      price: z.number().nonnegative({ message: "Price must be non-negative" }),
+      quota: z.number().nonnegative({ message: "Quota must be non-negative" }),
+    })
+  ),
 });

@@ -8,7 +8,7 @@ import { columns } from "./type";
 const Feedback = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const events: SearchType = {
+  const feedback: SearchType = {
     filter: "",
     limit: 10,
     page: currentPage,
@@ -16,7 +16,7 @@ const Feedback = () => {
     sort: "nameAz",
   };
 
-  const { collectData, totalData } = useFeedbacks(events);
+  const { collectData, totalData } = useFeedbacks(feedback);
 
   return (
     <Collection

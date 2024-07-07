@@ -19,4 +19,5 @@ export type ButtonType = {
   backgroundColor?: string;
   icon?: string;
   iconOnly?: "sm" | "md" | "lg" | "all";
+  type?: "button" | "submit" | "reset" | undefined;
 };

@@ -1,11 +1,22 @@
 import EventForm from "@/components/containers/EventFormCon";
-import { Heading } from "@/components/typhographies";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 
 const CreateEvent = () => (
-  <>
-    <Heading size="h3">Create Event</Heading>
-    <EventForm type="create" />
-  </>
+  <Card>
+    <CardHeader>
+      <CardTitle>Create an Event</CardTitle>
+      <CardDescription>{`Host and let another Hopper hop to your event`}</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <EventForm type="create" />
+    </CardContent>
+  </Card>
 );
 
 export default CreateEvent;
