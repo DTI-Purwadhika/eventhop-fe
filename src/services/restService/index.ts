@@ -1,6 +1,6 @@
 const url = process.env.NEXT_PUBLIC_EVENTHOP_API;
 
-export const restService = async (
+const restService = async (
   endpoint: string,
   method: string = "GET",
   data?: any
@@ -23,3 +23,20 @@ export const restService = async (
     console.error(`Can't catch ${endpoint}:`, error);
   }
 };
+
+export const restById = async (
+  id: string,
+  method: "GET" | "PUT" | "DELETE" = "GET",
+  from: string,
+  data?: any
+) => {
+  const response = await restService(`${from}/${id}`, method, data);
+  return response?.result;
+};
+
+export const restPost = async (id: string, from: string, data: any) => {
+  const response = await restService(`${from}/${id}`, "POST", data);
+  return response?.result;
+};
+
+export default restService;

@@ -1,18 +1,13 @@
-import { restService } from "@/services/restService";
+import restService from "@/services/restService";
 import { SearchType } from "@/shares/types/search";
 
-const getEvents = async ({
+const getFeedbacks = async ({
   filter,
-  category,
   limit = 6,
   page = 1,
   sort = "nameAz",
 }: SearchType) => {
-  let fetchUrl = `get-events?_limit=${limit}&_page=${page}`;
-
-  if (category && category !== "all") {
-    fetchUrl += `&category=${category}`;
-  }
+  let fetchUrl = `feedbacks?_limit=${limit}&_page=${page}`;
 
   if (filter && filter !== "") {
     fetchUrl += `&${filter}`;
@@ -39,16 +34,10 @@ const getEvents = async ({
     case "far_date":
       fetchUrl += `&_sort=start_date&_order=desc`;
       break;
-    case "high_price":
-      fetchUrl += `&_sort=price&_order=desc`;
-      break;
-    case "low_price":
-      fetchUrl += `&_sort=price&_order=asc`;
-      break;
   }
   const response = await restService(fetchUrl);
 
   return { data: response?.result, totalPages: response?.totalData };
 };
 
-export default getEvents;
+export default getFeedbacks;

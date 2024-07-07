@@ -5,6 +5,7 @@ import { Heading } from "@/components/typhographies";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { GetAllEventsParams } from "@/shares/types";
+import EventCon from "../EventCon";
 
 const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
   const [category, setCategory] = useState("all");
@@ -85,13 +86,7 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
       <div className="hidden lg:block">
         <Category category={category} setCategory={setCategory} />
       </div>
-      <Collection
-        filter={filter}
-        category={category}
-        limit={limit}
-        type="all_events"
-        sort={sort}
-      />
+      <EventCon filter={filter} limit={limit} sort={sort} category={category} />
     </section>
   );
 };

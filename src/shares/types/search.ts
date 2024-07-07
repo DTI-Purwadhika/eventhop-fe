@@ -1,6 +1,6 @@
 export type SearchType = {
   filter?: string;
-  limit: number;
+  limit?: number;
   page?: number;
   category?: string;
   sort?:

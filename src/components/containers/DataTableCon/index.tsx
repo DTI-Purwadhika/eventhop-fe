@@ -25,23 +25,28 @@ const DataTableCon = ({
   columns,
   data,
   title,
-  description,
   totalData,
   limit,
   currentPage,
   setCurrentPage,
+  noCrud,
 }: DataTableType & DataType) => (
   <Card>
     <CardHeader>
       <CardTitle>{title}</CardTitle>
-      <CardDescription>{description}</CardDescription>
+      <CardDescription>{`Manage all of your ${title} in one place`}</CardDescription>
     </CardHeader>
     <CardContent>
       <Tabs defaultValue="all">
         <div className="flex justify-between mb-4">
           <TabMenu />
-          <Button url="/dashboard/events/new" icon="Plus">
-            Host a new Event
+          <Button
+            url={`/dashboard/${title.toLowerCase()}/new`}
+            icon="Plus"
+            className={noCrud ? "hidden" : ""}
+            disabled={noCrud}
+          >
+            {`${title === "Events" ? "Host" : "Add"} a new ${title}`}
           </Button>
         </div>
         <TabsContent value="all">
@@ -49,6 +54,7 @@ const DataTableCon = ({
             columns={columns}
             data={data}
             currentPage={(currentPage - 1) * limit + 1}
+            noCrud={noCrud}
           />
         </TabsContent>
         <br />

@@ -4,5 +4,5 @@ export type DataTableType = {
   columns: ColumnDef<any>[];
   data: any;
   title: string;
-  description: string;
+  noCrud?: boolean;
 };
