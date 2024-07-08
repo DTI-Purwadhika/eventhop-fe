@@ -17,7 +17,7 @@ const getEvents = async ({
   }
 
   if (filter && filter !== "") {
-    fetchUrl += `&${filter}`;
+    fetchUrl += `${filter}`;
   }
 
   //fetchUrl + `&_sort=${sort.replace("_", "")}&_order=${sort.endsWith("Az") ? "asc" : "desc"}`;

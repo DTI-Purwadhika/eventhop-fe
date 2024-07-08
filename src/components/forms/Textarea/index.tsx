@@ -7,7 +7,7 @@ const TextareaCom = ({ label, placeholder }: TextareaType) => (
     <Label>{label}</Label>
     <Textarea
       placeholder={placeholder}
-      className="textarea rounded-lg h-36 md:h-48 lg:h-64"
+      className="textarea rounded-lg h-36 md:h-48 lg:h-80"
     />
   </>
 );

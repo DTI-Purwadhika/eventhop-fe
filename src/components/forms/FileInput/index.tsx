@@ -10,7 +10,7 @@ import { Image } from "@/components/elements";
 import Icon from "@/shares/assets/Icon";
 
 const UploadedImg = ({ imageUrl }: { imageUrl: string }) => (
-  <div className="flex h-full w-full flex-1 justify-center ">
+  <div className="flex relative h-full w-full flex-1 justify-center ">
     <Image
       src={imageUrl}
       alt="image"
@@ -18,6 +18,11 @@ const UploadedImg = ({ imageUrl }: { imageUrl: string }) => (
       height={250}
       className="w-full object-cover object-center"
     />
+    <div className="absolute w-full h-full  opacity-60 transition-opacity hover:opacity-100">
+      <Button className="absolute bottom-4 right-4" size="sm">
+        Change Image
+      </Button>
+    </div>
   </div>
 );
 

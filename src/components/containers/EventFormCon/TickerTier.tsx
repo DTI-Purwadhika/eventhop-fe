@@ -114,6 +114,7 @@ const TickerTier = ({
           type="button"
           onClick={() => remove(index)}
           variant="destructive"
+          size={"sm"}
         >
           Remove Tier
         </Button>

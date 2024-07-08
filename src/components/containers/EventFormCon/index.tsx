@@ -26,6 +26,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import TickerTier from "./TickerTier";
+import { Label } from "@/components/ui/label";
 
 const EventForm = ({ type }: FormProps) => {
   const [files, setFiles] = useState<File[]>([]);
@@ -48,7 +49,7 @@ const EventForm = ({ type }: FormProps) => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-          <fieldset className="grid gap-6 rounded-lg border p-4">
+          <fieldset className="grid gap-6 rounded-lg border p-4 h-fit">
             <legend className="-ml-1 px-1 text-sm font-medium">
               What&apos;s Hoppin&apos;?
             </legend>
@@ -74,7 +75,7 @@ const EventForm = ({ type }: FormProps) => {
               name="description"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormControl className="h-36 md:h-48 lg:h-72">
+                  <FormControl className="h-36 md:h-48 lg:h-80">
                     <Textarea
                       placeholder="Tell us about your event..."
                       label="Event Description"
@@ -113,11 +114,30 @@ const EventForm = ({ type }: FormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl className="h-72">
-                    <FileInput
-                      onFieldChange={field.onChange}
-                      imageUrl={field.value}
-                      setFiles={setFiles}
-                    />
+                    <>
+                      <Label className="mb-2">Event Picture</Label>
+                      <FileInput
+                        onFieldChange={field.onChange}
+                        imageUrl={field.value}
+                        setFiles={setFiles}
+                      />
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-medium text-slate-700">
+                          Picture Name : {files.length > 0 && files[0].name}
+                        </p>
+                        {/* <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => {
+                            setFiles([]);
+                            field.onChange("");
+                          }}
+                          className={files.length === 0 ? "hidden" : "block"}
+                        >
+                          Remove Picture
+                        </Button> */}
+                      </div>
+                    </>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
