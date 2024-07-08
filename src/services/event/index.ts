@@ -4,10 +4,11 @@ import { SearchType } from "@/shares/types/search";
 const getEvents = async ({
   filter,
   category,
-  limit = 6,
+  limit = 100,
   page = 1,
   sort = "nameAz",
   userId,
+  status = "all",
 }: SearchType) => {
   let fetchUrl = `events?_limit=${limit}&_page=${page}`;
 
@@ -50,6 +51,17 @@ const getEvents = async ({
 
   if (userId) {
     fetchUrl += `&organizer.id=${userId}`;
+  }
+
+  switch (status) {
+    case "active":
+      fetchUrl += `&start_date_gte=${new Date().toISOString()}`;
+      break;
+    case "past":
+      fetchUrl += `&start_date_lt=${new Date().toISOString()}`;
+      break;
+    default:
+      break;
   }
   console.log(fetchUrl);
   const response = await restService(fetchUrl);

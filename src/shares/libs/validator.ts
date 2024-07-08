@@ -30,3 +30,22 @@ export const eventFormSchema = z.object({
     })
   ),
 });
+
+export const promoFormSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Event Name must be at least 3 characters" })
+    .max(100, { message: "Event Name must be less than 100 characters" }),
+  type: z.string(),
+  amount: z.number().nonnegative({ message: "Amount must be non-negative" }),
+  event_id: z
+    .string()
+    .min(3, { message: "Event Name must be at least 3 characters" })
+    .max(100, { message: "Event Name must be less than 100 characters" }),
+  quota: z.number().nonnegative({ message: "Quota must be non-negative" }),
+  voucher_code: z
+    .string()
+    .min(3, { message: "Voucher Code must be at least 3 characters" })
+    .max(100, { message: "Voucher Code must be less than 20 characters" }),
+  expire_date: z.date(),
+});

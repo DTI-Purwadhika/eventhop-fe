@@ -9,13 +9,13 @@ export const useEvents = ({
   category,
   sort,
   userId,
+  status = "all",
 }: SearchType) => {
   const [collectData, setCollectData] = useState([]);
   const [totalData, setTotalData] = useState(0);
 
   useEffect(() => {
     const fetchTheEvent = async () => {
-      console.log(userId);
       const events = await getEvents({
         filter,
         limit,
@@ -23,6 +23,7 @@ export const useEvents = ({
         category,
         sort,
         userId,
+        status,
       });
       if (events) {
         setCollectData(events.data);
@@ -30,7 +31,7 @@ export const useEvents = ({
       }
     };
     fetchTheEvent();
-  }, [filter, limit, page, category, sort, userId]);
+  }, [filter, limit, page, category, sort, userId, status]);
 
   return { collectData, totalData };
 };

@@ -1,16 +1,20 @@
 "use client";
 
 import { z } from "zod";
-import { Button, Input, Dropdown, FileInput } from "@/components/forms";
-import { eventDefaultValues } from "@/constants/routes";
-import { eventFormSchema } from "@/shares/libs/validator";
-import { EventFormProps } from "./type";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import {
+  Button,
+  Input,
+  Dropdown,
+  FileInput,
+  Textarea,
+  DatePicker,
+} from "@/components/forms";
 import { useFieldArray, useForm } from "react-hook-form";
-import DatePicker from "react-datepicker";
-import Icon from "@/shares/assets/Icon";
+import { eventDefaultValues } from "@/constants/defaultValues";
+import { eventFormSchema } from "@/shares/libs/validator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProps } from "./type";
+import { useState } from "react";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -23,7 +27,7 @@ import {
 } from "@/components/ui/form";
 import TickerTier from "./TickerTier";
 
-const EventForm = ({ type }: EventFormProps) => {
+const EventForm = ({ type }: FormProps) => {
   const [files, setFiles] = useState<File[]>([]);
 
   const form = useForm<z.infer<typeof eventFormSchema>>({
@@ -55,7 +59,11 @@ const EventForm = ({ type }: EventFormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <Input placeholder="Event title" {...field} />
+                    <Input
+                      placeholder="Your event name..."
+                      label="Event Title"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -68,9 +76,9 @@ const EventForm = ({ type }: EventFormProps) => {
                 <FormItem className="w-full">
                   <FormControl className="h-36 md:h-48 lg:h-72">
                     <Textarea
-                      placeholder="Event Description"
+                      placeholder="Tell us about your event..."
+                      label="Event Description"
                       {...field}
-                      className="textarea rounded-2xl"
                     />
                   </FormControl>
                   <FormMessage />
@@ -128,10 +136,7 @@ const EventForm = ({ type }: EventFormProps) => {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl>
-                      <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                        <Icon name="MapPin" />
-                        <Input placeholder="Event Location" field={field} />
-                      </div>
+                      <Input placeholder="Event Location" field={field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -144,7 +149,7 @@ const EventForm = ({ type }: EventFormProps) => {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
-                        <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                        {/* <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                           <Icon name="Calendar" />
                           <p className="ml-3 whitespace-nowrap text-grey-600">
                             Start Date:
@@ -159,7 +164,11 @@ const EventForm = ({ type }: EventFormProps) => {
                             dateFormat="dd/MM/yyyy h:mm aa"
                             wrapperClassName="datePicker"
                           />
-                        </div>
+                        </div> */}
+                        <DatePicker
+                          text="Start Date"
+                          onChange={field.onChange}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -171,7 +180,7 @@ const EventForm = ({ type }: EventFormProps) => {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
-                        <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
+                        {/* <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                           <Icon name="Calendar" />
                           <p className="ml-3 whitespace-nowrap text-grey-600">
                             End Date:
@@ -186,7 +195,8 @@ const EventForm = ({ type }: EventFormProps) => {
                             dateFormat="dd/MM/yyyy h:mm aa"
                             wrapperClassName="datePicker"
                           />
-                        </div>
+                        </div> */}
+                        <DatePicker text="End Date" onChange={field.onChange} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -201,17 +211,24 @@ const EventForm = ({ type }: EventFormProps) => {
               Hop on the Train!
             </legend>
             {fields.map((field, index) => (
-              <TickerTier key={field.id} control={form.control} index={index} />
+              <TickerTier
+                key={field.id}
+                control={form.control}
+                index={index}
+                remove={remove}
+              />
             ))}
-            <Button
-              type="button"
-              onClick={() => append({ tier_name: "", price: 0, quota: 0 })}
-            >
-              Add Tier
-            </Button>
+            <div className="flex justify-end mr-4">
+              <Button
+                type="button"
+                onClick={() => append({ tier_name: "", price: 0, quota: 0 })}
+              >
+                Add Tier
+              </Button>
+            </div>
           </fieldset>
         </div>
-        <div className="flex justify-end">
+        <div className="flex justify-end mr-8">
           <Button type="submit" disabled={form.formState.isSubmitting}>
             {form.formState.isSubmitting ? "Submitting..." : `${type} Event`}
           </Button>

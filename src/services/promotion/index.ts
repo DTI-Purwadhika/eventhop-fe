@@ -6,6 +6,7 @@ const getPromotions = async ({
   limit = 6,
   page = 1,
   sort = "nameAz",
+  userId,
 }: SearchType) => {
   let fetchUrl = `promotions?_limit=${limit}&_page=${page}`;
 
@@ -35,6 +36,11 @@ const getPromotions = async ({
       fetchUrl += `&_sort=start_date&_order=desc`;
       break;
   }
+
+  if (userId) {
+    fetchUrl += `&user_id=${userId}`;
+  }
+
   const response = await restService(fetchUrl);
 
   return { data: response?.result, totalPages: response?.totalData };

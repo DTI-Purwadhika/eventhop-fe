@@ -14,4 +14,5 @@ export type SearchType = {
     | "far_date"
     | "low_price"
     | "high_price";
+  status?: "active" | "past" | "all";
 };

@@ -104,21 +104,3 @@ export const adminLinks: {
     icon: "MessageCircleQuestion",
   },
 ];
-
-export const eventDefaultValues = {
-  name: "",
-  description: "",
-  location: "",
-  imageUrl: "",
-  startDateTime: new Date(),
-  endDateTime: new Date(),
-  categoryId: "",
-  url: "",
-  ticketTiers: [
-    {
-      tier_name: "",
-      price: 0,
-      quota: 0,
-    },
-  ],
-};

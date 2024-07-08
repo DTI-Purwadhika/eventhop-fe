@@ -1,16 +1,15 @@
 "use client";
 import { Collection } from "@/components/elements";
-import { columns } from "./type";
-import { useState } from "react";
-import { useEvents } from "@/hooks/useEvent";
 import { SearchType } from "@/shares/types/search";
 import { useSession } from "next-auth/react";
+import { useEvents } from "@/hooks/useEvent";
+import { useState } from "react";
+import { columns } from "./type";
 
 const Events = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: session } = useSession();
-  console.log(session);
-  console.log(session?.user?.id);
+
   const events: SearchType = {
     filter: "",
     limit: 10,

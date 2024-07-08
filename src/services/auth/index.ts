@@ -66,8 +66,7 @@ const authOptions: NextAuthConfig = {
   callbacks: {
     async signIn({ user }) {
       const userLogged = await checkUser(user.email || "");
-      console.log("from sign in : ");
-      console.log(user);
+
       if (userLogged) {
         return true;
       }
@@ -85,13 +84,11 @@ const authOptions: NextAuthConfig = {
         session.user.token = token.token;
         session.user.refreshToken = token.refreshToken;
       }
-      console.log(session.user);
       return session;
     },
     async jwt({ token, user }: any) {
       // Initial sign in
-      console.log("check user : ");
-      console.log(user);
+
       if (user) {
         token.id = user.id;
         token.name = user.name;

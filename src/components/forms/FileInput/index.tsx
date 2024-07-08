@@ -24,7 +24,7 @@ const UploadedImg = ({ imageUrl }: { imageUrl: string }) => (
 const DropZone = () => (
   <div className="flex-center flex-col py-5 text-grey-500">
     <Icon name="Upload" />
-    <Button>Select from computer</Button>
+    <Button className="mt-8">Select from computer</Button>
   </div>
 );
 
@@ -45,7 +45,7 @@ const FileUploader = ({ imageUrl, onFieldChange, setFiles }: FileType) => {
   return (
     <div
       {...getRootProps()}
-      className="flex-center bg-dark-3 flex h-72 cursor-pointer flex-col overflow-hidden rounded-xl bg-grey-50"
+      className="flex-center bg-dark-3 flex h-72 cursor-pointer flex-col overflow-hidden rounded-xl bg-slate-50 border-2 border-slate-300 transition-colors hover:border-slate-500 hover:border-dashed hover:bg-slate-200"
     >
       <input {...getInputProps()} className="cursor-pointer" />
       {imageUrl ? <UploadedImg imageUrl={imageUrl} /> : <DropZone />}

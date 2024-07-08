@@ -13,37 +13,42 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "../";
+import { Label } from "@/components/ui/label";
 
 const DatePicker = ({ text, onChange }: { text: string; onChange?: any }) => {
   const [date, setDate] = useState<Date>();
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={"outline"}
-          className={cn(
-            "w-[280px] justify-start text-left font-normal",
-            !date && "text-muted-foreground"
-          )}
-        >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          <Input
-            placeholder={text}
-            value={date ? format(date, "dd MMMM yyyy") : text}
-            onChange={onChange}
+    <>
+      <Label>{text}</Label>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            variant={"outline"}
+            className={cn(
+              "w-full justify-start text-left font-normal p-0",
+              !date && "text-muted-foreground"
+            )}
+          >
+            <CalendarIcon className="mx-2 h-4 w-4" />
+            <Input
+              placeholder={text}
+              value={date ? format(date, "dd MMMM yyyy") : text}
+              onChange={onChange}
+              className="w-full rounded-l-none rounded-r-md"
+            />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0">
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            initialFocus
           />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-        />
-      </PopoverContent>
-    </Popover>
+        </PopoverContent>
+      </Popover>
+    </>
   );
 };
 

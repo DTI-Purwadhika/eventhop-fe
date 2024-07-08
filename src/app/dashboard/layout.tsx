@@ -3,7 +3,7 @@ import DashboardHead from "@/components/layouts/Header/DashboardHead";
 import type { ChildType } from "@/shares/types";
 
 const RootLayout = ({ children }: ChildType) => (
-  <div className="grid min-h-screen w-full lg:grid-cols-[220px_1fr] xl:grid-cols-[280px_1fr]">
+  <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
     <div className="hidden border rounded-lg lg:block m-4">
       <Sidebar />
     </div>
