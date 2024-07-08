@@ -32,7 +32,6 @@ const EventCon = ({
         setCurrentPage={setCurrentPage}
         filter={filter}
         limit={4}
-        type="all_events"
       />
     </section>
   );

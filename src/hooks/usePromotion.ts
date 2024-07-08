@@ -27,7 +27,7 @@ export const usePromotion = ({
       }
     };
     fetchTheEvent();
-  }, [filter, limit, page, sort]);
+  }, [filter, limit, page, sort, userId]);
 
   return { collectData, totalData };
 };
