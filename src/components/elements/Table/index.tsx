@@ -54,7 +54,7 @@ export function DataTable<TData, TValue>({
                 className={
                   index === 3 || index === 4
                     ? "hidden lg:table-cell"
-                    : index === 1
+                    : index === 1 && table.getHeaderGroups().length > 2
                       ? "hidden md:table-cell"
                       : ""
                 }
@@ -90,7 +90,7 @@ export function DataTable<TData, TValue>({
                   className={
                     index === 3 || index === 4
                       ? "hidden lg:table-cell"
-                      : index === 1
+                      : index === 1 && table.getHeaderGroups().length > 2
                         ? "hidden md:table-cell"
                         : ""
                   }

@@ -45,6 +45,11 @@ export const userLinks: {
     icon: "UserRound",
   },
   {
+    label: "My Referral",
+    route: "/referral",
+    icon: "UserRoundPlus",
+  },
+  {
     label: "Support Ticket",
     route: "/support",
     icon: "MessageCircleQuestion",

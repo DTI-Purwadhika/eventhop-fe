@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { bodyFont } from "@/shares/assets/Font";
+import { Toaster } from "@/components/ui/sonner";
 
 import "@/styles/globals.css";
 
@@ -23,7 +24,10 @@ const RootLayout = ({ children }: ChildType) => (
         enableSystem
         disableTransitionOnChange
       >
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider>
+          {children}
+          <Toaster />
+        </SessionProvider>
       </ThemeProvider>
     </body>
   </html>

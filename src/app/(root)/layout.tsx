@@ -7,7 +7,7 @@ const RootLayout = ({ children }: ChildType) => (
       <Header />
     </div>
     <div
-      className="overflow-y-auto rounded-2xl mx-4 mt-4"
+      className="overflow-y-auto overflow-x-hidden rounded-2xl mx-4 mt-4"
       style={{ scrollbarWidth: "none" }}
     >
       <div className="hidden md:block">

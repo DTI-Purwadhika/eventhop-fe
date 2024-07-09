@@ -19,6 +19,8 @@ import {
   TicketPercent,
   Pencil,
   Plus,
+  UserRoundPlus,
+  Clipboard,
 } from "lucide-react";
 
 const Upload = () => (
@@ -51,6 +53,8 @@ export const Icons = {
   TicketPercent,
   Pencil,
   Plus,
+  UserRoundPlus,
+  Clipboard,
 };
 
 const Icon: React.FC<{ name: string; className?: string }> = ({

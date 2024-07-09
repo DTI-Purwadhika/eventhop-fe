@@ -47,11 +47,11 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
       filter += `&price_gte=${startPrice}`;
     }
 
-    // if (endDate !== null) {
-    //   filter += `&date_gte=${startDate}&date_lte=${endDate}`;
-    // } else {
-    //   filter += `&date_gte=${startDate}`;
-    // }
+    if (endDate !== null) {
+      filter += `&date_gte=${startDate}&date_lte=${endDate}`;
+    } else {
+      filter += `&date_gte=${startDate}`;
+    }
 
     setAddFilter(filter);
   };
@@ -59,7 +59,7 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
   return (
     <section
       id="events"
-      className="my-8 mx-4 md:ml-36 md:mr-12 flex flex-col gap-8 md:gap-12"
+      className="my-8 mx-4 md:mx-12 flex flex-col gap-8 md:gap-12"
     >
       <Heading size="h2">Discover Your Hopportunity!</Heading>
       <div className="grid grid-cols-8">
