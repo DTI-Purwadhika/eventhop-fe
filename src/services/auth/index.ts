@@ -63,6 +63,13 @@ const authOptions: NextAuthConfig = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  pages: {
+    signIn: "/sign/in",
+    signOut: "/sign/out",
+    verifyRequest: "/sign/verify",
+    error: "/sign/error",
+    newUser: "/sign/up",
+  },
   callbacks: {
     async signIn({ user }) {
       const userLogged = await checkUser(user.email || "");
@@ -99,6 +106,7 @@ const authOptions: NextAuthConfig = {
         token.token = user.token;
         token.refreshToken = user.refreshToken;
       }
+      console.log(token);
       return token;
     },
   },

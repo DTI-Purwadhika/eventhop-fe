@@ -17,7 +17,7 @@ const Register = () => {
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Welcome</h1>
         <p className="text-muted-foreground">
-          Sign in to your account or create a new one.
+          Sign up to your account or create a new one.
         </p>
       </div>
       <Card>

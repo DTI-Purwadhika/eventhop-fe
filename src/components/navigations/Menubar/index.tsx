@@ -19,9 +19,9 @@ const MenuItem = ({
         pathName === link.route && "text-primary-500"
       } p-medium-16 whitespace-nowrap ${
         !isLogin &&
-        (link.route === "/dashboard" || link.route === `${BASE_PATH}/signout`)
+        (link.route === "/dashboard" || link.route === `${BASE_PATH}/out`)
           ? "hidden"
-          : isLogin && link.route === `${BASE_PATH}/signin`
+          : isLogin && link.route === `${BASE_PATH}/in`
             ? "hidden"
             : "flex"
       }`}

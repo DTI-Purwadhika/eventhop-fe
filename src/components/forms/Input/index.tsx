@@ -26,6 +26,7 @@ const InputCom = ({
       min={0}
       step={1}
       onBlur={onBlur}
+      autoComplete="none"
     />
   </>
 );

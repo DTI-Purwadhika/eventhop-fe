@@ -13,28 +13,30 @@ const ButtonCom = ({
   variant = "default",
   onClick = () => {},
   disabled = false,
-  iconOnly = "sm",
+  iconOnly,
   icon,
   size = "lg",
   type = "button",
 }: ChildType & ButtonType) => (
   <Button
     size={iconOnly === "all" ? "icon" : size}
-    className={`rounded-xl sm:w-fit ${className}`}
+    className={`rounded-xl ${className}`}
     variant={variant}
     onClick={onClick}
     disabled={disabled}
     type={type}
   >
     <Link href={url} className="flex gap-2">
-      {icon && <Icon name={icon} className={`h-5 w-5`} />}
+      {icon && (
+        <Icon name={icon} className={`h-5 w-5 ${size === "icon" && "ml-2"}`} />
+      )}
       <div
         className={
           iconOnly === "md"
             ? "hidden lg:block"
             : iconOnly === "sm"
               ? "hidden md:block"
-              : "hidden"
+              : ""
         }
       >
         {children}

@@ -49,3 +49,35 @@ export const promoFormSchema = z.object({
     .max(100, { message: "Voucher Code must be less than 20 characters" }),
   expire_date: z.date(),
 });
+
+const passwordSchema = z.string();
+// .min(8, { message: "Password must be at least 8 characters" })
+// .max(64, { message: "Password must be less than 64 characters" })
+// .refine((value) => /[A-Z]/.test(value), {
+//   message: "Password must contain at least one uppercase letter",
+// })
+// .refine((value) => /[a-z]/.test(value), {
+//   message: "Password must contain at least one lowercase letter",
+// })
+// .refine((value) => /[0-9]/.test(value), {
+//   message: "Password must contain at least one number",
+// })
+// .refine((value) => /[^A-Za-z0-9]/.test(value), {
+//   message: "Password must contain at least one special character",
+// });
+
+export const loginFormSchema = z.object({
+  email: z
+    .string()
+    .min(3, { message: "Email must be at least 3 characters" })
+    .max(64, { message: "Email must be less than 64 characters" }),
+  password: passwordSchema,
+});
+
+export const registerFormSchema = loginFormSchema.extend({
+  name: z
+    .string()
+    .min(3, { message: "Name must be at least 3 characters" })
+    .max(64, { message: "Name must be less than 64 characters" }),
+  passwordConfirmation: passwordSchema,
+});

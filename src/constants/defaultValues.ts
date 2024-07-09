@@ -22,3 +22,14 @@ export const promoDefaultValues = {
   expire_date: new Date(),
   user_id: "",
 };
+
+export const loginDefaultValues = {
+  email: "",
+  password: "",
+};
+
+export const registerDefaultValues = {
+  name: "",
+  email: "",
+  password: "",
+};
