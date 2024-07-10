@@ -34,6 +34,7 @@ const EventForm = ({ type }: FormProps) => {
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: eventDefaultValues,
+    mode: `onChange`,
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -156,7 +157,7 @@ const EventForm = ({ type }: FormProps) => {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormControl>
-                      <Input placeholder="Event Location" field={field} />
+                      <Input placeholder="Event Location" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -169,26 +170,7 @@ const EventForm = ({ type }: FormProps) => {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
-                        {/* <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                          <Icon name="Calendar" />
-                          <p className="ml-3 whitespace-nowrap text-grey-600">
-                            Start Date:
-                          </p>
-                          <DatePicker
-                            selected={new Date(field.value)}
-                            onChange={(date: Date | null) =>
-                              field.onChange(date)
-                            }
-                            showTimeSelect
-                            timeInputLabel="Time:"
-                            dateFormat="dd/MM/yyyy h:mm aa"
-                            wrapperClassName="datePicker"
-                          />
-                        </div> */}
-                        <DatePicker
-                          text="Start Date"
-                          onChange={field.onChange}
-                        />
+                        <DatePicker text="Start Date" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -216,7 +198,7 @@ const EventForm = ({ type }: FormProps) => {
                             wrapperClassName="datePicker"
                           />
                         </div> */}
-                        <DatePicker text="End Date" onChange={field.onChange} />
+                        <DatePicker text="End Date" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

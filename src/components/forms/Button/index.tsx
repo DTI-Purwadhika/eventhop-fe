@@ -26,20 +26,37 @@ const ButtonCom = ({
     disabled={disabled}
     type={type}
   >
-    <Link href={url} className="flex gap-2">
-      {icon && <Icon name={icon} className={`h-5 w-5`} />}
-      <div
-        className={
-          iconOnly === "md"
-            ? "hidden lg:block"
-            : iconOnly === "sm"
-              ? "hidden md:block"
-              : "hidden"
-        }
-      >
-        {children}
+    {url === "#" ? (
+      <div className="flex gap-2">
+        {icon && <Icon name={icon} className={`h-5 w-5`} />}
+        <div
+          className={
+            iconOnly === "md"
+              ? "hidden lg:block"
+              : iconOnly === "sm"
+                ? "hidden md:block"
+                : "hidden"
+          }
+        >
+          {children}
+        </div>
       </div>
-    </Link>
+    ) : (
+      <Link href={url} className="flex gap-2">
+        {icon && <Icon name={icon} className={`h-5 w-5`} />}
+        <div
+          className={
+            iconOnly === "md"
+              ? "hidden lg:block"
+              : iconOnly === "sm"
+                ? "hidden md:block"
+                : "hidden"
+          }
+        >
+          {children}
+        </div>
+      </Link>
+    )}
   </Button>
 );
 export default ButtonCom;

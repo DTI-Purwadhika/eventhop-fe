@@ -12,7 +12,8 @@ const InputCom = ({
   value,
   label,
   onBlur,
-}: InputType) => (
+  ...props
+}: InputType & React.InputHTMLAttributes<HTMLInputElement>) => (
   <>
     <Label className="text-sm">{label}</Label>
     <Input
@@ -26,6 +27,7 @@ const InputCom = ({
       min={0}
       step={1}
       onBlur={onBlur}
+      {...props}
     />
   </>
 );
