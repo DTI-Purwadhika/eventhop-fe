@@ -23,7 +23,7 @@ const EventCon = ({
   const { collectData, totalData } = useEvents(events);
 
   return (
-    <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
+    <section id="events" className="mb-4 flex flex-col gap-8 md:gap-12">
       <Collection
         title="Events"
         data={collectData}

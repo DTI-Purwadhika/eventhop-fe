@@ -22,6 +22,7 @@ import {
   UserRoundPlus,
   Clipboard,
   ListFilter,
+  Filter,
 } from "lucide-react";
 
 const Upload = () => (
@@ -57,6 +58,7 @@ export const Icons = {
   Plus,
   UserRoundPlus,
   Clipboard,
+  Filter,
 };
 
 const Icon: React.FC<{ name: string; className?: string }> = ({

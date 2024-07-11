@@ -14,13 +14,12 @@ import {
 } from "@/components/ui/popover";
 import { Input } from "../";
 import { Label } from "@/components/ui/label";
-import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css";
 import "./style.css";
+import TimePicker from "react-time-picker";
 import { ControllerRenderProps } from "react-hook-form";
 
 const DatePicker = ({
-  text,
   field,
   onChange,
   value,
@@ -29,7 +28,6 @@ const DatePicker = ({
   placeholder,
   label,
 }: {
-  text?: string;
   placeholder?: string;
   label?: string;
   onChange?: any;
@@ -74,7 +72,7 @@ const DatePicker = ({
               value={
                 value
                   ? format(value, withTime ? "d MMMM yyyy HH:mm" : "d/MM/yyyy")
-                  : text
+                  : undefined
               }
               onChange={onChange}
               className="w-full rounded-l-none rounded-r-md"

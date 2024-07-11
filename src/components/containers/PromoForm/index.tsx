@@ -159,7 +159,6 @@ const PromoForm = ({ type }: FormProps) => {
                       />
                     </div> */}
                     <DatePicker
-                      text="Expire Date"
                       onChange={(date: Date | null) => field.onChange(date)}
                     />
                   </FormControl>

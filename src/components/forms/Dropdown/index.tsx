@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 type DropdownProps = {
   value: string;
   setCategory?: any;
+  label?: string;
 };
 
 const getCategory = async () => {
@@ -21,7 +22,7 @@ const getCategory = async () => {
   return response;
 };
 
-const Dropdown = ({ value, setCategory }: DropdownProps) => {
+const Dropdown = ({ value, setCategory, label }: DropdownProps) => {
   const [categories, setCategories] = useState<any[]>([]);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const Dropdown = ({ value, setCategory }: DropdownProps) => {
 
   return (
     <>
-      <Label>Event Category</Label>
+      <Label>{label}</Label>
       <Select onValueChange={onChangeHandler} defaultValue={value}>
         <SelectTrigger className="select-field">
           <SelectValue placeholder="Category" />

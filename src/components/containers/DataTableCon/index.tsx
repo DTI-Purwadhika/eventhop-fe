@@ -14,15 +14,7 @@ import { DataType } from "@/shares/types/data";
 import { FilterButton } from "@/components/navigations";
 import FilterContent from "@/components/navigations/FilterContent";
 
-const TabMenu = () => (
-  // <TabsList>
-  //   <TabsTrigger value="all">All</TabsTrigger>
-  //   <TabsTrigger value="active">Active</TabsTrigger>
-  //   <TabsTrigger value="past">Past</TabsTrigger>
-  // </TabsList>
-  // dropdown
-  <></>
-);
+const TabMenu = () => <></>;
 
 const DataTableCon = ({
   columns,
@@ -33,6 +25,7 @@ const DataTableCon = ({
   currentPage,
   setCurrentPage,
   noCrud,
+  filterData,
 }: DataTableType & DataType) => (
   <Card>
     <CardHeader className="mb-1">
@@ -42,7 +35,19 @@ const DataTableCon = ({
           {/* <TabMenu /> */}
           <div className="absolute flex right-0 gap-3">
             <FilterButton>
-              <FilterContent />
+              <FilterContent
+                startPrice={filterData.startPrice}
+                endPrice={filterData.endPrice}
+                setStartPrice={filterData.startPrice}
+                setEndPrice={filterData.endPrice}
+                setStartDate={filterData.setStartDate}
+                setEndDate={filterData.setEndDate}
+                isFree={filterData.isFree}
+                setIsFree={filterData.setIsFree}
+                handleSubmit={filterData.handleSubmit}
+                setCategory={filterData.setCategory}
+                category=""
+              />
             </FilterButton>
             <Button
               url={`/dashboard/${title.toLowerCase()}/new`}

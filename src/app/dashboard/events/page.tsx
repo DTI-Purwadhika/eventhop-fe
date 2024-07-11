@@ -1,10 +1,11 @@
 "use client";
-import { Collection } from "@/components/elements";
+import { DataTableCon } from "@/components/containers";
 import { SearchType } from "@/shares/types/search";
 import { useSession } from "next-auth/react";
 import { useEvents } from "@/hooks/useEvent";
 import { useState } from "react";
 import { columns } from "./type";
+import { GetAllEventsParams } from "@/shares/types";
 
 const Events = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,15 +22,59 @@ const Events = () => {
 
   const { collectData, totalData } = useEvents(events);
 
+  const [category, setCategory] = useState("all");
+  const [sort, setSort] = useState<GetAllEventsParams["sort"]>("nameAz");
+  const [isFree, setIsFree] = useState(false);
+
+  const [startPrice, setStartPrice] = useState<number | undefined>();
+  const [endPrice, setEndPrice] = useState<number | undefined>(undefined);
+  const [startDate, setStartDate] = useState<Date | undefined>(new Date());
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+
+  const handleSubmit = () => {
+    console.log("handleSubmit clicked");
+    let filter = "";
+
+    if (isFree) {
+      filter += "&price_gte=0&price_lte=0";
+    } else if (endPrice !== null) {
+      filter += `&price_gte=${startPrice}&price_lte=${endPrice}`;
+    } else {
+      filter += `&price_gte=${startPrice}`;
+    }
+
+    // if (endDate !== null) {
+    //   filter += `&date_gte=${changeFormat(startDate)}&date_lte=${changeFormat(endDate)}`;
+    // } else {
+    //   filter += `&date_gte=${changeFormat(startDate)}`;
+    // }
+  };
+
+  const filterData = {
+    startPrice,
+    endPrice,
+    setStartPrice,
+    setEndPrice,
+    setStartDate,
+    setEndDate,
+    isFree,
+    setIsFree,
+    category,
+    setCategory,
+    handleSubmit,
+  };
+
   return (
-    <Collection
-      column={columns}
-      limit={10}
+    <DataTableCon
       title="Events"
+      columns={columns}
       data={collectData}
       totalData={totalData}
+      limit={10}
       currentPage={currentPage}
+      type={"ORGANIZED"}
       setCurrentPage={setCurrentPage}
+      filterData={filterData}
     />
   );
 };
