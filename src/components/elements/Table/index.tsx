@@ -65,12 +65,6 @@ export function DataTable<TData, TValue>({
                 )}
               </TableHead>
             ))}
-            <TableHead
-              key={headerGroup.id + "-action"}
-              className={noCrud ? "hidden" : ""}
-            >
-              Action
-            </TableHead>
           </TableRow>
         ))}
       </TableHeader>
@@ -100,24 +94,6 @@ export function DataTable<TData, TValue>({
                   </div>
                 </TableCell>
               ))}
-              <TableCell
-                key={`${row.id}-actions`}
-                className={noCrud ? "hidden" : ""}
-              >
-                <div className="flex flex-col md:flex-row items-end gap-1">
-                  <Button icon="Pencil" iconOnly="sm" size="sm">
-                    Edit
-                  </Button>
-                  <Button
-                    icon="Trash"
-                    iconOnly="md"
-                    size="sm"
-                    variant="destructive"
-                  >
-                    Delete
-                  </Button>
-                </div>
-              </TableCell>
             </TableRow>
           ))
         ) : (

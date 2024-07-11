@@ -36,7 +36,7 @@ const Card = ({
             />
           </Link>
 
-          <DeleteConfirmation eventId={event.id} />
+          {/* <DeleteConfirmation id={event.id} /> */}
         </div>
       )}
       <Link

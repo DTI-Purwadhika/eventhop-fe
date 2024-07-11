@@ -52,3 +52,11 @@ export const promoFormSchema = z.object({
     .max(100, { message: "Voucher Code must be less than 20 characters" }),
   expire_date: z.date(),
 });
+
+export const filterFormSchema = z.object({
+  category: z.string().optional(),
+  startPrice: z.coerce.number().optional(),
+  endPrice: z.coerce.number().optional(),
+  startDate: z.date().optional(),
+  endDate: z.date().optional(),
+});

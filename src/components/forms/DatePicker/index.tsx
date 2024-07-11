@@ -21,16 +21,22 @@ import { ControllerRenderProps } from "react-hook-form";
 
 const DatePicker = ({
   text,
-  withTime,
   field,
   onChange,
   value,
+  withTime = true,
+  withPast = false,
+  placeholder,
+  label,
 }: {
-  text: string;
+  text?: string;
+  placeholder?: string;
+  label?: string;
   onChange?: any;
-  withTime?: boolean;
   value?: Date;
   field?: ControllerRenderProps<any, any>;
+  withTime?: boolean;
+  withPast?: boolean;
 }) => {
   const [selectedTime, setSelectedTime] = useState("10:00");
   const [selectedDate, setSelectedDate] = useState<Date>();
@@ -52,7 +58,7 @@ const DatePicker = ({
 
   return (
     <>
-      <Label>{text}</Label>
+      <Label>{label}</Label>
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -64,8 +70,12 @@ const DatePicker = ({
           >
             <CalendarIcon className="mx-2 h-4 w-4" />
             <Input
-              placeholder={text}
-              value={value ? format(value, "dd MMMM yyyy HH:mm") : text}
+              placeholder={placeholder || "Select date"}
+              value={
+                value
+                  ? format(value, withTime ? "d MMMM yyyy HH:mm" : "d/MM/yyyy")
+                  : text
+              }
               onChange={onChange}
               className="w-full rounded-l-none rounded-r-md"
               {...field}
@@ -78,14 +88,16 @@ const DatePicker = ({
             selected={value}
             onSelect={setSelectedDate}
             initialFocus
-            disabled={(date) => date < new Date()}
+            disabled={(date) => (withPast ? false : date < new Date())}
           />
-          <TimePicker
-            onChange={(e) => handleTimeChange(e)}
-            value={value}
-            format="HH:mm"
-            disableClock={true}
-          />
+          {withTime && (
+            <TimePicker
+              onChange={(e) => handleTimeChange(e)}
+              value={value}
+              format="HH:mm"
+              disableClock={true}
+            />
+          )}
         </PopoverContent>
       </Popover>
     </>

@@ -6,19 +6,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { DataTable } from "@/components/elements/Table";
 import { DataTableType } from "./type";
 import { Pagination } from "@/components/layouts";
 import { DataType } from "@/shares/types/data";
+import { FilterButton } from "@/components/navigations";
+import FilterContent from "@/components/navigations/FilterContent";
 
 const TabMenu = () => (
-  <TabsList>
-    <TabsTrigger value="all">All</TabsTrigger>
-    <TabsTrigger value="active">Active</TabsTrigger>
-    <TabsTrigger value="past">Past</TabsTrigger>
-  </TabsList>
+  // <TabsList>
+  //   <TabsTrigger value="all">All</TabsTrigger>
+  //   <TabsTrigger value="active">Active</TabsTrigger>
+  //   <TabsTrigger value="past">Past</TabsTrigger>
+  // </TabsList>
+  // dropdown
+  <></>
 );
 
 const DataTableCon = ({
@@ -32,41 +35,44 @@ const DataTableCon = ({
   noCrud,
 }: DataTableType & DataType) => (
   <Card>
-    <CardHeader>
-      <CardTitle>{title}</CardTitle>
+    <CardHeader className="mb-1">
+      <CardTitle>
+        <div className="flex justify-between relative">
+          {title}
+          {/* <TabMenu /> */}
+          <div className="absolute flex right-0 gap-3">
+            <FilterButton>
+              <FilterContent />
+            </FilterButton>
+            <Button
+              url={`/dashboard/${title.toLowerCase()}/new`}
+              icon="Plus"
+              className={noCrud ? "hidden" : ""}
+              disabled={noCrud}
+            >
+              {`${title === "Events" ? "Host" : "Add"} a new ${title}`}
+            </Button>
+          </div>
+        </div>
+      </CardTitle>
       <CardDescription>{`Manage all of your ${title} in one place`}</CardDescription>
     </CardHeader>
     <CardContent>
-      <Tabs defaultValue="all">
-        <div className="flex justify-between mb-4">
-          <TabMenu />
-          <Button
-            url={`/dashboard/${title.toLowerCase()}/new`}
-            icon="Plus"
-            className={noCrud ? "hidden" : ""}
-            disabled={noCrud}
-          >
-            {`${title === "Events" ? "Host" : "Add"} a new ${title}`}
-          </Button>
-        </div>
-        <TabsContent value="all" className="w-full overflow-x-auto">
-          <DataTable
-            columns={columns}
-            data={data}
-            currentPage={(currentPage - 1) * limit + 1}
-            noCrud={noCrud}
-          />
-        </TabsContent>
-        <br />
-        {totalData / limit > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPosts={totalData}
-            postsPerPage={limit}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
-      </Tabs>
+      <DataTable
+        columns={columns}
+        data={data}
+        currentPage={(currentPage - 1) * limit + 1}
+        noCrud={noCrud}
+      />
+      <br />
+      {totalData / limit > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPosts={totalData}
+          postsPerPage={limit}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
     </CardContent>
   </Card>
 );

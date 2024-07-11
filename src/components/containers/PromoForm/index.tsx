@@ -22,7 +22,7 @@ import EventDropdown from "@/components/forms/EventDropdown";
 const PromoForm = ({ type }: FormProps) => {
   const form = useForm<z.infer<typeof promoFormSchema>>({
     resolver: zodResolver(promoFormSchema),
-    defaultValues: promoDefaultValues,
+    // defaultValues: promoDefaultValues,
   });
 
   function onSubmit(values: z.infer<typeof promoFormSchema>) {
@@ -99,10 +99,10 @@ const PromoForm = ({ type }: FormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <EventDropdown
+                    {/* <EventDropdown
                       setEvent={field.onChange}
                       value={field.value}
-                    />
+                    /> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>

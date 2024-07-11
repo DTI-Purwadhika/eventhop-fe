@@ -6,3 +6,4 @@ export { default as Search } from "./Search";
 export { default as Filterbar } from "./Filterbar";
 export { default as Sortbar } from "./Sortbar";
 export { default as UserButton } from "./UserButton";
+export { default as FilterButton } from "./FilterButton";

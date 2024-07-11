@@ -21,6 +21,7 @@ import {
   Plus,
   UserRoundPlus,
   Clipboard,
+  ListFilter,
 } from "lucide-react";
 
 const Upload = () => (
@@ -39,6 +40,7 @@ export const Icons = {
   Home,
   Link,
   LineChart,
+  ListFilter,
   MapPin,
   Menu,
   MessageCircleMore,
