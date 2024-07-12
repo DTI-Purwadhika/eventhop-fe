@@ -34,7 +34,7 @@ const DataTableCon = ({
           {title}
           {/* <TabMenu /> */}
           <div className="absolute flex right-0 gap-3">
-            <FilterButton>
+            {/* <FilterButton>
               <FilterContent
                 startPrice={filterData.startPrice}
                 endPrice={filterData.endPrice}
@@ -48,7 +48,7 @@ const DataTableCon = ({
                 setCategory={filterData.setCategory}
                 category=""
               />
-            </FilterButton>
+            </FilterButton> */}
             <Button
               url={`/dashboard/${title.toLowerCase()}/new`}
               icon="Plus"

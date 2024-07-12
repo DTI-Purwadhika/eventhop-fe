@@ -50,6 +50,11 @@ export const userLinks: {
     icon: "UserRoundPlus",
   },
   {
+    label: "My Points",
+    route: "/points",
+    icon: "Coins",
+  },
+  {
     label: "Support Ticket",
     route: "/support",
     icon: "MessageCircleQuestion",
