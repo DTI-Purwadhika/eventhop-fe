@@ -23,6 +23,7 @@ import {
   Clipboard,
   ListFilter,
   Filter,
+  TicketCheck,
   Coins,
 } from "lucide-react";
 
@@ -61,6 +62,7 @@ export const Icons = {
   Clipboard,
   Filter,
   Coins,
+  TicketCheck,
 };
 
 const Icon: React.FC<{ name: string; className?: string }> = ({
