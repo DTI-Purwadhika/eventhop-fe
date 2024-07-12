@@ -170,7 +170,7 @@ const EventForm = ({ type }: FormProps) => {
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
-                        <DatePicker text="Start Date" {...field} />
+                        <DatePicker label="Start Date" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -198,7 +198,7 @@ const EventForm = ({ type }: FormProps) => {
                             wrapperClassName="datePicker"
                           />
                         </div> */}
-                        <DatePicker text="End Date" {...field} />
+                        <DatePicker label="End Date" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
