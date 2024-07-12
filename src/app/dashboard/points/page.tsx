@@ -1,10 +1,10 @@
 "use client";
 import { Collection } from "@/components/elements";
 import { SearchType } from "@/shares/types/search";
-import { useSession } from "next-auth/react";
 import { usePoints } from "@/hooks/usePoint";
 import { useState } from "react";
 import { columns } from "./type";
+import { DataTableCon } from "@/components/containers";
 
 const Point = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,12 +20,12 @@ const Point = () => {
   const { collectData, totalData } = usePoints(point);
 
   return (
-    <Collection
-      column={columns}
-      limit={10}
+    <DataTableCon
       title="Points"
+      columns={columns}
       data={collectData}
       totalData={totalData}
+      limit={10}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       noCrud

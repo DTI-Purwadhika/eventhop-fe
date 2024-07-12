@@ -5,7 +5,7 @@ export type DataTableType = {
   data: any;
   title: string;
   noCrud?: boolean;
-  filterData: {
+  filterData?: {
     startPrice: number | undefined;
     endPrice: number | undefined;
     setStartPrice: (value: number | undefined) => void;

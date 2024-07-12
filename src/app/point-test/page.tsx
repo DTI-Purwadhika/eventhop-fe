@@ -148,3 +148,7 @@
 // };
 
 // export default App;
+const page = () => {
+  return <div>page</div>;
+};
+export default page;

@@ -5,6 +5,7 @@ import { SearchType } from "@/shares/types/search";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { columns } from "./type";
+import { DataTableCon } from "@/components/containers";
 
 const Promotion = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,8 +23,8 @@ const Promotion = () => {
   const { collectData, totalData } = usePromotion(promos);
 
   return (
-    <Collection
-      column={columns}
+    <DataTableCon
+      columns={columns}
       limit={10}
       title="Vouchers"
       data={collectData}

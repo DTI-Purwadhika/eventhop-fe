@@ -4,6 +4,7 @@ import { Collection } from "@/components/elements";
 import { SearchType } from "@/shares/types/search";
 import { useState } from "react";
 import { columns } from "./type";
+import { DataTableCon } from "@/components/containers";
 
 const Feedback = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,12 +20,12 @@ const Feedback = () => {
   const { collectData, totalData } = useFeedbacks(feedback);
 
   return (
-    <Collection
-      column={columns}
-      limit={10}
+    <DataTableCon
       title="Feedbacks"
+      columns={columns}
       data={collectData}
       totalData={totalData}
+      limit={10}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       noCrud
