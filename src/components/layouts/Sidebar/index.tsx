@@ -9,7 +9,7 @@ import Icon, { Icons } from "@/shares/assets/Icon";
 import { adminLinks, organizerLinks, userLinks } from "@/constants/routes";
 import { Text } from "@/components/typhographies";
 import { Link, UserButton } from "@/components/navigations";
-import BasicCard from "@/components/elements/Card/BasicCard";
+import BasicCard from "@/components/elements/EventCard/BasicCard";
 import { ThemeChanger } from "@/components/elements";
 
 const SidebarItem = ({

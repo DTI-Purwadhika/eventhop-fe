@@ -25,6 +25,7 @@ import {
   Filter,
   TicketCheck,
   Coins,
+  PartyPopper,
 } from "lucide-react";
 
 const Upload = () => (
@@ -63,6 +64,7 @@ export const Icons = {
   Filter,
   Coins,
   TicketCheck,
+  PartyPopper,
 };
 
 const Icon: React.FC<{ name: string; className?: string }> = ({

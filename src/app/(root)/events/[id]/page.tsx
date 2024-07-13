@@ -26,11 +26,9 @@ import {
 import Icon from "@/shares/assets/Icon";
 
 const EventDetails = async ({ params: { id } }: SearchParamProps) => {
-  console.log(`tehe`);
   const event = await rest(id, "GET", "events");
-  console.log(event);
   return (
-    <section className="grid grid-cols-1 md:mt-10 md:mx-4 lg:grid-cols-2 2xl:max-w-7xl">
+    <section className="grid grid-cols-1 md:mt-10 md:mx-4 lg:grid-cols-2 xl:m-28 2xl:max-w-7xl">
       <Breadcrumb className="ml-2 mb-2 md:hidden">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -44,7 +42,7 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
       </Breadcrumb>
       <Image
         // src={event.images[0]}
-        src="https://picsum.photos/300/200"
+        src={event.main_image}
         alt="event image"
         width={1000}
         height={1000}
@@ -107,7 +105,7 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
             </DialogContent>
           </Dialog>
         </div>
-        <div className="flex flex-col gap-2 lg:hidden">
+        <div className="flex flex-col col-span-2 gap-2 lg:hidden">
           <Text
             size={16}
             weight="regular"
@@ -123,7 +121,7 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
           </Text>
         </Text>
       </div>
-      <Text className="text-grey-500 flex-col hidden lg:flex lg:mt-4 lg:mx-2 lg:p-regular-20">
+      <Text className="col-span-2 text-grey-500 flex-col hidden lg:flex lg:mt-8 lg:mx-4 lg:p-regular-18">
         {event.detail}
       </Text>
       {/* <Heading size="h3" weight="medium" className="mt-8">

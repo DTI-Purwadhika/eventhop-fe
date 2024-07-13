@@ -38,9 +38,7 @@ const EventDropdown = ({ value, setEvent }: DropdownProps) => {
     };
 
     fetchTheEvent();
-    console.log(loggedUser);
   }, [loggedUser]);
-  console.log(events);
 
   const onChangeHandler = (value: string) => {
     setEvent(value);

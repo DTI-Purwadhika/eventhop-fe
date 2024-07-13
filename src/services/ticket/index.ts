@@ -1,17 +1,17 @@
 import restService from "@/services/restService";
 import { SearchType } from "@/shares/types/search";
 
-const getPoints = async ({
+const getTickets = async ({
   filter,
   limit = 6,
   page = 1,
   sort = "nameAz",
 }: SearchType) => {
-  let fetchUrl = `history_points?_limit=${limit}&_page=${page}`;
+  let fetchUrl = `ticket_purchases?_limit=${limit}&_page=${page}`;
 
-  if (filter && filter !== "") {
-    fetchUrl += `&${filter}`;
-  }
+  // if (filter && filter !== "") {
+  //   fetchUrl += `&${filter}`;
+  // }
 
   //fetchUrl + `&_sort=${sort.replace("_", "")}&_order=${sort.endsWith("Az") ? "asc" : "desc"}`;
 
@@ -40,4 +40,4 @@ const getPoints = async ({
   return { data: response?.result, totalPages: response?.totalData };
 };
 
-export default getPoints;
+export default getTickets;

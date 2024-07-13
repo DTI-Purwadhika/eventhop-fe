@@ -30,7 +30,6 @@ export const restById = async (
   from: string,
   data?: any
 ) => {
-  console.log(`${from}/${id}`);
   const response = await restService(`${from}/${id}`, method, data);
   return response?.result;
 };

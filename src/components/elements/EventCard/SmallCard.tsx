@@ -20,7 +20,7 @@ const SmallCard = ({
   return (
     <div className="relative w-full overflow-hidden rounded-2xl bg-gray-500 bg-opacity-50 shadow-md transition-all hover:shadow-lg ">
       <Image
-        src={"https://picsum.photos/300/200"}
+        src={event.main_image}
         height={30}
         width={150}
         alt="event image"

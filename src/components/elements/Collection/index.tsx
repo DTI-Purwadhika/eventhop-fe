@@ -1,7 +1,7 @@
 import { CollectionType } from "./type";
 import { SearchType } from "@/shares/types/search";
-import SmallCard from "../Card/SmallCard";
-import Card from "../Card";
+import SmallCard from "../EventCard/SmallCard";
+import Card from "../EventCard";
 import { Pagination } from "@/components/layouts";
 
 const Collection = ({

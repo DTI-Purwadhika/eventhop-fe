@@ -12,7 +12,7 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
           <Image
             // src={event.images[0]}
-            src="https://picsum.photos/300/200"
+            src={event.main_image}
             alt="event image"
             width={1000}
             height={1000}
@@ -28,7 +28,9 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
                     size={20}
                     className="rounded-full bg-green-500/10 px-5 py-2 text-green-600"
                   >
-                    {event.price ? `Rp ${event.price}` : "FREE"}
+                    {event.ticket_type[0].price
+                      ? `Rp ${event.ticket_type[0].price}`
+                      : "FREE"}
                   </Text>
                   <Text
                     weight="bold"

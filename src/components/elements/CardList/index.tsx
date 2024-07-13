@@ -1,7 +1,7 @@
 import { Pagination } from "@/components/layouts";
 import { DataType } from "@/shares/types/data";
-import SmallCard from "../Card/SmallCard";
-import Card from "../Card";
+import SmallCard from "../EventCard/SmallCard";
+import Card from "../EventCard";
 
 const CardList = ({
   data,

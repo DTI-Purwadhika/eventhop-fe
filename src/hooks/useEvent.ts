@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { SearchType } from "@/shares/types/search";
 import getEvents from "@/services/event";
