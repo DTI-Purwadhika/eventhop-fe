@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const EventCon = ({
   filter = "",
-  limit = 10,
+  limit = 4,
   sort = "nameAz",
   category = "all",
 }: SearchType) => {
@@ -23,7 +23,7 @@ const EventCon = ({
   const { collectData, totalData } = useEvents(events);
 
   return (
-    <section id="events" className="mb-4 flex flex-col gap-8 md:gap-12">
+    <section id="events" className="my-4 flex flex-col gap-8 md:gap-12">
       <Collection
         title="Events"
         data={collectData}
