@@ -14,13 +14,23 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import Button from "@/components/forms/Button";
+import { PurchaseCon } from "@/components/containers";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Icon from "@/shares/assets/Icon";
 
 const EventDetails = async ({ params: { id } }: SearchParamProps) => {
   console.log(`tehe`);
   const event = await rest(id, "GET", "events");
   console.log(event);
   return (
-    <section className="grid grid-cols-1 md:mt-10 md:mx-4 xl:grid-cols-2 2xl:max-w-7xl">
+    <section className="grid grid-cols-1 md:mt-10 md:mx-4 lg:grid-cols-2 2xl:max-w-7xl">
       <Breadcrumb className="ml-2 mb-2 md:hidden">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -82,9 +92,20 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
               </Text>
             </div>
           </div>
-          <Button className="mt-4 w-full col-span-2" icon="TicketCheck">
-            Purchase Ticket
-          </Button>
+          <Dialog>
+            <DialogTrigger className="flex justify-center bg-primary-500 rounded-xl text-white p-3 mt-4 w-full col-span-2">
+              <Icon name="TicketCheck" className="mr-2" />
+              Purchase Ticket
+            </DialogTrigger>
+            <DialogContent className="bg-white w-full h-full py-4">
+              <DialogHeader>
+                <DialogTitle>Purchase {event.name} Ticket</DialogTitle>
+                <DialogDescription>
+                  <PurchaseCon />
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
         </div>
         <div className="flex flex-col gap-2 lg:hidden">
           <Text
