@@ -1,7 +1,15 @@
+import { ColumnDef } from "@tanstack/react-table";
+import { Dispatch, SetStateAction } from "react";
+
 export type CollectionType = {
-  emptyTitle?: string;
-  emptyDescription?: string;
-  type: "all_events" | "event_organized" | "my_tickets";
-  isSearch?: boolean;
+  limit: number;
+  column?: ColumnDef<any>[];
+  type?: string;
   isSmall?: boolean;
+  title?: string;
+  data: any;
+  totalData: number;
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
+  noCrud?: boolean;
 };

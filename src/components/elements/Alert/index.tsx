@@ -14,30 +14,42 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import Icon from "@/assets/Icon";
+import { Button } from "@/components/forms";
 
 // import { deleteEvent } from '@/lib/actions/event.actions'
 
-const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
+const DeleteConfirmation = ({
+  type,
+  name,
+  id,
+}: {
+  type: string;
+  name: string;
+  id: string;
+}) => {
   const pathname = usePathname();
   let [isPending, startTransition] = useTransition();
 
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <Icon name="Trash" />
+        <Button icon="Trash" variant={"destructive"} size="sm" iconOnly="md">
+          Delete
+        </Button>
       </AlertDialogTrigger>
 
       <AlertDialogContent className="bg-white">
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure you want to delete?</AlertDialogTitle>
+          <AlertDialogTitle>
+            Do you want to remove {type} <br /> {name} ?
+          </AlertDialogTitle>
           <AlertDialogDescription className="p-regular-16 text-grey-600">
-            This will permanently delete this event
+            This will permanently delete this {type}.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="rounded-xl">Cancel</AlertDialogCancel>
 
           <AlertDialogAction
             onClick={() =>
@@ -45,6 +57,7 @@ const DeleteConfirmation = ({ eventId }: { eventId: string }) => {
                 // await deleteEvent({ eventId, path: pathname })
               })
             }
+            className="bg-red-500 text-white hover:bg-red-600 rounded-xl"
           >
             {isPending ? "Deleting..." : "Delete"}
           </AlertDialogAction>

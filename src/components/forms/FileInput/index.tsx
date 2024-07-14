@@ -2,15 +2,15 @@
 
 import { useCallback } from "react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
-import { convertFileToUrl } from "@/libs/utils";
+import { convertFileToUrl } from "@/shares/libs/utils";
 import { useDropzone } from "@uploadthing/react/hooks";
 import { FileType } from "./type";
 import { Button } from "@/components/forms";
 import { Image } from "@/components/elements";
-import Icon from "@/assets/Icon";
+import Icon from "@/shares/assets/Icon";
 
 const UploadedImg = ({ imageUrl }: { imageUrl: string }) => (
-  <div className="flex h-full w-full flex-1 justify-center ">
+  <div className="flex relative h-full w-full flex-1 justify-center ">
     <Image
       src={imageUrl}
       alt="image"
@@ -18,13 +18,18 @@ const UploadedImg = ({ imageUrl }: { imageUrl: string }) => (
       height={250}
       className="w-full object-cover object-center"
     />
+    <div className="absolute w-full h-full  opacity-60 transition-opacity hover:opacity-100">
+      <Button className="absolute bottom-4 right-4" size="sm">
+        Change Image
+      </Button>
+    </div>
   </div>
 );
 
 const DropZone = () => (
   <div className="flex-center flex-col py-5 text-grey-500">
     <Icon name="Upload" />
-    <Button>Select from computer</Button>
+    <Button className="mt-8">Select from computer</Button>
   </div>
 );
 
@@ -45,7 +50,7 @@ const FileUploader = ({ imageUrl, onFieldChange, setFiles }: FileType) => {
   return (
     <div
       {...getRootProps()}
-      className="flex-center bg-dark-3 flex h-72 cursor-pointer flex-col overflow-hidden rounded-xl bg-grey-50"
+      className="flex-center bg-dark-3 flex h-72 cursor-pointer flex-col overflow-hidden rounded-xl bg-slate-50 border-2 border-slate-300 transition-colors hover:border-slate-500 hover:border-dashed hover:bg-slate-200"
     >
       <input {...getInputProps()} className="cursor-pointer" />
       {imageUrl ? <UploadedImg imageUrl={imageUrl} /> : <DropZone />}

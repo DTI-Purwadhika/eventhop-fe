@@ -1,8 +1,8 @@
-import { Logo } from "@/assets/Logo";
-import { auth } from "@/utils/getAuth";
-import { Button } from "@/components/forms";
+import { Logo } from "@/shares/assets/Logo";
+import { auth } from "@/services/auth";
 import { Menubar, Authbar } from "@/components/navigations";
 import { Heading } from "@/components/typhographies";
+import { Button } from "@/components/forms";
 
 const Header = async () => {
   const session = await auth();
@@ -13,17 +13,25 @@ const Header = async () => {
         <div className="bg-white rounded-br-full pl-1 pr-7 pb-7 hidden md:block">
           <Logo />
         </div>
-        <Heading size="h3" className="block md:hidden mb-4">
+        <Heading
+          size="h3"
+          weight="bold"
+          className="block md:hidden mb-4 h3-bold"
+        >
           Event Hop
         </Heading>
-        <nav className="md:flex hidden w-fit px-12 bg-white rounded-bl-3xl h-fit pb-2 md:pt-1">
+        <nav className="md:flex hidden w-fit px-12 bg-white rounded-bl-3xl h-fit pb-2 md:pt-1 md:fixed md:right-0 ">
           <Menubar isLogin={session ? true : false} />
         </nav>
-        {session?.user && (
-          <div className="flex md:hidden mr-8 mt-2 mb-4">
+        <div className="flex md:hidden mr-8 mt-2 mb-4">
+          {session?.user ? (
             <Authbar />
-          </div>
-        )}
+          ) : (
+            <Button size="sm" className="-mt-1">
+              Sign In
+            </Button>
+          )}
+        </div>
       </div>
     </header>
   );

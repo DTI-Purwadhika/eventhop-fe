@@ -1,10 +1,19 @@
 "use client";
 import { Category, Collection } from "@/components/elements";
-import { Filterbar, Search, Sortbar } from "@/components/navigations";
+import {
+  Filterbar,
+  FilterButton,
+  Search,
+  Sortbar,
+} from "@/components/navigations";
 import { Heading } from "@/components/typhographies";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { GetAllEventsParams } from "@/types";
+import { GetAllEventsParams } from "@/shares/types";
+import EventCon from "../EventCon";
+import { Dropdown } from "@/components/forms";
+import FilterContent from "@/components/navigations/FilterContent";
+import { dateFormatter } from "@/shares/libs/dateFormatter";
 
 const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
   const [category, setCategory] = useState("all");
@@ -36,36 +45,37 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
   }, [search, addFilter]);
 
   const handleSubmit = () => {
+    console.log("handleSubmit clicked");
     let filter = "";
 
     if (isFree) {
-      filter += "&price_gte=0&price_lte=0";
+      filter += "&ticket_type.price.0_gte=0&ticket_type.price.0_lte=0";
     } else if (endPrice !== null) {
-      filter += `&price_gte=${startPrice}&price_lte=${endPrice}`;
+      filter += `&ticket_type.price.0_gte=${startPrice}&ticket_type.price.0_lte=${endPrice}`;
     } else {
-      filter += `&price_gte=${startPrice}`;
+      filter += `&ticket_type.price.0_gte=${startPrice}`;
     }
 
     // if (endDate !== null) {
-    //   filter += `&date_gte=${startDate}&date_lte=${endDate}`;
+    //   filter += `&date_gte=${changeFormat(startDate)}&date_lte=${changeFormat(endDate)}`;
     // } else {
-    //   filter += `&date_gte=${startDate}`;
+    //   filter += `&date_gte=${changeFormat(startDate)}`;
     // }
 
     setAddFilter(filter);
   };
 
   return (
-    <section
-      id="events"
-      className="my-8 mx-4 md:ml-36 md:mr-12 flex flex-col gap-8 md:gap-12"
-    >
+    <section id="events" className="my-8 flex flex-col gap-8 md:gap-12">
       <Heading size="h2">Discover Your Hopportunity!</Heading>
-      <div className="grid grid-cols-8">
-        <div className="col-span-6">
+      <div className="grid grid-cols-12 gap-2">
+        <div className="col-span-9 md:col-span-8 lg:col-span-9 mr-2">
           <Search />
         </div>
-        <div className="md:hidden col-span-2 gap-4 flex flex-row justify-end">
+        <div className="hidden md:block md:col-span-2">
+          <Dropdown value={category} setCategory={setCategory} />
+        </div>
+        <div className="col-span-3 md:hidden gap-4 flex flex-row justify-end">
           <Filterbar
             startPrice={startPrice}
             endPrice={endPrice}
@@ -81,19 +91,25 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
           />
           <Sortbar setSort={setSort} sort={sort} />
         </div>
+        <div className="hidden md:col-span-2 lg:col-span-1 gap-4 md:flex md:flex-row md:justify-end">
+          <FilterButton>
+            <FilterContent
+              startPrice={startPrice}
+              endPrice={endPrice}
+              setStartPrice={setStartPrice}
+              setEndPrice={setEndPrice}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+              setIsFree={setIsFree}
+              handleSubmit={handleSubmit}
+              setCategory={setCategory}
+              category={category}
+            />
+          </FilterButton>
+          <Sortbar setSort={setSort} sort={sort} />
+        </div>
       </div>
-      <div className="hidden lg:block">
-        <Category category={category} setCategory={setCategory} />
-      </div>
-      <Collection
-        filter={filter}
-        category={category}
-        limit={limit}
-        type="all_events"
-        emptyTitle="No Events in This Category"
-        emptyDescription="Try choose another category."
-        sort={sort}
-      />
+      <EventCon filter={filter} limit={limit} sort={sort} category={category} />
     </section>
   );
 };

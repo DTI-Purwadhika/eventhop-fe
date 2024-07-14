@@ -1,8 +1,10 @@
 import { Text } from "@/components/typhographies";
 
 const Footer = () => (
-  <footer className="flex flex-center flex-between flex-col border-t py-3 sm:flex-row">
-    <Text align="center">2024 Event Hop © All rights reserved.</Text>
+  <footer className="ml-4 h-fit my-2">
+    <Text align="left" className="text-grey-500">
+      2024 Event Hop © All rights reserved.
+    </Text>
   </footer>
 );
 

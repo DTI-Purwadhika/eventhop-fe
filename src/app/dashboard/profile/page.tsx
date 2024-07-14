@@ -19,7 +19,7 @@ const Profile = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Avatar Section */}
           <div className="flex flex-col items-center">
-            <img
+            <Image
               src={user.avatar}
               alt="Profile Avatar"
               className="w-40 h-40 rounded-full mb-4"

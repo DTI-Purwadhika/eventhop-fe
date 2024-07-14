@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { auth, BASE_PATH } from "@/utils/getAuth";
+import { auth } from "@/services/auth";
+import { BASE_PATH } from "@/constants/config";
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|assets|images|favicon.ico|event).*)",
+    "/((?!api|_next/static|_next/image|assets|images|favicon.ico|event|sign).*)",
   ],
 };
 

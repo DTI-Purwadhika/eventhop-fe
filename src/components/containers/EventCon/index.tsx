@@ -1,33 +1,37 @@
-import Collection from "@/components/elements/Collection";
-import { Heading } from "@/components/typhographies";
-import { GetAllEventsParams } from "@/types";
+"use client";
+import { Collection } from "@/components/elements";
+import { SearchType } from "@/shares/types/search";
+import { useEvents } from "@/hooks/useEvent";
+import { useState } from "react";
 
-const EventCon = ({ filter }: GetAllEventsParams) => {
-  let headTitle = "";
+const EventCon = ({
+  filter = "",
+  limit = 4,
+  sort = "nameAz",
+  category = "all",
+}: SearchType) => {
+  const [currentPage, setCurrentPage] = useState(1);
 
-  switch (filter) {
-    case "popular":
-      headTitle = "Currently Popular Event at EVENT HOP!";
-      break;
-    case "month":
-      headTitle = "This Event Almost Start!";
-      break;
-    case "location":
-      headTitle = "Best Event Near You!";
-      break;
-    default:
-      headTitle = "";
-      break;
-  }
+  const events: SearchType = {
+    filter: filter,
+    limit: limit,
+    page: currentPage,
+    category: category,
+    sort: sort,
+  };
+
+  const { collectData, totalData } = useEvents(events);
+
   return (
-    <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-      <Heading size="h2">{headTitle}</Heading>
+    <section id="events" className="my-4 flex flex-col gap-8 md:gap-12">
       <Collection
+        title="Events"
+        data={collectData}
+        totalData={totalData}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         filter={filter}
         limit={4}
-        emptyTitle="No Events"
-        emptyDescription="Sorry, we couldn't find any events."
-        type="all_events"
       />
     </section>
   );

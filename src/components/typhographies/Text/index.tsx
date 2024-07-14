@@ -1,4 +1,4 @@
-import { ChildType } from "@/types";
+import { ChildType } from "@/shares/types";
 import TextType from "./type";
 
 const Text = ({

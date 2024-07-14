@@ -29,7 +29,7 @@ const HeroCon = () => (
     </div>
     <div className="hidden lg:block lg:w-1/6 lg:bg-gray-800 lg:bg-opacity-70 lg:rounded-2xl lg:py-4 lg:text-white justify-center gap-8 mt-6 relative lg:absolute lg:bottom-4 lg:right-4 xl:right-6 xl:bottom-8 px-4 lg:px-8">
       <h4 className="text-2xl font-black text-left mb-4">Hop Here!</h4>
-      <Collection filter="" limit={2} type="all_events" isSmall />
+      {/* <Collection filter="" limit={2} isSmall /> */}
     </div>
   </section>
 );

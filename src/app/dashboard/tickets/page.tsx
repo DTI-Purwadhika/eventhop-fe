@@ -22,13 +22,7 @@ const Tickets = async () => {
         </div>
       </div>
       <div className="wrapper my-8">
-        <Collection
-          filter=""
-          limit={4}
-          emptyTitle="No event ticket purchased yet"
-          emptyDescription="No worries - you can buy now"
-          type="my_tickets"
-        />
+        {/* <Collection filter="" limit={4} type="my_tickets"  /> */}
       </div>
     </section>
   );

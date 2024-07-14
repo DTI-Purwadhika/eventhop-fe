@@ -1,5 +1,5 @@
 import HeadingType from "./type";
-import { ChildType } from "@/types";
+import { ChildType } from "@/shares/types";
 
 const Heading = ({
   children,

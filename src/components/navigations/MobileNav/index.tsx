@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { Image } from "@/components/elements";
 import { Heading } from "@/components/typhographies";
 import { Link, Menubar, Search } from "../";
-import Icon from "@/assets/Icon";
+import Icon from "@/shares/assets/Icon";
 
 const Trigger = () => (
   <SheetTrigger className="align-middle">

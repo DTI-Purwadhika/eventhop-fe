@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Heading } from "@/components/typhographies";
-import getCategories from "@/utils/getCategories";
+import getCategories from "@/services/category";
 
 const Category = ({
   category,

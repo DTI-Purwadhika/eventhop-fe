@@ -9,4 +9,6 @@ export type InputType = {
   type?: "text" | "number" | "email" | "password";
   isDisabled?: boolean;
   value?: any;
+  label?: string;
+  onBlur?: (e: any) => void;
 };
