@@ -44,7 +44,7 @@ export const promoFormSchema = z.object({
     .max(100, { message: "Event Name must be less than 100 characters" }),
   type: z.string(),
   amount: z.number().nonnegative({ message: "Amount must be non-negative" }),
-  event_id: z.number(),
+  event_id: z.string(),
   quota: z.number().nonnegative({ message: "Quota must be non-negative" }),
   voucher_code: z
     .string()

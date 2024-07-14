@@ -36,11 +36,11 @@ const Events = () => {
     let filter = "";
 
     if (isFree) {
-      filter += "&ticket_type.price.0_gte=0&ticket_type.price.0_lte=0";
+      filter += "&ticket_type.0.price_gte=0&ticket_type.0.price_lte=0";
     } else if (endPrice !== null) {
-      filter += `&ticket_type.price.0_gte=${startPrice}&ticket_type.price.0_lte=${endPrice}`;
+      filter += `&ticket_type.0.price_gte=${startPrice}&ticket_type.0.price_lte=${endPrice}`;
     } else {
-      filter += `&ticket_type.price.0_gte=${startPrice}`;
+      filter += `&ticket_type.0.price_gte=${startPrice}`;
     }
 
     // if (endDate !== null) {

@@ -1,4 +1,4 @@
-import NextAuth, { User, NextAuthConfig } from "next-auth";
+import NextAuth, { NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import checkUser from "./services/checkUser";
@@ -73,7 +73,6 @@ const authOptions: NextAuthConfig = {
       return false;
     },
     async session({ session, token }: any) {
-      // Add user data to the session object
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name;
@@ -87,8 +86,6 @@ const authOptions: NextAuthConfig = {
       return session;
     },
     async jwt({ token, user }: any) {
-      // Initial sign in
-
       if (user) {
         token.id = user.id;
         token.name = user.name;
@@ -105,7 +102,7 @@ const authOptions: NextAuthConfig = {
   session: {
     strategy: "jwt",
     maxAge: 3 * 60 * 60,
-    updateAge: 20 * 60,
+    updateAge: 3 * 59 * 60,
   },
   cookies: {
     sessionToken: {

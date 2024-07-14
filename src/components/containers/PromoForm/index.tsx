@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import EventDropdown from "@/components/forms/EventDropdown";
+import { toTitleCase } from "@/shares/libs/toTitleCase";
 
 const PromoForm = ({ type }: FormProps) => {
   const form = useForm<z.infer<typeof promoFormSchema>>({
@@ -92,17 +93,16 @@ const PromoForm = ({ type }: FormProps) => {
             <legend className="-ml-1 px-1 text-sm font-medium">
               Tell me more!
             </legend>
-
             <FormField
               control={form.control}
               name="event_id"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    {/* <EventDropdown
+                    <EventDropdown
                       setEvent={field.onChange}
                       value={field.value}
-                    /> */}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -147,19 +147,9 @@ const PromoForm = ({ type }: FormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    {/* <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                      <Icon name="Calendar" />
-                      <DatePicker
-                        selected={new Date(field.value)}
-                        onChange={(date: Date | null) => field.onChange(date)}
-                        showTimeSelect
-                        timeInputLabel="Time:"
-                        dateFormat="dd/MM/yyyy h:mm aa"
-                        wrapperClassName="datePicker"
-                      />
-                    </div> */}
                     <DatePicker
                       onChange={(date: Date | null) => field.onChange(date)}
+                      label="Expire Date"
                     />
                   </FormControl>
                   <FormMessage />
@@ -170,7 +160,9 @@ const PromoForm = ({ type }: FormProps) => {
         </div>
         <div className="flex justify-end">
           <Button type="submit" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? "Submitting..." : `${type} Voucher`}
+            {form.formState.isSubmitting
+              ? "Submitting..."
+              : `${toTitleCase(type)} Voucher`}
           </Button>
         </div>
       </form>
