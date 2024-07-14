@@ -73,3 +73,8 @@ export const profileFormSchema = z.object({
   location: z.string(),
   profilePicture: z.string(),
 });
+
+export const loginFormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});

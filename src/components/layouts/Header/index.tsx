@@ -20,7 +20,7 @@ const Header = async () => {
         >
           Event Hop
         </Heading>
-        <nav className="md:flex hidden w-fit px-12 bg-white rounded-bl-3xl h-fit pb-2 md:pt-1 md:fixed md:right-0 ">
+        <nav className="md:flex hidden w-fit px-4 bg-white rounded-bl-3xl h-fit pb-1 md:fixed md:right-0 ">
           <Menubar isLogin={session ? true : false} />
         </nav>
         <div className="flex md:hidden mr-8 mt-2 mb-4">

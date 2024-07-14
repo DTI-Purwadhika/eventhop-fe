@@ -16,11 +16,7 @@ export const headerLinks = [
   },
   {
     label: "Login",
-    route: `${BASE_PATH}/signin`,
-  },
-  {
-    label: "Logout",
-    route: `${BASE_PATH}/signout`,
+    route: `${BASE_PATH}/in`,
   },
 ];
 

@@ -11,7 +11,7 @@ export const config = {
 export default auth((req) => {
   const reqUrl = new URL(req.url);
   if (!req.auth && reqUrl?.pathname !== "/") {
-    return NextResponse.redirect(new URL(`${BASE_PATH}/signin`, req.url));
+    return NextResponse.redirect(new URL(`${BASE_PATH}/in`, req.url));
   }
   const user: any = req.auth?.user;
 

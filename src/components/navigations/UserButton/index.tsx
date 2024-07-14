@@ -8,9 +8,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { CircleUser } from "lucide-react";
-import { BASE_PATH } from "@/constants/config";
 import { Button } from "@/components/ui/button";
-import Link from "../Link";
+import { Link } from "..";
 
 const UserButton = () => {
   return (
@@ -24,12 +23,9 @@ const UserButton = () => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {/* <DropdownMenuItem>Settings</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
-        <DropdownMenuSeparator /> */}
         <DropdownMenuItem>
-          <Link href={`${BASE_PATH}/signout`} size="full">
-            Logout
+          <Link href={`/`} size="full">
+            Homepage
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

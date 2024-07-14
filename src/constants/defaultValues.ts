@@ -22,3 +22,8 @@ export const promoDefaultValues = {
   expire_date: new Date(),
   user_id: "",
 };
+
+export const loginDefaultValues = {
+  email: undefined,
+  password: undefined,
+};

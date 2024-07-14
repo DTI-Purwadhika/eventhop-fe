@@ -91,6 +91,9 @@ const authOptions: NextAuthConfig = {
       }
       return token;
     },
+    async redirect({ baseUrl }) {
+      return baseUrl;
+    },
   },
   session: {
     strategy: "jwt",
@@ -101,6 +104,9 @@ const authOptions: NextAuthConfig = {
     sessionToken: {
       name: "next-auth.session-token",
     },
+  },
+  pages: {
+    signIn: "/sign/in",
   },
   basePath: BASE_PATH,
   secret: process.env.NEXTAUTH_SECRET,

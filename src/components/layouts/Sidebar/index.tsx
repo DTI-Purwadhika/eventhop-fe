@@ -9,11 +9,14 @@ import Icon, { Icons } from "@/shares/assets/Icon";
 
 import { adminLinks, organizerLinks, userLinks } from "@/constants/routes";
 import { Text } from "@/components/typhographies";
-import { Link, UserButton } from "@/components/navigations";
+import { Link, Logout, UserButton } from "@/components/navigations";
 import BasicCard from "@/components/elements/EventCard/BasicCard";
 import { ThemeChanger } from "@/components/elements";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { Home, PowerCircle } from "lucide-react";
+import { Button } from "@/components/forms";
+import { Logo } from "@/shares/assets/Logo";
 
 const SidebarItem = ({
   icon,
@@ -44,12 +47,22 @@ const Sidebar = () => {
 
   return (
     <div className="flex h-full max-h-screen flex-col gap-2">
-      <div className="flex h-14 items-center justify-between gap-4 border-b px-4 lg:h-[60px] lg:px-6">
-        Event HOP!
-        <div className="flex gap-2">
-          <ThemeChanger />
-          <UserButton />
+      <div className="lg:flex h-14 items-center justify-between gap-4 border-b px-4 lg:h-[60px] lg:px-6 hidden">
+        <div className="flex gap-2 ">
+          <Link
+            href="/"
+            className="border p-2 rounded-lg bg-primary-500 text-primary-foreground transition-all hover:bg-primary-500/80"
+          >
+            <Home />
+          </Link>
+          <Logout className="border p-2 rounded-lg bg-destructive text-destructive-foreground transition-all hover:bg-destructive/80">
+            <PowerCircle />
+          </Logout>
         </div>
+        <ThemeChanger />
+      </div>
+      <div className="flex lg:hidden items-center mx-auto">
+        <Logo />
       </div>
       <div className="flex-1">
         <Command className="flex w-full items-start text-sm lg:text-base font-medium">
@@ -90,8 +103,8 @@ const Sidebar = () => {
                 ))}
             </CommandGroup>
           </CommandList>
-          {userRole === "user" && (
-            <div className="bottom-0 mt-auto">
+          {userRole !== "organizer" && (
+            <div className="bottom-0 mt-auto mb-2 md:-mb-2">
               <BasicCard />
             </div>
           )}
