@@ -1,3 +1,5 @@
+import Referral from "@/app/dashboard/referral/page";
+
 export const eventDefaultValues = {
   name: "",
   description: "",
@@ -26,4 +28,6 @@ export const promoDefaultValues = {
 export const loginDefaultValues = {
   email: undefined,
   password: undefined,
+  name: undefined,
+  ReferralCode: undefined,
 };
