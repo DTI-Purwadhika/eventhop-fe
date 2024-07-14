@@ -3,7 +3,13 @@ import { useEffect, useState } from "react";
 import { SearchType } from "@/shares/types/search";
 import getTickets from "@/services/ticket";
 
-export const useTickets = ({ filter, limit, page, sort }: SearchType) => {
+export const useTickets = ({
+  filter,
+  limit,
+  page,
+  sort,
+  userId,
+}: SearchType) => {
   const [collectData, setCollectData] = useState([]);
   const [totalData, setTotalData] = useState(0);
 
@@ -14,6 +20,7 @@ export const useTickets = ({ filter, limit, page, sort }: SearchType) => {
         limit,
         page,
         sort,
+        userId,
       });
       if (ticket) {
         setCollectData(ticket.data);
@@ -21,7 +28,7 @@ export const useTickets = ({ filter, limit, page, sort }: SearchType) => {
       }
     };
     fetchTheEvent();
-  }, [filter, limit, page, sort]);
+  }, [filter, limit, page, sort, userId]);
 
   return { collectData, totalData };
 };

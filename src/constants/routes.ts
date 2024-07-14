@@ -54,11 +54,11 @@ export const userLinks: {
     route: "/points",
     icon: "Coins",
   },
-  {
-    label: "Support Ticket",
-    route: "/support",
-    icon: "MessageCircleQuestion",
-  },
+  // {
+  //   label: "Support Ticket",
+  //   route: "/support",
+  //   icon: "MessageCircleQuestion",
+  // },
 ];
 
 export const organizerLinks: {

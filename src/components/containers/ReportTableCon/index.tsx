@@ -9,6 +9,7 @@ import {
 import { DataTable } from "@/components/elements/Table";
 import { ActiveType, columns } from "./type";
 import { dateFormatter } from "@/shares/libs/dateFormatter";
+import { Pagination } from "@/components/layouts";
 
 const ActiveEvent = ({ name, location, date }: ActiveType) => (
   <div className="flex items-center gap-4">
@@ -43,13 +44,19 @@ const ActiveEventTable = ({ eventData }: { eventData: any }) => {
 const ReportTable = ({
   eventData,
   ticketData,
+  totalData,
+  currentPage = 1,
+  setCurrentPage,
 }: {
   eventData: any;
   ticketData: any;
+  totalData: number;
+  currentPage: number;
+  setCurrentPage: any;
 }) => {
   return (
-    <div className="grid gap-4 md:gap-8 xl:grid-cols-3">
-      <Card className="xl:col-span-2">
+    <div className="grid gap-4 xl:grid-cols-3">
+      <Card className="xl:col-span-2  h-fit">
         <CardHeader className="flex flex-row items-center">
           <div className="grid gap-2">
             <CardTitle>Ticket Purchase</CardTitle>
@@ -60,9 +67,18 @@ const ReportTable = ({
           <DataTable
             columns={columns}
             data={ticketData}
-            currentPage={1}
+            currentPage={(currentPage - 1) * 10 + 1}
             noCrud={true}
           />
+          <br />
+          {totalData / 10 > 1 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPosts={totalData}
+              postsPerPage={10}
+              setCurrentPage={setCurrentPage}
+            />
+          )}
         </CardContent>
       </Card>
       <Card>

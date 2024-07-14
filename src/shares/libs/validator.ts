@@ -60,3 +60,16 @@ export const filterFormSchema = z.object({
   startDate: z.date().optional(),
   endDate: z.date().optional(),
 });
+
+export const profileFormSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Name must be at least 3 characters" })
+    .max(100, { message: "Name must be less than 100 characters" }),
+  bio: z
+    .string()
+    .min(3, { message: "Name must be at least 3 characters" })
+    .max(100, { message: "Name must be less than 100 characters" }),
+  location: z.string(),
+  profilePicture: z.string(),
+});

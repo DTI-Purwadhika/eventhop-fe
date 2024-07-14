@@ -9,6 +9,7 @@ import { useState } from "react";
 const Dashboard = () => {
   const [reportLength, setReportLength] = useState("all time");
   const [revenueCount, setRevenueCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const { data: session } = useSession();
 
   const userId = session?.user?.id;
@@ -28,9 +29,9 @@ const Dashboard = () => {
   const reports: SearchType = {
     filter: "",
     limit: 10,
-    page: 1,
+    page: currentPage,
     category: "",
-    sort: "early_date",
+    sort: "newest",
     userId: userId,
   };
 
@@ -49,6 +50,9 @@ const Dashboard = () => {
       <ReportTableCon
         eventData={eventData.collectData}
         ticketData={ticketData.collectData}
+        totalData={ticketData.totalData}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </>
   );

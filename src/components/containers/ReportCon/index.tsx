@@ -19,7 +19,7 @@ const ReportCon = ({
 
   return (
     <>
-      <div className="border rounded-lg px-4 py-2">
+      <div className="border rounded-lg px-4 py-2 mb-4">
         <select
           value={reportLength}
           onChange={handleReportLengthChange}

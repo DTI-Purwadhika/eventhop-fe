@@ -1,119 +1,79 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-} from "recharts";
-
-type DataPoint = {
-  name: string;
-  revenue?: number;
-  attendees?: number;
-  score?: string;
-};
-
-const dataRevenue: DataPoint[] = [
-  { name: "Event A", revenue: 4000 },
-  { name: "Event B", revenue: 3000 },
-  { name: "Event C", revenue: 2000 },
-  { name: "Event D", revenue: 2780 },
-  { name: "Event E", revenue: 1890 },
-  { name: "Event F", revenue: 2390 },
-  { name: "Event G", revenue: 3490 },
-];
-
-const dataAttendees: DataPoint[] = [
-  { name: "Event A", attendees: 400 },
-  { name: "Event B", attendees: 300 },
-  { name: "Event C", attendees: 200 },
-  { name: "Event D", attendees: 278 },
-  { name: "Event E", attendees: 189 },
-  { name: "Event F", attendees: 239 },
-  { name: "Event G", attendees: 349 },
-];
-
-const dataReviews: DataPoint[] = [
-  { name: "1*", attendees: 23 },
-  { name: "2*", attendees: 30 },
-  { name: "3*", attendees: 33 },
-  { name: "4*", attendees: 40 },
-  { name: "5*", attendees: 60 },
-];
-
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A28CF4"];
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+import {
+  ReportChartCon,
+  ReportCon,
+  ReportTableCon,
+} from "@/components/containers";
+import { SearchType } from "@/shares/types/search";
+import { useSession } from "next-auth/react";
+import { useEvents } from "@/hooks/useEvent";
+import { useTickets } from "@/hooks/useTicket";
 
 const Report = () => {
+  const [reportLength, setReportLength] = useState("all time");
+  const [revenueCount, setRevenueCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { data: session } = useSession();
+
+  const userId = session?.user?.id;
+
+  const events: SearchType = {
+    filter: "",
+    limit: 10,
+    page: 1,
+    category: "",
+    sort: "early_date",
+    userId: userId,
+    status: "active",
+  };
+
+  const eventData = useEvents(events);
+
+  const reports: SearchType = {
+    filter: "",
+    limit: 10,
+    page: currentPage,
+    category: "",
+    sort: "newest",
+    userId: userId,
+  };
+
+  const ticketData = useTickets(reports);
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Report Analysis</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="card bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-2">Events Revenue</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={dataRevenue}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="revenue" stroke="#8884d8" />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="card bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-2">Attendee Events</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={dataAttendees}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="attendees" fill="#82ca9d" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-        <div className="card bg-white p-4 rounded shadow">
-          <h2 className="text-xl font-semibold mb-2">
-            Average Review Score per Event
-          </h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={dataReviews}
-                dataKey="attendees"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={80}
-                fill="#8884d8"
-                label
-              >
-                {dataReviews.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Your Report</CardTitle>
+        <CardDescription>Analysis your report</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ReportCon
+          attendeeCount={ticketData.totalData}
+          eventCount={eventData.totalData}
+          reportLength={reportLength}
+          revenueCount={revenueCount}
+          ticketCount={ticketData.totalData}
+          setReportLength={setReportLength}
+        />
+        <ReportChartCon />
+        <ReportTableCon
+          eventData={eventData.collectData}
+          ticketData={ticketData.collectData}
+          totalData={ticketData.totalData}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </CardContent>
+    </Card>
   );
 };
 

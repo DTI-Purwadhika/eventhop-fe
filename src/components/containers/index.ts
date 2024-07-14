@@ -6,3 +6,4 @@ export { default as ReferralCon } from "./ReferralCon";
 export { default as PurchaseCon } from "./PurchaseCon";
 export { default as ReportCon } from "./ReportCon";
 export { default as ReportTableCon } from "./ReportTableCon";
+export { default as ReportChartCon } from "./ReportChartCon";
