@@ -56,7 +56,7 @@ const ReportTable = ({
 }) => {
   return (
     <div className="grid gap-4 xl:grid-cols-3">
-      <Card className="xl:col-span-2  h-fit">
+      <Card className="xl:col-span-2 h-fit">
         <CardHeader className="flex flex-row items-center">
           <div className="grid gap-2">
             <CardTitle>Ticket Purchase</CardTitle>
@@ -81,7 +81,7 @@ const ReportTable = ({
           )}
         </CardContent>
       </Card>
-      <Card>
+      <Card className="h-fit">
         <CardHeader>
           <CardTitle>Your Active Event</CardTitle>
         </CardHeader>
