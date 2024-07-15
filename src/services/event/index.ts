@@ -58,7 +58,6 @@ const getEvents = async ({
     default:
       break;
   }
-  console.log(fetchUrl);
   const response = await restService(fetchUrl);
 
   return { data: response?.result, totalPages: response?.totalData };

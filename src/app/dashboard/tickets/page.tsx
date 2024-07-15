@@ -1,30 +1,46 @@
-import { Collection } from "@/components/elements";
-import { Button } from "@/components/forms";
+"use client";
+import { useEvents } from "@/hooks/useEvent";
+import { useEffect, useState } from "react";
+import { getSession } from "@/services/auth/services/getSession";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { EventCon } from "@/components/containers";
 import { Heading } from "@/components/typhographies";
+import { Separator } from "@/components/ui/separator";
 
-const Tickets = async () => {
-  // const { sessionClaims } = auth();
-  // const userId = sessionClaims?.userId as string;
+const Tickets = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [session, setSession] = useState<any>();
 
-  //const organizedEvents = await getEventByUser();
-  // const organizedEvents = {[]};
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+    };
+    fetchSession();
+  }, []);
+
+  const userId = session?.id;
 
   return (
-    <section>
-      <div className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
-        <div className="wrapper flex items-center justify-center sm:justify-between">
-          <Heading size="h3" align="center" className="sm:text-left">
-            My Ticket
-          </Heading>
-          <Button url="/#events" className="hidden sm:flex">
-            Explore More Event
-          </Button>
+    <Card>
+      <CardContent className="flex flex-col gap-4 px-8 py-6">
+        <div>
+          <h3 className="text-2xl font-medium ">My Active Ticket</h3>
+          <EventCon />
         </div>
-      </div>
-      <div className="wrapper my-8">
-        {/* <Collection filter="" limit={4} type="my_tickets"  /> */}
-      </div>
-    </section>
+        <Separator className="mb-4" />
+        <div>
+          <h3 className="text-2xl font-medium ">Unreviewed Event</h3>
+          <EventCon />
+        </div>
+        <Separator className="mb-4" />
+        <div>
+          <h3 className="text-2xl font-medium ">Past Event</h3>
+          <EventCon />
+        </div>
+      </CardContent>
+    </Card>
   );
 };
+
 export default Tickets;

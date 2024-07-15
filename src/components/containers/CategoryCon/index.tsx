@@ -45,7 +45,6 @@ const CategoryCon = ({ limit = 4 }: { limit?: number }) => {
   }, [search, addFilter]);
 
   const handleSubmit = () => {
-    console.log("handleSubmit clicked");
     let filter = "";
 
     if (isFree) {

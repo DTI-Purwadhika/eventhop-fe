@@ -15,7 +15,7 @@ const Collection = ({
   data && data.length > 0 ? (
     <div className="flex flex-col items-center gap-10">
       <ul
-        className={`grid grid-cols-1 gap-5 ${!isSmall && "md:grid-cols-2 lg:grid-cols-4 xl:gap-10"} `}
+        className={`grid grid-cols-1 gap-5 ${!isSmall && "md:grid-cols-2  xl:grid-cols-4 xl:gap-10"} `}
       >
         {data.map((item: any) => (
           <li key={item._id} className="flex justify-center">

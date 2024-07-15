@@ -35,7 +35,6 @@ const getTickets = async ({
       fetchUrl += `&_sort=start_date&_order=desc`;
       break;
   }
-  console.log(fetchUrl);
 
   const response = await restService(fetchUrl);
 

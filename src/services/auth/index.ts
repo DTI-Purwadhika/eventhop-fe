@@ -42,6 +42,7 @@ const authOptions: NextAuthConfig = {
               email: user.email,
               role: user.roles,
               image: user.avatarUrl,
+              refCode: user.referralCode,
               token: user.token,
               refreshToken: user.refreshToken,
             }
@@ -74,6 +75,7 @@ const authOptions: NextAuthConfig = {
         session.user.email = token.email;
         session.user.role = token.role;
         session.user.image = token.image;
+        session.user.refCode = token.refCode;
         session.user.token = token.token;
         session.user.refreshToken = token.refreshToken;
       }
@@ -86,6 +88,7 @@ const authOptions: NextAuthConfig = {
         token.email = user.email;
         token.role = user.role;
         token.image = user.image;
+        token.refCode = user.refCode;
         token.token = user.token;
         token.refreshToken = user.refreshToken;
       }
