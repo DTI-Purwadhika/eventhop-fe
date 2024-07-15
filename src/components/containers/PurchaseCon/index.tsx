@@ -2,8 +2,7 @@
 import * as z from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Text } from "@/components/typhographies";
@@ -15,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { getSession } from "@/services/auth/services/getSession";
 
 const schema = z.object({
   ticketType: z.string({ message: "Ticket type is required" }),
@@ -30,7 +30,18 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const PurchaseForm = () => {
-  const { data: session } = useSession();
+  const [session, setSession] = useState<any>();
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+    };
+    fetchSession();
+  }, []);
+
+  const userId = session?.id;
+
   const {
     handleSubmit,
     control,

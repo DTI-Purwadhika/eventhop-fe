@@ -2,25 +2,32 @@
 import { ReportCon, ReportTableCon } from "@/components/containers";
 import { useEvents } from "@/hooks/useEvent";
 import { useTickets } from "@/hooks/useTicket";
+import { getSession } from "@/services/auth/services/getSession";
 import { SearchType } from "@/shares/types/search";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const [reportLength, setReportLength] = useState("all time");
   const [revenueCount, setRevenueCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const { data: session } = useSession();
+  const [session, setSession] = useState<any>();
 
-  const userId = session?.user?.id;
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+    };
+    fetchSession();
+  }, []);
+
+  const userId = session?.id;
 
   const events: SearchType = {
-    filter: "",
+    filter: `&organizer.id=${userId}`,
     limit: 10,
     page: 1,
     category: "",
     sort: "early_date",
-    userId: userId,
     status: "active",
   };
 

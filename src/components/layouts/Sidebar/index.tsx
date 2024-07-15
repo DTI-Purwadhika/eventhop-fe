@@ -1,49 +1,16 @@
-"use client";
-import {
-  Command,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import Icon, { Icons } from "@/shares/assets/Icon";
-
 import { adminLinks, organizerLinks, userLinks } from "@/constants/routes";
-import { Text } from "@/components/typhographies";
-import { Link, Logout, UserButton } from "@/components/navigations";
-import BasicCard from "@/components/elements/EventCard/BasicCard";
-import { ThemeChanger } from "@/components/elements";
-import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { Command, CommandGroup, CommandList } from "@/components/ui/command";
 import { Home, PowerCircle } from "lucide-react";
-import { Button } from "@/components/forms";
+import { Link, Logout } from "@/components/navigations";
+import { ThemeChanger } from "@/components/elements";
 import { Logo } from "@/shares/assets/Logo";
+import BasicCard from "@/components/elements/EventCard/BasicCard";
+import SidebarItem from "./SidebarItem";
+import { getSession } from "@/services/auth/services/getSession";
 
-const SidebarItem = ({
-  icon,
-  label,
-  route,
-}: {
-  icon: keyof typeof Icons;
-  label: string;
-  route: string;
-}) => {
-  const GetPathName = usePathname();
-
-  return (
-    <CommandItem
-      className={GetPathName === `/dashboard${route}` ? "bg-slate-300" : ""}
-    >
-      <Link href={`/dashboard${route}`} size="full">
-        <Icon name={icon} className="ml-2 mr-2 h-4 w-4" />
-        <Text>{label}</Text>
-      </Link>
-    </CommandItem>
-  );
-};
-
-const Sidebar = () => {
-  const { data: session }: any = useSession();
-  const userRole = session?.user?.role;
+const Sidebar = async () => {
+  const session = await getSession();
+  const userRole = session?.role;
 
   return (
     <div className="flex h-full max-h-screen flex-col gap-2">

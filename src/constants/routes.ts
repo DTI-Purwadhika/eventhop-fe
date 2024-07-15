@@ -51,8 +51,8 @@ export const userLinks: {
     icon: "Coins",
   },
   {
-    label: "My Transactions",
-    route: "/transaction",
+    label: "My Purchases",
+    route: "/purchases",
     icon: "Barcode",
   },
   // {
@@ -81,6 +81,11 @@ export const organizerLinks: {
     label: "Report",
     route: "/report",
     icon: "LineChart",
+  },
+  {
+    label: "Transaction",
+    route: "/transaction",
+    icon: "ScanBarcode",
   },
   {
     label: "Feedback",

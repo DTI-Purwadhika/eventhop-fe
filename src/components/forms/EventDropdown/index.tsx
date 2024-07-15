@@ -13,6 +13,7 @@ import { useEvents } from "@/hooks/useEvent";
 import { useSession } from "next-auth/react";
 import getEvents from "@/services/event";
 import { Label } from "@/components/ui/label";
+import { getSession } from "@/services/auth/services/getSession";
 
 type DropdownProps = {
   value: string;
@@ -21,15 +22,25 @@ type DropdownProps = {
 
 const EventDropdown = ({ value, setEvent }: DropdownProps) => {
   const [events, setEvents] = useState<any[]>([]);
-  const { data: session } = useSession();
-  const loggedUser = session?.user?.id;
+  const [session, setSession] = useState<any>();
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+    };
+    fetchSession();
+  }, []);
+
+  const userId = session?.id;
 
   useEffect(() => {
     const event: SearchType = {
+      filter: `&organizer.id=${userId}`,
       sort: "newest",
       status: "active",
-      userId: loggedUser,
     };
+
     const fetchTheEvent = async () => {
       const events = await getEvents(event);
       if (events) {
@@ -38,7 +49,7 @@ const EventDropdown = ({ value, setEvent }: DropdownProps) => {
     };
 
     fetchTheEvent();
-  }, [loggedUser]);
+  }, [userId]);
 
   const onChangeHandler = (value: string) => {
     setEvent(value);

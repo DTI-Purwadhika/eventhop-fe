@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Card,
@@ -14,26 +14,32 @@ import {
   ReportTableCon,
 } from "@/components/containers";
 import { SearchType } from "@/shares/types/search";
-import { useSession } from "next-auth/react";
 import { useEvents } from "@/hooks/useEvent";
 import { useTickets } from "@/hooks/useTicket";
+import { getSession } from "@/services/auth/services/getSession";
 
 const Report = () => {
   const [reportLength, setReportLength] = useState("all time");
   const [revenueCount, setRevenueCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [session, setSession] = useState<any>();
 
-  const { data: session } = useSession();
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+    };
+    fetchSession();
+  }, []);
 
-  const userId = session?.user?.id;
+  const userId = session?.id;
 
   const events: SearchType = {
-    filter: "",
+    filter: `&organizer.id=${userId}`,
     limit: 10,
     page: 1,
     category: "",
     sort: "early_date",
-    userId: userId,
     status: "active",
   };
 

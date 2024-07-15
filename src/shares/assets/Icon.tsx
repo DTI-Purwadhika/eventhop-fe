@@ -27,6 +27,7 @@ import {
   TicketCheck,
   Coins,
   PartyPopper,
+  ScanBarcode,
 } from "lucide-react";
 
 const Upload = () => (
@@ -63,6 +64,7 @@ export const Icons = {
   Plus,
   UserRoundPlus,
   Clipboard,
+  ScanBarcode,
   Filter,
   Coins,
   TicketCheck,

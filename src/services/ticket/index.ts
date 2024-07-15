@@ -10,7 +10,7 @@ const getTickets = async ({
   let fetchUrl = `ticket_purchases?_limit=${limit}&_page=${page}`;
 
   if (filter && filter !== "") {
-    fetchUrl += `&${filter}`;
+    fetchUrl += `${filter}`;
   }
 
   //fetchUrl + `&_sort=${sort.replace("_", "")}&_order=${sort.endsWith("Az") ? "asc" : "desc"}`;
@@ -35,6 +35,7 @@ const getTickets = async ({
       fetchUrl += `&_sort=start_date&_order=desc`;
       break;
   }
+  console.log(fetchUrl);
 
   const response = await restService(fetchUrl);
 

@@ -7,7 +7,6 @@ const getEvents = async ({
   limit = 100,
   page = 1,
   sort = "nameAz",
-  userId,
   status = "all",
 }: SearchType) => {
   let fetchUrl = `events?_limit=${limit}&_page=${page}`;
@@ -49,10 +48,6 @@ const getEvents = async ({
       break;
   }
 
-  if (userId) {
-    fetchUrl += `&organizer.id=${userId}`;
-  }
-
   switch (status) {
     case "active":
       fetchUrl += `&start_date_gte=${new Date().toISOString()}`;
@@ -63,6 +58,7 @@ const getEvents = async ({
     default:
       break;
   }
+  console.log(fetchUrl);
   const response = await restService(fetchUrl);
 
   return { data: response?.result, totalPages: response?.totalData };
