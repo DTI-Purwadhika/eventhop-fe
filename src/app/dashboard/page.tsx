@@ -27,12 +27,11 @@ const Dashboard = () => {
   const eventData = useEvents(events);
 
   const reports: SearchType = {
-    filter: "",
+    filter: `&organizer_id=${userId}`,
     limit: 10,
     page: currentPage,
     category: "",
     sort: "newest",
-    userId: userId,
   };
 
   const ticketData = useTickets(reports);

@@ -2,6 +2,7 @@ import { Heading, Text } from "@/components/typhographies";
 import {
   Calendar,
   CalendarRange,
+  Barcode,
   LineChart,
   MessageCircleMore,
   MessageCircleQuestion,
@@ -41,6 +42,7 @@ const Upload = () => (
 export const Icons = {
   Calendar,
   CalendarRange,
+  Barcode,
   Home,
   Link,
   LineChart,

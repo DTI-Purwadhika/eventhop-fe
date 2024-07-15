@@ -50,6 +50,11 @@ export const userLinks: {
     route: "/points",
     icon: "Coins",
   },
+  {
+    label: "My Transactions",
+    route: "/transaction",
+    icon: "Barcode",
+  },
   // {
   //   label: "Support Ticket",
   //   route: "/support",

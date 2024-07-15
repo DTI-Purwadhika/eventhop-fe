@@ -6,13 +6,12 @@ const getTickets = async ({
   limit = 6,
   page = 1,
   sort = "nameAz",
-  userId,
 }: SearchType) => {
   let fetchUrl = `ticket_purchases?_limit=${limit}&_page=${page}`;
 
-  // if (filter && filter !== "") {
-  //   fetchUrl += `&${filter}`;
-  // }
+  if (filter && filter !== "") {
+    fetchUrl += `&${filter}`;
+  }
 
   //fetchUrl + `&_sort=${sort.replace("_", "")}&_order=${sort.endsWith("Az") ? "asc" : "desc"}`;
 
@@ -35,10 +34,6 @@ const getTickets = async ({
     case "far_date":
       fetchUrl += `&_sort=start_date&_order=desc`;
       break;
-  }
-
-  if (userId) {
-    fetchUrl += `&organizer_id=${userId}`;
   }
 
   const response = await restService(fetchUrl);

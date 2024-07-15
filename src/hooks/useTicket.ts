@@ -14,7 +14,7 @@ export const useTickets = ({
   const [totalData, setTotalData] = useState(0);
 
   useEffect(() => {
-    const fetchTheEvent = async () => {
+    const fetchTheTicket = async () => {
       const ticket = await getTickets({
         filter,
         limit,
@@ -27,7 +27,7 @@ export const useTickets = ({
         setTotalData(parseInt(ticket.totalPages!));
       }
     };
-    fetchTheEvent();
+    fetchTheTicket();
   }, [filter, limit, page, sort, userId]);
 
   return { collectData, totalData };
