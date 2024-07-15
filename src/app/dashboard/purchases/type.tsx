@@ -4,17 +4,12 @@ import { ColumnDef } from "@tanstack/react-table";
 
 export type FeedbackType = {
   id: string;
-  user_name: string;
   event_name: string;
   event_type_name: string;
   created_at: string;
 };
 
 export const columns: ColumnDef<FeedbackType>[] = [
-  {
-    accessorKey: "user_name",
-    header: "Hopper Name",
-  },
   {
     accessorKey: "event_name",
     header: "Event Name",

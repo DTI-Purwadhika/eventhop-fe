@@ -21,7 +21,7 @@ const Transaction = () => {
   const userId = session?.id;
 
   const transaction: SearchType = {
-    filter: `&organizer_id=${userId}`,
+    filter: `&user_id=${userId}`,
     limit: 10,
     page: currentPage,
     category: "",
@@ -32,7 +32,7 @@ const Transaction = () => {
 
   return (
     <DataTableCon
-      title="Transactions"
+      title="Purchases History"
       columns={columns}
       data={collectData}
       totalData={totalData}
