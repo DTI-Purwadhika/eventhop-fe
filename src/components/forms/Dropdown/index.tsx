@@ -47,7 +47,7 @@ const Dropdown = ({ value, setCategory, label }: DropdownProps) => {
           </SelectItem>
           {categories.length > 0 &&
             categories.map((item) => (
-              <SelectItem key={item.id} value={item.name.toLowerCase()}>
+              <SelectItem key={item.id} value={item.name}>
                 {item.name}
               </SelectItem>
             ))}
