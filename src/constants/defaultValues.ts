@@ -31,3 +31,11 @@ export const loginDefaultValues = {
   name: undefined,
   ReferralCode: undefined,
 };
+
+export const purchaseDefaultValues = {
+  ticketType: undefined,
+  name: undefined,
+  email: undefined,
+  telephone: undefined,
+  agreement: false,
+};

@@ -1,3 +1,4 @@
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/forms";
+import { useState } from "react";
 
 const ReviewDialog = ({
   name,
@@ -20,6 +22,8 @@ const ReviewDialog = ({
   id: string;
   className?: string;
 }) => {
+  const [selectedStar, setSelectedStar] = useState<number | null>(3);
+
   return (
     <AlertDialog>
       <AlertDialogTrigger
@@ -31,6 +35,18 @@ const ReviewDialog = ({
       <AlertDialogContent className="bg-white">
         <AlertDialogHeader>
           <AlertDialogTitle>{name}</AlertDialogTitle>
+          <div className="grid grid-cols-5 items-center mb-4 mx-auto md:ml-0 w-2/3 md:w-1/3">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <span
+                key={star}
+                className={`mr-1 cursor-pointer`}
+                onClick={() => setSelectedStar(star)}
+                onMouseEnter={() => setSelectedStar(star)}
+              >
+                {star <= selectedStar! ? "⭐️" : "☆"}
+              </span>
+            ))}
+          </div>
           <AlertDialogDescription className="p-regular-16 text-grey-600">
             <Textarea label="Review" placeholder="Very Good" />
           </AlertDialogDescription>

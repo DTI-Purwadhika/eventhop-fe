@@ -1,8 +1,8 @@
 import NextAuth, { NextAuthConfig } from "next-auth";
+import { BASE_PATH } from "@/constants/config";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import checkUser from "./services/checkUser";
-import { BASE_PATH } from "@/constants/config";
 
 const authHandler = async (email: string, password: string) => {
   try {
@@ -29,7 +29,11 @@ const authOptions: NextAuthConfig = {
     Credentials({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "hopper" },
+        email: {
+          label: "Email",
+          type: "text",
+          placeholder: "hopper@eventhop.com",
+        },
         password: { label: "Password", type: "password" },
       },
 

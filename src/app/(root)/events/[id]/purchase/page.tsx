@@ -1,15 +1,10 @@
-import { SearchParamProps } from "@/shares/types";
-import { restById as rest } from "@/services/restService";
+import { Image } from "@/components/elements";
 import { Heading, Text } from "@/components/typhographies";
 import { dateFormatter } from "@/shares/libs/dateFormatter";
+import { SearchParamProps } from "@/shares/types";
+import { restById as rest } from "@/services/restService";
 import { toTitleCase } from "@/shares/libs/toTitleCase";
-import { PurchaseCon } from "@/components/containers";
-import { Image } from "@/components/elements";
 import { Label } from "@/components/ui/label";
-
-import ReviewCon from "@/components/containers/ReviewCon";
-import Icon from "@/shares/assets/Icon";
-
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -18,20 +13,11 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
+import PurchaseForm from "@/components/containers/PurchaseCon";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/forms";
-
-const EventDetails = async ({ params: { id } }: SearchParamProps) => {
+const EventPurchase = async ({ params: { id } }: SearchParamProps) => {
+  console.log(id);
   const event = await rest(id, "GET", "events");
-
   return (
     <section className="grid grid-cols-1 md:mt-12 md:mx-4 lg:grid-cols-2 xl:m-28 2xl:max-w-7xl">
       <Breadcrumb className="ml-2 mb-2 md:hidden">
@@ -64,6 +50,10 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
             <BreadcrumbItem>
               <BreadcrumbPage>EV-0{event.id}</BreadcrumbPage>
             </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Purchase Ticket</BreadcrumbPage>
+            </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
         <Heading size="h3" weight="medium" className="text-3xl font-semibold">
@@ -95,13 +85,6 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
               </Text>
             </div>
           </div>
-          <Button
-            className="w-full mt-4"
-            icon="Ticket"
-            url={`/events/${id}/purchase`}
-          >
-            Purchase Ticket
-          </Button>
         </div>
         <div className="flex flex-col col-span-2 gap-2 lg:hidden">
           <Text
@@ -119,18 +102,14 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
           </Text>
         </Text>
       </div>
-      <Text className="col-span-2 text-grey-500 flex-col hidden lg:flex lg:mt-8 lg:mx-4 lg:p-regular-18">
-        {event.detail}
-      </Text>
-      <div className="mt-4 md:col-span-2">
-        <ReviewCon
-          title={"Organizer Review"}
-          isReviewed={true}
-          owner="organizer"
-          userId={event.organizer.id}
-        />
+      <div className="md:col-span-2 mt-8">
+        <Heading size="h3" weight="medium" className="text-3xl font-semibold">
+          Purchase Information
+        </Heading>
+        <br />
+        <PurchaseForm event={event} />
       </div>
     </section>
   );
 };
-export default EventDetails;
+export default EventPurchase;

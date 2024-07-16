@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/form";
 import TickerTier from "./TickerTier";
 import { Label } from "@/components/ui/label";
+import { toTitleCase } from "@/shares/libs/toTitleCase";
 
 const EventForm = ({ type }: FormProps) => {
   const [files, setFiles] = useState<File[]>([]);
@@ -43,6 +44,7 @@ const EventForm = ({ type }: FormProps) => {
   });
 
   function onSubmit(values: z.infer<typeof eventFormSchema>) {
+    console.log("submitted");
     console.log(values);
   }
 
@@ -231,8 +233,10 @@ const EventForm = ({ type }: FormProps) => {
           </fieldset>
         </div>
         <div className="flex justify-end mr-8">
-          <Button type="submit" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? "Submitting..." : `${type} Event`}
+          <Button type="submit">
+            {form.formState.isSubmitting
+              ? "Submitting..."
+              : `${toTitleCase(type)} Event`}
           </Button>
         </div>
       </form>

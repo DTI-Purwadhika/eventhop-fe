@@ -43,9 +43,13 @@ export const promoFormSchema = z.object({
     .min(3, { message: "Event Name must be at least 3 characters" })
     .max(100, { message: "Event Name must be less than 100 characters" }),
   type: z.string(),
-  amount: z.number().nonnegative({ message: "Amount must be non-negative" }),
-  event_id: z.string(),
-  quota: z.number().nonnegative({ message: "Quota must be non-negative" }),
+  amount: z.coerce
+    .number()
+    .nonnegative({ message: "Amount must be non-negative" }),
+  event_id: z.string().optional(),
+  quota: z.coerce
+    .number()
+    .nonnegative({ message: "Quota must be non-negative" }),
   voucher_code: z
     .string()
     .min(3, { message: "Voucher Code must be at least 3 characters" })
@@ -84,4 +88,16 @@ export const registerFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
   referralCode: z.string().optional(),
+});
+
+export const purchaseFormSchema = z.object({
+  ticketType: z.string({ message: "Ticket type is required" }),
+  name: z.string({ message: "Name is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  telephone: z.string({ message: "Telephone number is required" }),
+  voucher: z.string().optional(),
+  useMyInfo: z.boolean(),
+  agreement: z.boolean().refine((val) => val === true, {
+    message: "You must agree to terms and conditions",
+  }),
 });

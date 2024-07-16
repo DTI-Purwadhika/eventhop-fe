@@ -31,7 +31,7 @@ export const userLinks: {
     icon: "Home",
   },
   {
-    label: "My Events",
+    label: "My Tickets",
     route: "/tickets",
     icon: "Ticket",
   },

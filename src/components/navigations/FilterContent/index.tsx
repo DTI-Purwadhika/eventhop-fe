@@ -115,7 +115,7 @@ const FilterContent = ({
           onChange={(e) => setCity(e.target.value)}
         />
       </div>
-      <div className="w-full hidden md:grid md:grid-col-span-5 md:mt-4 md:-mb-4 col-span-2">
+      <div className="w-full hidden md:grid md:grid-cols-5 gap-4 md:mt-4 md:-mb-4 col-span-2">
         <Button className="col-span-4" onClick={handleSubmit}>
           Submit
         </Button>
