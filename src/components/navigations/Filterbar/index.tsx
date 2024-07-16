@@ -21,6 +21,7 @@ const Filterbar = ({
   handleSubmit,
   category,
   setCategory,
+  handleReset,
 }: any) => {
   return (
     <Drawer>
@@ -39,10 +40,19 @@ const Filterbar = ({
           setIsFree={setIsFree}
           category={category}
           setCategory={setCategory}
+          handleSubmit={handleSubmit}
+          handleReset={handleReset}
         />
-        <DrawerClose>
-          <Button className="w-full -mb-4" onClick={handleSubmit}>
+        <DrawerClose className="grid grid-cols-5 gap-4">
+          <Button className="w-full -mb-4 col-span-4" onClick={handleSubmit}>
             Submit
+          </Button>
+          <Button
+            variant="outline"
+            className="w-full -mb-4"
+            onClick={handleReset}
+          >
+            Reset
           </Button>
         </DrawerClose>
       </DrawerContent>

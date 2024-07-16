@@ -1,14 +1,16 @@
 "use client";
 import { useEvents } from "@/hooks/useEvent";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { getSession } from "@/services/auth/services/getSession";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { EventCon } from "@/components/containers";
 import { Heading } from "@/components/typhographies";
 import { Separator } from "@/components/ui/separator";
+import ReviewCon from "@/components/containers/ReviewCon";
+import { useFeedbacks } from "@/hooks/useFeedback";
+import { SearchType } from "@/shares/types/search";
 
 const Tickets = () => {
-  const [currentPage, setCurrentPage] = useState(1);
   const [session, setSession] = useState<any>();
 
   useEffect(() => {
@@ -29,15 +31,19 @@ const Tickets = () => {
           <EventCon />
         </div>
         <Separator className="mb-4" />
-        <div>
-          <h3 className="text-2xl font-medium ">Unreviewed Event</h3>
-          <EventCon />
-        </div>
+        <ReviewCon
+          title={"Unreviewed Event"}
+          isReviewed={false}
+          owner="user"
+          userId={userId}
+        />
         <Separator className="mb-4" />
-        <div>
-          <h3 className="text-2xl font-medium ">Past Event</h3>
-          <EventCon />
-        </div>
+        <ReviewCon
+          title={"Past Event"}
+          isReviewed={true}
+          owner="user"
+          userId={userId}
+        />
       </CardContent>
     </Card>
   );

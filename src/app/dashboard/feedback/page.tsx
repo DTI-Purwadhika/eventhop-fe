@@ -1,6 +1,5 @@
 "use client";
 import { useFeedbacks } from "@/hooks/useFeedback";
-import { Collection } from "@/components/elements";
 import { SearchType } from "@/shares/types/search";
 import { useState } from "react";
 import { columns } from "./type";

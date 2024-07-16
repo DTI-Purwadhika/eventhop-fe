@@ -1,10 +1,15 @@
-import { Collection, Image } from "@/components/elements";
-import { Heading, Text } from "@/components/typhographies";
-import { dateFormatter } from "@/shares/libs/dateFormatter";
 import { SearchParamProps } from "@/shares/types";
 import { restById as rest } from "@/services/restService";
+import { Heading, Text } from "@/components/typhographies";
+import { dateFormatter } from "@/shares/libs/dateFormatter";
 import { toTitleCase } from "@/shares/libs/toTitleCase";
+import { PurchaseCon } from "@/components/containers";
+import { Image } from "@/components/elements";
 import { Label } from "@/components/ui/label";
+
+import ReviewCon from "@/components/containers/ReviewCon";
+import Icon from "@/shares/assets/Icon";
+
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -13,8 +18,7 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
-import Button from "@/components/forms/Button";
-import { PurchaseCon } from "@/components/containers";
+
 import {
   Dialog,
   DialogContent,
@@ -23,12 +27,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Icon from "@/shares/assets/Icon";
 
 const EventDetails = async ({ params: { id } }: SearchParamProps) => {
   const event = await rest(id, "GET", "events");
+
   return (
-    <section className="grid grid-cols-1 md:mt-10 md:mx-4 lg:grid-cols-2 xl:m-28 2xl:max-w-7xl">
+    <section className="grid grid-cols-1 md:mt-12 md:mx-4 lg:grid-cols-2 xl:m-28 2xl:max-w-7xl">
       <Breadcrumb className="ml-2 mb-2 md:hidden">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -61,7 +65,7 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <Heading size="h3" weight="medium">
+        <Heading size="h3" weight="medium" className="text-3xl font-semibold">
           {event.name}
         </Heading>
 
@@ -124,9 +128,14 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
       <Text className="col-span-2 text-grey-500 flex-col hidden lg:flex lg:mt-8 lg:mx-4 lg:p-regular-18">
         {event.detail}
       </Text>
-      {/* <Heading size="h3" weight="medium" className="mt-8">
-            Related Events
-          </Heading> */}
+      <div className="mt-4 md:col-span-2">
+        <ReviewCon
+          title={"Organizer Review"}
+          isReviewed={true}
+          owner="organizer"
+          userId={event.organizer.id}
+        />
+      </div>
     </section>
   );
 };

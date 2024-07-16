@@ -41,10 +41,10 @@ const getEvents = async ({
       fetchUrl += `&_sort=start_date&_order=desc`;
       break;
     case "high_price":
-      fetchUrl += `&_sort=price&_order=desc`;
+      fetchUrl += `&_sort=ticket_type.0.price&_order=desc`;
       break;
     case "low_price":
-      fetchUrl += `&_sort=price&_order=asc`;
+      fetchUrl += `&_sort=ticket_type.0.price&_order=asc`;
       break;
   }
 

@@ -41,7 +41,6 @@ const Events = () => {
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
 
   const handleSubmit = () => {
-    console.log("handleSubmit clicked");
     let filter = "";
 
     if (isFree) {

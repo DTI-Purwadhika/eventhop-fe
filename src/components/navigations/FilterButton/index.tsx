@@ -1,4 +1,3 @@
-import { Button } from "@/components/forms";
 import {
   Popover,
   PopoverContent,
@@ -7,12 +6,15 @@ import {
 import Icon from "@/shares/assets/Icon";
 import { ChildType } from "@/shares/types";
 
-const FilterButton = ({ children }: ChildType) => (
+const FilterButton = ({
+  children,
+  icon = "Filter",
+}: ChildType & { icon?: string }) => (
   <Popover>
     <PopoverTrigger className="border px-2 rounded-xl transition-all hover:bg-slate-100">
-      <Icon name="Filter" />
+      <Icon name={icon} />
     </PopoverTrigger>
-    <PopoverContent className="mt-2 w-4/5 -mr-40">{children}</PopoverContent>
+    <PopoverContent className="mt-2 w-fit mr-10">{children}</PopoverContent>
   </Popover>
 );
 
