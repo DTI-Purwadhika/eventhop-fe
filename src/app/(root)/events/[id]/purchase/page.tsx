@@ -16,7 +16,6 @@ import {
 import PurchaseForm from "@/components/containers/PurchaseCon";
 
 const EventPurchase = async ({ params: { id } }: SearchParamProps) => {
-  console.log(id);
   const event = await rest(id, "GET", "events");
   return (
     <section className="grid grid-cols-1 md:mt-12 md:mx-4 lg:grid-cols-2 xl:m-28 2xl:max-w-7xl">

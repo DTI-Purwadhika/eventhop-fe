@@ -96,6 +96,7 @@ export const purchaseFormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   telephone: z.string({ message: "Telephone number is required" }),
   voucher: z.string().optional(),
+  point: z.coerce.number().optional(),
   useMyInfo: z.boolean(),
   agreement: z.boolean().refine((val) => val === true, {
     message: "You must agree to terms and conditions",

@@ -101,7 +101,7 @@ const PromoForm = ({ type }: FormProps) => {
                   <FormControl>
                     <EventDropdown
                       setEvent={field.onChange}
-                      value={field.value}
+                      value={field.value!}
                     />
                   </FormControl>
                   <FormMessage />

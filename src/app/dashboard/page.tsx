@@ -1,15 +1,11 @@
 "use client";
-import { ReportCon, ReportTableCon } from "@/components/containers";
-import { useEvents } from "@/hooks/useEvent";
-import { useTickets } from "@/hooks/useTicket";
+import { DashboardCon, EventCon } from "@/components/containers";
 import { getSession } from "@/services/auth/services/getSession";
-import { SearchType } from "@/shares/types/search";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import Tickets from "./tickets/page";
+import { Card, CardContent } from "@/components/ui/card";
 
 const Dashboard = () => {
-  const [reportLength, setReportLength] = useState("all time");
-  const [revenueCount, setRevenueCount] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
   const [session, setSession] = useState<any>();
 
   useEffect(() => {
@@ -20,47 +16,21 @@ const Dashboard = () => {
     fetchSession();
   }, []);
 
-  const userId = session?.id;
+  const userRole = session?.role;
 
-  const events: SearchType = {
-    filter: `&organizer.id=${userId}`,
-    limit: 10,
-    page: 1,
-    category: "",
-    sort: "early_date",
-    status: "active",
-  };
-
-  const eventData = useEvents(events);
-
-  const reports: SearchType = {
-    filter: `&organizer_id=${userId}`,
-    limit: 10,
-    page: currentPage,
-    category: "",
-    sort: "newest",
-  };
-
-  const ticketData = useTickets(reports);
-
-  return (
-    <>
-      <ReportCon
-        eventCount={eventData.totalData}
-        attendeeCount={ticketData.totalData}
-        ticketCount={ticketData.totalData}
-        revenueCount={revenueCount}
-        setReportLength={setReportLength}
-        reportLength={reportLength}
-      />
-      <ReportTableCon
-        eventData={eventData.collectData}
-        ticketData={ticketData.collectData}
-        totalData={ticketData.totalData}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
-    </>
-  );
+  if (userRole !== "organizer") {
+    return (
+      <Card>
+        <CardContent className="flex flex-col gap-4 px-8 py-6">
+          <div>
+            <h3 className="text-2xl font-medium ">Check Out this Event!</h3>
+            <EventCon />
+          </div>
+        </CardContent>
+      </Card>
+    );
+  } else {
+    return <DashboardCon />;
+  }
 };
 export default Dashboard;

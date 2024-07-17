@@ -1,14 +1,10 @@
 "use client";
-import { useEvents } from "@/hooks/useEvent";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getSession } from "@/services/auth/services/getSession";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { EventCon } from "@/components/containers";
-import { Heading } from "@/components/typhographies";
 import { Separator } from "@/components/ui/separator";
 import ReviewCon from "@/components/containers/ReviewCon";
-import { useFeedbacks } from "@/hooks/useFeedback";
-import { SearchType } from "@/shares/types/search";
 
 const Tickets = () => {
   const [session, setSession] = useState<any>();

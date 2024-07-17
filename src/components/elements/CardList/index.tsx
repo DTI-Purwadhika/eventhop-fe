@@ -22,11 +22,7 @@ const CardList = ({
             {isSmall ? (
               <SmallCard event={item} />
             ) : (
-              <Card
-                event={item}
-                hasOrderLink={type === "event_organized"}
-                hidePrice={type === "my_tickets"}
-              />
+              <Card event={item} hidePrice={type === "my_tickets"} />
             )}
           </li>
         ))}

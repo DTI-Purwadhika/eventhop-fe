@@ -21,7 +21,8 @@ import { Separator } from "@/components/ui/separator";
 
 const PurchaseForm = ({ event }: any) => {
   const [session, setSession] = useState<any>();
-  const [price, setPrice] = useState<number>(0);
+  const [discount, setDiscount] = useState<number>(0);
+  const [point, setPoint] = useState<number>(0);
   const [eventId, setEventId] = useState<number>(1);
 
   useEffect(() => {
@@ -122,15 +123,37 @@ const PurchaseForm = ({ event }: any) => {
 
               <FormField
                 control={form.control}
-                name="voucher"
+                name="point"
                 render={({ field }) => (
                   <FormItem className="w-full col-span-2">
                     <FormControl>
                       <Input
-                        placeholder="Admin#123"
-                        label="Voucher Code"
-                        {...field}
+                        type="number"
+                        placeholder="0"
+                        label="Use Point"
+                        min={0}
+                        onBlur={(e) => setPoint(e.target.value)}
                       />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="voucher"
+                render={({ field }) => (
+                  <FormItem className="w-full col-span-2">
+                    <FormControl>
+                      <>
+                        <Input
+                          placeholder="Admin#123"
+                          label="Voucher Code"
+                          {...field}
+                        />
+                        <Button size="sm">Apply</Button>
+                      </>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -165,7 +188,7 @@ const PurchaseForm = ({ event }: any) => {
                 Promo Applied
               </Heading>
               <Label className="w-full text-xl text-right">
-                - Rp {event.ticket_type[eventId - 1].price},-
+                - Rp {discount},-
               </Label>
             </div>
             <div className="grid grid-cols-2">
@@ -189,7 +212,7 @@ const PurchaseForm = ({ event }: any) => {
                 Point
               </Heading>
               <Label className="w-full text-xl text-right">
-                - Rp {event.ticket_type[eventId - 1].price},-
+                - Rp {point},-
               </Label>
             </div>
             <Separator />
@@ -206,8 +229,13 @@ const PurchaseForm = ({ event }: any) => {
               </Label>
             </div>
           </fieldset>
-          <Button type="submit" className="w-fit mt-4" icon="Ticket">
-            Purchase Ticket
+          <Button
+            type="submit"
+            className="w-fit mt-4"
+            icon="Ticket"
+            disabled={!session}
+          >
+            {session ? "Purchase Ticket" : "Login to Purchase"}
           </Button>
         </div>
       </form>

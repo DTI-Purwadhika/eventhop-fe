@@ -7,3 +7,4 @@ export { default as PurchaseCon } from "./PurchaseCon";
 export { default as ReportCon } from "./ReportCon";
 export { default as ReportTableCon } from "./ReportTableCon";
 export { default as ReportChartCon } from "./ReportChartCon";
+export { default as DashboardCon } from "./DashboardCon";

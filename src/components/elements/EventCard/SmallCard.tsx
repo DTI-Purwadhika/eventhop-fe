@@ -6,12 +6,7 @@ import Icon from "@/shares/assets/Icon";
 import { dateFormatter } from "@/shares/libs/dateFormatter";
 import { Text } from "@/components/typhographies";
 
-const SmallCard = ({
-  event,
-  hasOrderLink,
-  hidePrice,
-  isSmall = false,
-}: CardType) => {
+const SmallCard = ({ event, hidePrice, isSmall = false }: CardType) => {
   // const { sessionClaims } = getAuth();
   // const userId = sessionClaims?.userId;
   const userId = 1;
