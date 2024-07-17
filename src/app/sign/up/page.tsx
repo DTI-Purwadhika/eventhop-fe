@@ -13,7 +13,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Link } from "@/components/navigations";
+import Link from "next/link";
 
 import {
   Card,
@@ -44,7 +44,7 @@ const Register = () => {
   };
 
   return (
-    <Card className="mx-auto max-w-sm">
+    <Card className="mx-auto max-w-md">
       <CardHeader>
         <CardTitle className="text-xl">Register</CardTitle>
         <CardDescription>
@@ -56,7 +56,7 @@ const Register = () => {
           <form
             onSubmit={formRegister.handleSubmit(onRegister)}
             autoComplete="off"
-            className="grid gap-4"
+            className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 overflow-y-auto"
           >
             <FormField
               control={formRegister.control}
@@ -120,15 +120,25 @@ const Register = () => {
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              disabled={formRegister.formState.isSubmitting}
-              className="w-full mt-4"
-            >
-              {formRegister.formState.isSubmitting
-                ? "Please Wait..."
-                : `Register`}
-            </Button>
+            <div className="md:col-span-2">
+              <Button
+                type="submit"
+                disabled={formRegister.formState.isSubmitting}
+                className="w-full mb-2 mt-4 md:mb-4"
+              >
+                {formRegister.formState.isSubmitting
+                  ? "Please Wait..."
+                  : `Register`}
+              </Button>
+              <Link href="/sign/in" className="text-center w-full">
+                <div>
+                  Already have an account? <br />
+                  <span className="text-primary-500 hover:text-primary-500/75">
+                    Sign In Here!
+                  </span>
+                </div>
+              </Link>
+            </div>
           </form>
         </Form>
       </CardContent>

@@ -13,7 +13,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Link } from "@/components/navigations";
+import Link from "next/link";
 
 import { handleSignIn } from "./handleSignIn";
 
@@ -84,12 +84,12 @@ const Login = () => {
                         type="password"
                         {...field}
                       />
-                      <Link
+                      {/* <Link
                         href="#"
                         className="ml-auto inline-block text-sm underline"
                       >
                         Forgot your password?
-                      </Link>
+                      </Link> */}
                     </>
                   </FormControl>
                   <FormMessage />
@@ -113,6 +113,13 @@ const Login = () => {
           >
             {loading ? "Please Wait..." : `Login with Google`}
           </Button> */}
+            <Link href="/sign/up" className="text-center">
+              Need an account?
+              <br />
+              <div className="text-primary-500 hover:text-primary-500/75">
+                Sign Up Here!
+              </div>
+            </Link>
           </form>
         </Form>
       </CardContent>
