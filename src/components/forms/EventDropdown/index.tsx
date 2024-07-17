@@ -9,11 +9,9 @@ import {
 
 import { useEffect, useState } from "react";
 import { SearchType } from "@/shares/types/search";
-import { useEvents } from "@/hooks/useEvent";
-import { useSession } from "next-auth/react";
-import getEvents from "@/services/event";
 import { Label } from "@/components/ui/label";
 import { getSession } from "@/services/auth/services/getSession";
+import { useEvents } from "@/hooks/useEvent";
 
 type DropdownProps = {
   value: string;
@@ -21,7 +19,6 @@ type DropdownProps = {
 };
 
 const EventDropdown = ({ value, setEvent }: DropdownProps) => {
-  const [events, setEvents] = useState<any[]>([]);
   const [session, setSession] = useState<any>();
 
   useEffect(() => {
@@ -34,22 +31,13 @@ const EventDropdown = ({ value, setEvent }: DropdownProps) => {
 
   const userId = session?.id;
 
-  useEffect(() => {
-    const event: SearchType = {
-      filter: `&organizer.id=${userId}`,
-      sort: "newest",
-      status: "active",
-    };
+  const event: SearchType = {
+    filter: `&organizer.id=${userId}`,
+    sort: "newest",
+    status: "active",
+  };
 
-    const fetchTheEvent = async () => {
-      const events = await getEvents(event);
-      if (events) {
-        setEvents(events.data);
-      }
-    };
-
-    fetchTheEvent();
-  }, [userId]);
+  const { collectData } = useEvents(event);
 
   const onChangeHandler = (value: string) => {
     setEvent(value);
@@ -63,12 +51,17 @@ const EventDropdown = ({ value, setEvent }: DropdownProps) => {
           <SelectValue placeholder="What event..?" />
         </SelectTrigger>
         <SelectContent className="max-h-[40vh]">
-          {events.length > 0 &&
-            events.map((item, index) => (
-              <SelectItem key={item.id + index} value={item.name.toLowerCase()}>
+          {collectData.length > 0 ? (
+            collectData.map((item: any, index) => (
+              <SelectItem key={item.id + index} value={item.id}>
                 {item.name}
               </SelectItem>
-            ))}
+            ))
+          ) : (
+            <SelectItem value="no event" disabled>
+              Load your event...
+            </SelectItem>
+          )}
         </SelectContent>
       </Select>
     </>

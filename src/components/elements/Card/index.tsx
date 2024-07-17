@@ -10,8 +10,10 @@ const CardCon = ({ title, icon, result, description }: CardType) => {
         <Icon name={icon} />
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{result}</div>
-        <p className="text-xs text-muted-foreground">{description}</p>
+        <div className="text-2xl font-bold text-nowrap">{result}</div>
+        <p className="text-xs text-muted-foreground text-nowrap">
+          {description}
+        </p>
       </CardContent>
     </Card>
   );

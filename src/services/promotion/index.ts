@@ -46,4 +46,11 @@ const getPromotions = async ({
   return { data: response?.result, totalPages: response?.totalData };
 };
 
+export const getLastPromotionId = async () => {
+  const fetchUrl = `promotions?_limit=1&_sort=id&_order=desc`;
+  const response = await restService(fetchUrl);
+  const lastPromotion = response?.result?.[0];
+  return lastPromotion?.id;
+};
+
 export default getPromotions;

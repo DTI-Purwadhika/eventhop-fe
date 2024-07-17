@@ -41,4 +41,12 @@ const getTickets = async ({
   return { data: response?.result, totalPages: response?.totalData };
 };
 
+export const getLastTicketId = async () => {
+  const fetchUrl = `ticket_purchases?_limit=1&_sort=id&_order=desc`;
+  const response = await restService(fetchUrl);
+  const lastTicket = response?.result?.[0];
+
+  return lastTicket?.id;
+};
+
 export default getTickets;

@@ -38,6 +38,7 @@ export const eventFormSchema = z
   });
 
 export const promoFormSchema = z.object({
+  id: z.string().optional(),
   name: z
     .string()
     .min(3, { message: "Event Name must be at least 3 characters" })
@@ -91,14 +92,18 @@ export const registerFormSchema = z.object({
 });
 
 export const purchaseFormSchema = z.object({
-  ticketType: z.string({ message: "Ticket type is required" }),
-  name: z.string({ message: "Name is required" }),
-  email: z.string().email({ message: "Invalid email address" }),
-  telephone: z.string({ message: "Telephone number is required" }),
+  id: z.string().optional(),
+  event_id: z.string().optional(),
+  event_name: z.string().optional(),
+  event_type_id: z.string({ message: "Ticket type is required" }),
+  event_type_name: z.string().optional(),
+  organizer_id: z.string().optional(),
+  user_id: z.string().optional(),
+  user_name: z.string().optional(),
+  email: z.string().optional(),
   voucher: z.string().optional(),
   point: z.coerce.number().optional(),
-  useMyInfo: z.boolean(),
-  agreement: z.boolean().refine((val) => val === true, {
-    message: "You must agree to terms and conditions",
-  }),
+  // agreement: z.boolean().refine((val) => val === true, {
+  //   message: "You must agree to terms and conditions",
+  // }),
 });

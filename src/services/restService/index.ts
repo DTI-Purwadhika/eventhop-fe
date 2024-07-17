@@ -35,8 +35,9 @@ export const restById = async (
   return response?.result;
 };
 
-export const restPost = async (id: string, from: string, data: any) => {
-  const response = await restService(`${from}/${id}`, "POST", data);
+export const restPost = async (from: string, data: any) => {
+  const response = await restService(`${from}`, "POST", data);
+  console.log(response);
   return response?.result;
 };
 

@@ -40,4 +40,10 @@ const getPoints = async ({
   return { data: response?.result, totalPages: response?.totalData };
 };
 
+const getTotalPoints = async () => {
+  const fetchUrl = `history_points?_limit=1`;
+  const response = await restService(fetchUrl);
+  return response?.totalData;
+};
+
 export default getPoints;

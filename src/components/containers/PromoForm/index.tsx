@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 import { Button, Input, DatePicker } from "@/components/forms";
-import { promoDefaultValues } from "@/constants/defaultValues";
 import { promoFormSchema } from "@/shares/libs/validator";
 import { FormProps } from "./type";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,15 +18,23 @@ import {
 } from "@/components/ui/form";
 import EventDropdown from "@/components/forms/EventDropdown";
 import { toTitleCase } from "@/shares/libs/toTitleCase";
+import { Label } from "@/components/ui/label";
+import { restPost } from "@/services/restService";
+import { getLastPromotionId } from "@/services/promotion";
+import { useRouter } from "next/navigation";
 
 const PromoForm = ({ type }: FormProps) => {
   const form = useForm<z.infer<typeof promoFormSchema>>({
     resolver: zodResolver(promoFormSchema),
-    // defaultValues: promoDefaultValues,
   });
 
-  function onSubmit(values: z.infer<typeof promoFormSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof promoFormSchema>) {
+    const expiringDate = values.expire_date;
+    const date = new Date(expiringDate);
+    values.id = (await getLastPromotionId()) + 1;
+    //@ts-ignore
+    values.expire_date = date.toISOString();
+    restPost("promotions", values);
   }
 
   return (
@@ -61,11 +68,17 @@ const PromoForm = ({ type }: FormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <Input
-                      placeholder="What kind..?"
-                      label="Promotion Type"
-                      {...field}
-                    />
+                    <>
+                      <Label>Promotion Type</Label>
+                      <select
+                        {...field}
+                        className="form-select w-full border p-2 rounded-lg text-sm"
+                      >
+                        <option>Promotion Type</option>
+                        <option value="cashback">Cashback</option>
+                        <option value="discount">Discount</option>
+                      </select>
+                    </>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -147,10 +160,7 @@ const PromoForm = ({ type }: FormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <DatePicker
-                      onChange={(date: Date | null) => field.onChange(date)}
-                      label="Expire Date"
-                    />
+                    <DatePicker {...field} label="Expire Date" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
