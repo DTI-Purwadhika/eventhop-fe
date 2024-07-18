@@ -268,7 +268,7 @@ const EventForm = ({ type }: FormProps) => {
           </fieldset>
         </div>
         <div className="flex justify-end mr-8">
-          <Button type="submit">
+          <Button type="submit" url="/dashboard/events">
             {form.formState.isSubmitting
               ? "Submitting..."
               : `${toTitleCase(type)} Event`}

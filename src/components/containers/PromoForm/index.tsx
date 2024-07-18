@@ -24,6 +24,7 @@ import { getLastPromotionId } from "@/services/promotion";
 import { useRouter } from "next/navigation";
 
 const PromoForm = ({ type }: FormProps) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof promoFormSchema>>({
     resolver: zodResolver(promoFormSchema),
   });
@@ -33,6 +34,7 @@ const PromoForm = ({ type }: FormProps) => {
     //@ts-ignore
     values.expire_date = values.expire_date.toISOString();
     restPost("promotions", values);
+    router.push("/dashboard/promotions");
   }
 
   return (
@@ -167,7 +169,11 @@ const PromoForm = ({ type }: FormProps) => {
           </fieldset>
         </div>
         <div className="flex justify-end">
-          <Button type="submit" disabled={form.formState.isSubmitting}>
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            url="/dashboard/promotions"
+          >
             {form.formState.isSubmitting
               ? "Submitting..."
               : `${toTitleCase(type)} Voucher`}

@@ -90,7 +90,7 @@ const FilterContent = ({
           onChange={(e) => setEndPrice(Number(e.target.value))}
         />
       </div>
-      <div className="w-full">
+      {/* <div className="w-full">
         <DatePicker
           placeholder={new Date().toLocaleDateString()}
           label="Date from"
@@ -107,7 +107,7 @@ const FilterContent = ({
           withPast={false}
           onChange={setEndDate}
         />
-      </div>
+      </div> */}
       <div className="w-full col-span-2">
         <Input
           placeholder="Bandung"

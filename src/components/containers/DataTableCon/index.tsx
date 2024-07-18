@@ -32,15 +32,13 @@ const DataTableCon = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 4000); // Adjust the delay as needed
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
-    // Render skeleton loaders while loading
     return (
       <Card>
         <CardHeader className="mb-1">
@@ -73,23 +71,7 @@ const DataTableCon = ({
         <CardTitle>
           <div className="flex justify-between relative">
             {title}
-            {/* <TabMenu /> */}
             <div className="absolute flex right-0 gap-3">
-              {/* <FilterButton>
-                <FilterContent
-                  startPrice={filterData.startPrice}
-                  endPrice={filterData.endPrice}
-                  setStartPrice={filterData.startPrice}
-                  setEndPrice={filterData.endPrice}
-                  setStartDate={filterData.setStartDate}
-                  setEndDate={filterData.setEndDate}
-                  isFree={filterData.isFree}
-                  setIsFree={filterData.setIsFree}
-                  handleSubmit={filterData.handleSubmit}
-                  setCategory={filterData.setCategory}
-                  category=""
-                />
-              </FilterButton> */}
               <Button
                 url={`/dashboard/${title.toLowerCase()}/new`}
                 icon="Plus"
