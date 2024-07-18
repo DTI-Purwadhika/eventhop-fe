@@ -54,13 +54,14 @@ const DataTableCon = ({
               icon="Plus"
               className={noCrud ? "hidden" : ""}
               disabled={noCrud}
+              iconOnly="sm"
             >
               {`${title === "Events" ? "Host" : "Add"} a new ${title}`}
             </Button>
           </div>
         </div>
       </CardTitle>
-      <CardDescription>{`Manage all of your ${title} in one place`}</CardDescription>
+      <CardDescription className="w-1/2 md:w-full">{`Manage all of your ${title} in one place`}</CardDescription>
     </CardHeader>
     <CardContent>
       <DataTable

@@ -1,6 +1,6 @@
 import type { ChildType } from "@/shares/types";
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
+import { NextAuthProvider } from "@/contexts/NextAuthContext";
 import { bodyFont } from "@/shares/assets/Font";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -17,10 +17,10 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: ChildType) => (
   <html lang="en" className="overflow-hidden">
     <body className={bodyFont}>
-      <SessionProvider>
+      <NextAuthProvider>
         {children}
         <Toaster />
-      </SessionProvider>
+      </NextAuthProvider>
     </body>
   </html>
 );

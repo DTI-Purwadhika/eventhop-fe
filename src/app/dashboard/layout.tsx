@@ -10,8 +10,8 @@ const RootLayout = ({ children }: ChildType) => (
     enableSystem
     disableTransitionOnChange
   >
-    <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
-      <div className="hidden border rounded-lg lg:block m-4">
+    <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr] bg-card">
+      <div className="hidden h-fit pb-4 border rounded-lg lg:block m-4">
         <Sidebar />
       </div>
       <div className="flex flex-col max-h-screen">

@@ -1,19 +1,17 @@
 import restService from "@/services/restService";
 import { SearchType } from "@/shares/types/search";
 
-const refCode = "ALICE123";
-
 const getReferrals = async ({
   filter,
   limit = 6,
   page = 1,
   sort = "nameAz",
 }: SearchType) => {
-  let fetchUrl = `users?_limit=${limit}&_page=${page}&referral_code=${refCode}`;
+  let fetchUrl = `users?_limit=${limit}&_page=${page}`;
 
-  // if (filter && filter !== "") {
-  //   fetchUrl += `&${filter}`;
-  // }
+  if (filter && filter !== "") {
+    fetchUrl += `&${filter}`;
+  }
 
   //fetchUrl + `&_sort=${sort.replace("_", "")}&_order=${sort.endsWith("Az") ? "asc" : "desc"}`;
 

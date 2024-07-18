@@ -2,6 +2,7 @@ import { Heading, Text } from "@/components/typhographies";
 import {
   Calendar,
   CalendarRange,
+  Barcode,
   LineChart,
   MessageCircleMore,
   MessageCircleQuestion,
@@ -26,6 +27,7 @@ import {
   TicketCheck,
   Coins,
   PartyPopper,
+  ScanBarcode,
 } from "lucide-react";
 
 const Upload = () => (
@@ -41,6 +43,7 @@ const Upload = () => (
 export const Icons = {
   Calendar,
   CalendarRange,
+  Barcode,
   Home,
   Link,
   LineChart,
@@ -61,6 +64,7 @@ export const Icons = {
   Plus,
   UserRoundPlus,
   Clipboard,
+  ScanBarcode,
   Filter,
   Coins,
   TicketCheck,

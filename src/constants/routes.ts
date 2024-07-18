@@ -16,11 +16,7 @@ export const headerLinks = [
   },
   {
     label: "Login",
-    route: `${BASE_PATH}/signin`,
-  },
-  {
-    label: "Logout",
-    route: `${BASE_PATH}/signout`,
+    route: `${BASE_PATH}/in`,
   },
 ];
 
@@ -35,15 +31,15 @@ export const userLinks: {
     icon: "Home",
   },
   {
-    label: "My Events",
+    label: "My Tickets",
     route: "/tickets",
     icon: "Ticket",
   },
-  {
-    label: "My Profile",
-    route: "/profile",
-    icon: "UserRound",
-  },
+  // {
+  //   label: "My Profile",
+  //   route: "/profile",
+  //   icon: "UserRound",
+  // },
   {
     label: "My Referral",
     route: "/referral",
@@ -55,10 +51,15 @@ export const userLinks: {
     icon: "Coins",
   },
   {
-    label: "Support Ticket",
-    route: "/support",
-    icon: "MessageCircleQuestion",
+    label: "My Purchases",
+    route: "/purchases",
+    icon: "Barcode",
   },
+  // {
+  //   label: "Support Ticket",
+  //   route: "/support",
+  //   icon: "MessageCircleQuestion",
+  // },
 ];
 
 export const organizerLinks: {
@@ -66,6 +67,11 @@ export const organizerLinks: {
   route: string;
   icon: keyof typeof Icons;
 }[] = [
+  {
+    label: "Home",
+    route: "/",
+    icon: "Home",
+  },
   {
     label: "Manage Event",
     route: "/events",
@@ -80,6 +86,11 @@ export const organizerLinks: {
     label: "Report",
     route: "/report",
     icon: "LineChart",
+  },
+  {
+    label: "Transaction",
+    route: "/transaction",
+    icon: "ScanBarcode",
   },
   {
     label: "Feedback",

@@ -1,15 +1,14 @@
 export const eventDefaultValues = {
   name: "",
-  description: "",
+  detail: "",
   location: "",
-  imageUrl: "",
-  startDateTime: new Date(),
-  endDateTime: new Date(),
-  categoryId: "",
-  url: "",
-  ticketTiers: [
+  main_image: "",
+  start_date: new Date(),
+  end_date: new Date(),
+  category: "",
+  ticket_type: [
     {
-      tier_name: "",
+      name: "",
     },
   ],
 };
@@ -21,4 +20,19 @@ export const promoDefaultValues = {
   voucher_code: "",
   expire_date: new Date(),
   user_id: "",
+};
+
+export const loginDefaultValues = {
+  email: undefined,
+  password: undefined,
+  name: undefined,
+  ReferralCode: undefined,
+};
+
+export const purchaseDefaultValues = {
+  ticketType: undefined,
+  name: undefined,
+  email: undefined,
+  telephone: undefined,
+  agreement: false,
 };

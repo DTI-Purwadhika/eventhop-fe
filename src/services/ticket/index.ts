@@ -9,9 +9,9 @@ const getTickets = async ({
 }: SearchType) => {
   let fetchUrl = `ticket_purchases?_limit=${limit}&_page=${page}`;
 
-  // if (filter && filter !== "") {
-  //   fetchUrl += `&${filter}`;
-  // }
+  if (filter && filter !== "") {
+    fetchUrl += `${filter}`;
+  }
 
   //fetchUrl + `&_sort=${sort.replace("_", "")}&_order=${sort.endsWith("Az") ? "asc" : "desc"}`;
 
@@ -35,9 +35,18 @@ const getTickets = async ({
       fetchUrl += `&_sort=start_date&_order=desc`;
       break;
   }
+
   const response = await restService(fetchUrl);
 
   return { data: response?.result, totalPages: response?.totalData };
+};
+
+export const getLastTicketId = async () => {
+  const fetchUrl = `ticket_purchases?_limit=1&_sort=id&_order=desc`;
+  const response = await restService(fetchUrl);
+  const lastTicket = response?.result?.[0];
+
+  return lastTicket?.id;
 };
 
 export default getTickets;

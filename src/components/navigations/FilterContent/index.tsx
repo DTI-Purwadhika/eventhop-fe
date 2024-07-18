@@ -10,15 +10,17 @@ import { Heading } from "@/components/typhographies";
 
 const FilterContent = ({
   startPrice,
-  endPrice,
   setStartPrice,
+  endPrice,
   setEndPrice,
   setStartDate,
   setEndDate,
   setIsFree,
   category,
+  setCity,
   setCategory,
   handleSubmit,
+  handleReset,
 }: any) => {
   const handleRadioChange = (value: string) => {
     switch (value) {
@@ -44,7 +46,7 @@ const FilterContent = ({
       <Heading size="h3" className="block md:hidden">
         Filter
       </Heading>
-      <div className="w-full col-span-2">
+      <div className="w-full col-span-2 md:hidden">
         <Dropdown
           value={category}
           setCategory={setCategory}
@@ -106,12 +108,21 @@ const FilterContent = ({
           onChange={setEndDate}
         />
       </div>
-      <Button
-        className="w-full hidden md:flex md:mt-4 md:-mb-4 col-span-2"
-        onClick={handleSubmit}
-      >
-        Submit
-      </Button>
+      <div className="w-full col-span-2">
+        <Input
+          placeholder="Bandung"
+          label="Location"
+          onChange={(e) => setCity(e.target.value)}
+        />
+      </div>
+      <div className="w-full hidden md:grid md:grid-cols-5 gap-4 md:mt-4 md:-mb-4 col-span-2">
+        <Button className="col-span-4" onClick={handleSubmit}>
+          Submit
+        </Button>
+        <Button onClick={handleReset} variant="outline">
+          Reset
+        </Button>
+      </div>
     </div>
   );
 };

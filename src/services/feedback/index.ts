@@ -35,6 +35,7 @@ const getFeedbacks = async ({
       fetchUrl += `&_sort=start_date&_order=desc`;
       break;
   }
+  console.log(fetchUrl);
   const response = await restService(fetchUrl);
 
   return { data: response?.result, totalPages: response?.totalData };

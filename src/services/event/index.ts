@@ -7,7 +7,6 @@ const getEvents = async ({
   limit = 100,
   page = 1,
   sort = "nameAz",
-  userId,
   status = "all",
 }: SearchType) => {
   let fetchUrl = `events?_limit=${limit}&_page=${page}`;
@@ -42,15 +41,11 @@ const getEvents = async ({
       fetchUrl += `&_sort=start_date&_order=desc`;
       break;
     case "high_price":
-      fetchUrl += `&_sort=price&_order=desc`;
+      fetchUrl += `&_sort=ticket_type.0.price&_order=desc`;
       break;
     case "low_price":
-      fetchUrl += `&_sort=price&_order=asc`;
+      fetchUrl += `&_sort=ticket_type.0.price&_order=asc`;
       break;
-  }
-
-  if (userId) {
-    fetchUrl += `&organizer.id=${userId}`;
   }
 
   switch (status) {
@@ -66,6 +61,13 @@ const getEvents = async ({
   const response = await restService(fetchUrl);
 
   return { data: response?.result, totalPages: response?.totalData };
+};
+
+export const getLastEventId = async () => {
+  const fetchUrl = `events?_limit=1&_sort=id&_order=desc`;
+  const response = await restService(fetchUrl);
+  const lastEvent = response?.result?.[0];
+  return lastEvent?.id;
 };
 
 export default getEvents;

@@ -1,28 +1,24 @@
-import NextAuth, { User, NextAuthConfig } from "next-auth";
+import NextAuth, { NextAuthConfig } from "next-auth";
+import { BASE_PATH } from "@/constants/config";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import checkUser from "./services/checkUser";
-import { BASE_PATH } from "@/constants/config";
-// import EmailProvider from "next-auth/providers/nodemailer";
 
 const authHandler = async (email: string, password: string) => {
-  const eventData = process.env.NEXT_PUBLIC_LOG_API;
   try {
-    const response = await fetch(`${eventData}`, {
+    const authData = process.env.NEXT_PUBLIC_EVENTH0P_API;
+    const response = await fetch(`${authData}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: email,
+        email: email,
         password: password,
       }),
     }).then((res) => res.json());
 
-    if (response.message === "Invalid credentials") {
-      throw new Error("Failed to fetch data");
-    }
-
     const data = await response;
-    return data;
+
+    return data.data;
   } catch (error) {
     console.error("Can't catch data:", error);
   }
@@ -33,7 +29,11 @@ const authOptions: NextAuthConfig = {
     Credentials({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "hopper" },
+        email: {
+          label: "Email",
+          type: "text",
+          placeholder: "hopper@eventhop.com",
+        },
         password: { label: "Password", type: "password" },
       },
 
@@ -44,9 +44,9 @@ const authOptions: NextAuthConfig = {
               id: user.id,
               name: user.name,
               email: user.email,
-              role: "user",
-              username: user.username,
-              image: user.image,
+              role: user.roles,
+              image: user.avatarUrl,
+              refCode: user.referralCode,
               token: user.token,
               refreshToken: user.refreshToken,
             }
@@ -73,44 +73,47 @@ const authOptions: NextAuthConfig = {
       return false;
     },
     async session({ session, token }: any) {
-      // Add user data to the session object
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.role = token.role;
-        session.user.username = token.username;
         session.user.image = token.image;
+        session.user.refCode = token.refCode;
         session.user.token = token.token;
         session.user.refreshToken = token.refreshToken;
       }
       return session;
     },
     async jwt({ token, user }: any) {
-      // Initial sign in
-
       if (user) {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
         token.role = user.role;
-        token.username = user.username;
         token.image = user.image;
+        token.refCode = user.refCode;
         token.token = user.token;
         token.refreshToken = user.refreshToken;
       }
       return token;
     },
+    async redirect({ baseUrl }) {
+      return baseUrl;
+    },
   },
   session: {
     strategy: "jwt",
     maxAge: 3 * 60 * 60,
-    updateAge: 20 * 60,
+    updateAge: 3 * 59 * 60,
   },
   cookies: {
     sessionToken: {
       name: "next-auth.session-token",
     },
+  },
+  pages: {
+    signIn: "/sign/in",
   },
   basePath: BASE_PATH,
   secret: process.env.NEXTAUTH_SECRET,

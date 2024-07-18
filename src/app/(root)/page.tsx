@@ -9,17 +9,17 @@ const Home = () => (
       <div>
         <CategoryCon />
         <Heading size="h3" weight="bold">
-          Check out this Event!
+          Event that almost start!
         </Heading>
-        <EventCon filter="popular" />
+        <EventCon sort="early_date" />
         <Heading size="h3" weight="bold">
-          Best Event This Month!
+          Free Event!
         </Heading>
-        <EventCon filter="month" />
+        <EventCon filter="&ticket_type.0.price=0" sort="early_date" />
         <Heading size="h3" weight="bold">
-          Event Near You!
+          Attend Online Event from Your Location!
         </Heading>
-        <EventCon filter="location" />
+        <EventCon filter="&location_like=online" sort="early_date" />
       </div>
     </div>
   </>

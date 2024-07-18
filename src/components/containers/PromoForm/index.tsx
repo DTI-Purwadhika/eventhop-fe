@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 import { Button, Input, DatePicker } from "@/components/forms";
-import { promoDefaultValues } from "@/constants/defaultValues";
 import { promoFormSchema } from "@/shares/libs/validator";
 import { FormProps } from "./type";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,15 +17,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import EventDropdown from "@/components/forms/EventDropdown";
+import { toTitleCase } from "@/shares/libs/toTitleCase";
+import { Label } from "@/components/ui/label";
+import { restPost } from "@/services/restService";
+import { getLastPromotionId } from "@/services/promotion";
+import { useRouter } from "next/navigation";
 
 const PromoForm = ({ type }: FormProps) => {
   const form = useForm<z.infer<typeof promoFormSchema>>({
     resolver: zodResolver(promoFormSchema),
-    // defaultValues: promoDefaultValues,
   });
 
-  function onSubmit(values: z.infer<typeof promoFormSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof promoFormSchema>) {
+    values.id = (await getLastPromotionId()) + 1;
+    //@ts-ignore
+    values.expire_date = values.expire_date.toISOString();
+    restPost("promotions", values);
   }
 
   return (
@@ -60,11 +66,17 @@ const PromoForm = ({ type }: FormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <Input
-                      placeholder="What kind..?"
-                      label="Promotion Type"
-                      {...field}
-                    />
+                    <>
+                      <Label>Promotion Type</Label>
+                      <select
+                        {...field}
+                        className="form-select w-full border p-2 rounded-lg text-sm"
+                      >
+                        <option>Promotion Type</option>
+                        <option value="cashback">Cashback</option>
+                        <option value="discount">Discount</option>
+                      </select>
+                    </>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -92,17 +104,16 @@ const PromoForm = ({ type }: FormProps) => {
             <legend className="-ml-1 px-1 text-sm font-medium">
               Tell me more!
             </legend>
-
             <FormField
               control={form.control}
               name="event_id"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    {/* <EventDropdown
+                    <EventDropdown
                       setEvent={field.onChange}
-                      value={field.value}
-                    /> */}
+                      value={field.value!}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -147,20 +158,7 @@ const PromoForm = ({ type }: FormProps) => {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    {/* <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                      <Icon name="Calendar" />
-                      <DatePicker
-                        selected={new Date(field.value)}
-                        onChange={(date: Date | null) => field.onChange(date)}
-                        showTimeSelect
-                        timeInputLabel="Time:"
-                        dateFormat="dd/MM/yyyy h:mm aa"
-                        wrapperClassName="datePicker"
-                      />
-                    </div> */}
-                    <DatePicker
-                      onChange={(date: Date | null) => field.onChange(date)}
-                    />
+                    <DatePicker {...field} label="Expire Date" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -170,7 +168,9 @@ const PromoForm = ({ type }: FormProps) => {
         </div>
         <div className="flex justify-end">
           <Button type="submit" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? "Submitting..." : `${type} Voucher`}
+            {form.formState.isSubmitting
+              ? "Submitting..."
+              : `${toTitleCase(type)} Voucher`}
           </Button>
         </div>
       </form>

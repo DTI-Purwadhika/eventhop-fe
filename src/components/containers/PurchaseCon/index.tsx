@@ -1,325 +1,319 @@
 "use client";
 import * as z from "zod";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
-import { useEffect } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { Text } from "@/components/typhographies";
+import { useEffect, useState } from "react";
+
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { getSession } from "@/services/auth/services/getSession";
+import { purchaseFormSchema } from "@/shares/libs/validator";
+import { Button, Input } from "@/components/forms";
+import { Label } from "@/components/ui/label";
+import { Heading } from "@/components/typhographies";
+import { Separator } from "@/components/ui/separator";
+import isFirstTime from "@/services/ticket/isFirstTime";
+import { checkPromoCode } from "@/services/promotion/isAvalable";
+import { restPost } from "@/services/restService";
+import { getLastTicketId } from "@/services/ticket";
+import { useRouter } from "next/navigation";
 
-const schema = z.object({
-  ticketType: z.string({ message: "Ticket type is required" }),
-  name: z.string({ message: "Name is required" }),
-  email: z.string().email({ message: "Invalid email address" }),
-  telephone: z.string({ message: "Telephone number is required" }),
-  useMyInfo: z.boolean(),
-  agreement: z.boolean().refine((val) => val === true, {
-    message: "You must agree to terms and conditions",
-  }),
-});
+const PurchaseForm = ({ event }: any) => {
+  const [session, setSession] = useState<any>();
+  const [discount, setDiscount] = useState<number>(0);
+  const [firstDiscount, setFirstDiscount] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [firstBuy, setFirstBuy] = useState<boolean>(false);
+  const [point, setPoint] = useState<number>(0);
+  const [eventId, setEventId] = useState<number>(1);
+  const [voucher, setVoucher] = useState<string>("");
+  const [voucherStatus, setVoucherStatus] = useState<string>("");
+  const [voucherCode, setVoucherCode] = useState<string>("");
 
-type FormData = z.infer<typeof schema>;
-
-const PurchaseForm = () => {
-  const { data: session } = useSession();
-  const {
-    handleSubmit,
-    control,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      ticketType: "",
-      name: "",
-      email: "",
-      telephone: "",
-      useMyInfo: false,
-      agreement: false,
-    },
-  });
-
-  const useMyInfo = watch("useMyInfo");
+  const router = useRouter();
 
   useEffect(() => {
-    if (useMyInfo && session?.user) {
-      setValue("name", session.user.name || "");
-      setValue("email", session.user.email || "");
-    }
-  }, [useMyInfo, session, setValue]);
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+    };
+    fetchSession();
+  }, []);
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  useEffect(() => {
+    const ticketPrice = event.ticket_type[eventId - 1].price;
+    setTotalPrice(ticketPrice - discount - point);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [discount, point, eventId]);
+
+  useEffect(() => {
+    const checkFirstTime = async () => {
+      const firstTime = await isFirstTime(session?.id);
+      if (firstTime) {
+        setFirstBuy(true);
+        setFirstDiscount(event.ticket_type[eventId - 1].price * 0.1);
+      }
+    };
+    checkFirstTime();
+  }, [event.ticket_type, eventId, session?.id]);
+
+  const handleVoucher = async (voucher: string) => {
+    const promotion = await checkPromoCode(voucher);
+    if (promotion) {
+      setVoucherStatus("Voucher Applied");
+      setVoucherCode(voucher);
+      if (promotion.discount_type === "Percentage") {
+        setDiscount(
+          (event.ticket_type[eventId - 1].price * promotion.amount) / 100
+        );
+      } else {
+        setDiscount(promotion.amount);
+      }
+    } else {
+      setVoucherStatus("Voucher Not Found, Expired, or Quota Limit Reached");
+    }
+  };
+
+  const applyVoucher = () => {
+    handleVoucher(voucher);
+  };
+
+  const userId = session?.id;
+
+  const form = useForm<z.infer<typeof purchaseFormSchema>>({
+    resolver: zodResolver(purchaseFormSchema),
+  });
+
+  const onSubmit = async (values: z.infer<typeof purchaseFormSchema>) => {
+    values.id = (await getLastTicketId()) + 1;
+    values.event_id = event.id;
+    values.event_name = event.name;
+    values.event_type_name = event.ticket_type[eventId - 1].name;
+    values.organizer_id = event.organizer.id;
+    values.user_id = userId;
+    values.user_name = session?.name;
+    values.email = session?.email;
+    values.voucher = voucherCode;
+    values.point = point;
+    console.log(values);
+
+    restPost("ticket_purchases", values);
+    router.push("/dashboard/tickets");
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-4 border rounded-md shadow-md">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
-          <label
-            htmlFor="ticketType"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Ticket Type
-          </label>
-          <Controller
-            name="ticketType"
-            control={control}
-            render={({ field }) => (
-              <select
-                {...field}
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+          <div>
+            <fieldset className="grid md:grid-cols-2 gap-6 rounded-lg border px-8 pt-4 pb-8">
+              <legend className="-ml-1 px-1 text-sm font-medium">
+                Your information?
+              </legend>
+
+              <FormField
+                control={form.control}
+                name="user_name"
+                render={({ field }) => (
+                  <FormItem className="w-full col-span-2">
+                    <FormControl>
+                      <Input
+                        placeholder="Loading your name..."
+                        label="Attendee Name"
+                        disabled
+                        {...field}
+                        value={session?.name}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="w-full col-span-2">
+                    <FormControl>
+                      <Input
+                        placeholder="Loading your email..."
+                        label="Attendee Email"
+                        disabled
+                        {...field}
+                        value={session?.email}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </fieldset>
+            <br />
+            <fieldset className="grid md:grid-cols-2 gap-6 rounded-lg border px-8 pt-4 pb-8">
+              <legend className="-ml-1 px-1 text-sm font-medium">
+                Ticket Information
+              </legend>
+
+              <FormField
+                control={form.control}
+                name="event_type_id"
+                render={({ field }) => (
+                  <FormItem className="w-full col-span-2">
+                    <FormControl>
+                      <>
+                        <Label>Ticket Tier</Label>
+                        <select
+                          className="input w-full border rounded-lg px-4 py-2"
+                          {...field}
+                          onChange={(e) => {
+                            setEventId(Number(e.target.value));
+                            field.onChange(e);
+                          }}
+                        >
+                          <option value="">Select Ticket Tier...</option>
+                          {event?.ticket_type.map((ticket: any) => (
+                            <option key={ticket.id} value={ticket.id}>
+                              {ticket.name} : Rp {ticket.price},-
+                            </option>
+                          ))}
+                        </select>
+                      </>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="point"
+                render={({ field }) => (
+                  <FormItem className="w-full col-span-2">
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="0"
+                        label="Use Point"
+                        min={0}
+                        onBlur={(e) => setPoint(e.target.value)}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="voucher"
+                render={({ field }) => (
+                  <FormItem className="w-full col-span-2">
+                    <FormControl>
+                      <>
+                        <Input
+                          placeholder="Admin#123"
+                          label="Voucher Code"
+                          onBlur={(e) => setVoucher(e.target.value)}
+                        />
+                        <Button size="sm" onClick={applyVoucher}>
+                          Apply
+                        </Button>
+                        <span className="text-primary-500 ml-4">
+                          {voucherStatus}
+                        </span>
+                      </>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </fieldset>
+          </div>
+
+          <fieldset className="grid gap-6 rounded-lg border pt-4 pb-8 px-8 h-fit">
+            <legend className="-ml-1 px-1 text-sm font-medium">
+              Purchase Information
+            </legend>
+
+            <div className="grid grid-cols-2">
+              <Heading
+                size="h3"
+                weight="medium"
+                className="text-xl font-semibold"
               >
-                <option value="">Select a ticket</option>
-                <option value="standard">Standard</option>
-                <option value="vip">VIP</option>
-              </select>
-            )}
-          />
-          {errors.ticketType && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.ticketType.message}
-            </p>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
+                Ticket Price
+              </Heading>
+              <Label className="w-full text-right text-2xl">
+                Rp {event.ticket_type[eventId - 1].price},-
+              </Label>
+            </div>
+            <div className="grid grid-cols-2">
+              <Heading
+                size="h3"
+                weight="medium"
+                className="text-lg font-medium"
+              >
+                Promo Applied
+              </Heading>
+              <Label className="w-full text-xl text-right">
+                - Rp {discount},-
+              </Label>
+            </div>
+            <div className={`${!firstBuy && "hidden"} grid grid-cols-2`}>
+              <Heading
+                size="h3"
+                weight="medium"
+                className="text-lg font-medium"
+              >
+                First Buy Discount
+              </Heading>
+              <Label className="w-full text-xl text-right">
+                - Rp {firstDiscount},-
+              </Label>
+            </div>
+            <div className="grid grid-cols-2">
+              <Heading
+                size="h3"
+                weight="medium"
+                className="text-lg font-medium"
+              >
+                Point
+              </Heading>
+              <Label className="w-full text-xl text-right">
+                - Rp {point},-
+              </Label>
+            </div>
+            <Separator />
+            <div className="grid grid-cols-2">
+              <Heading
+                size="h3"
+                weight="medium"
+                className="text-xl font-semibold"
+              >
+                Total Price
+              </Heading>
+              <Label className="w-full text-2xl text-right">
+                Rp {totalPrice},-
+              </Label>
+            </div>
+          </fieldset>
+          <Button
+            type="submit"
+            className="w-fit mt-4"
+            icon="Ticket"
+            disabled={session?.role !== "user"}
           >
-            Name
-          </label>
-          <Controller
-            name="name"
-            control={control}
-            render={({ field }) => (
-              <input
-                {...field}
-                type="text"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            )}
-          />
-          {errors.name && (
-            <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
-          )}
+            {session?.role === "user" ? "Purchase Ticket" : "Login to Purchase"}
+          </Button>
         </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email
-          </label>
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <input
-                {...field}
-                type="email"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            )}
-          />
-          {errors.email && (
-            <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="telephone"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Telephone Number
-          </label>
-          <Controller
-            name="telephone"
-            control={control}
-            render={({ field }) => (
-              <input
-                {...field}
-                type="text"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-            )}
-          />
-          {errors.telephone && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.telephone.message}
-            </p>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label className="inline-flex items-center">
-            <Controller
-              name="useMyInfo"
-              control={control}
-              render={({ field }) => (
-                <Checkbox
-                  {...field}
-                  value={field.value ? "true" : "false"}
-                  className="form-checkbox text-indigo-600 border-gray-300 rounded"
-                />
-              )}
-            />
-            <span className="ml-2">Use my information</span>
-          </label>
-        </div>
-
-        <div className="mb-4">
-          <label className="inline-flex items-center">
-            <Controller
-              name="agreement"
-              control={control}
-              render={({ field }) => (
-                <Checkbox
-                  {...field}
-                  value={field.value ? "true" : "false"}
-                  className="form-checkbox text-indigo-600 border-gray-300 rounded"
-                />
-              )}
-            />
-            <span className="ml-2">
-              I agree to the{" "}
-              <Dialog>
-                <DialogTrigger>terms and conditions</DialogTrigger>
-                <DialogContent className="bg-white">
-                  <DialogHeader>
-                    <DialogTitle>Ticket Terms and Conditions</DialogTitle>
-                    <DialogDescription className=" max-h-[85vh] overflow-y-auto">
-                      <Text>
-                        Before you jump into the fun, let&apos;s bounce through
-                        these super serious terms and conditions. Read them
-                        carefully, or just hop along like a rabbit on a sunny
-                        day. Either way, you&apos;re bound by these terms, so
-                        don&apos;t say we didn&apos;t warn you!
-                      </Text>
-                      <br />
-
-                      <Label>1. Ticket Purchase</Label>
-                      <Text>
-                        When you buy a ticket from one of our delightful host
-                        partners, you’re entering a world of wonder, excitement,
-                        and potential disappointment. We just sell the tickets;
-                        we&apos;re not the event planners. If the event turns
-                        out to be a big, fluffy scam, that&apos;s between you
-                        and the sneaky scammer. We’re just the bunny in the
-                        middle.
-                      </Text>
-                      <br />
-
-                      <Label>2. Event Authenticity</Label>
-                      <Text>
-                        We try our best to ensure our host partners are as real
-                        as a rabbit hole. However, some of them might be
-                        trickier than a hare on a sugar rush. If you find
-                        yourself at a non-existent event, don&apos;t come
-                        hopping to us. We’re not liable for any fake events, and
-                        we won’t reimburse you with carrots or cash.
-                      </Text>
-                      <br />
-
-                      <Label>3. Refunds and Cancellations</Label>
-                      <Text>
-                        Refunds are as rare as a rabbit with a top hat. If the
-                        event is canceled, you might get a refund, or you might
-                        get a virtual pat on the back. If the event is fake, you
-                        get the honor of learning a valuable life lesson. Either
-                        way, keep your expectations lower than a rabbit’s
-                        burrow.
-                      </Text>
-                      <br />
-
-                      <Label>4. User Responsibility</Label>
-                      <Text>
-                        When you buy a ticket, you’re responsible for making
-                        sure the event is legit. Do your research, or risk being
-                        duped by a devious hare. If you fall for a scam, just
-                        remember: every bunny makes mistakes.
-                      </Text>
-                      <br />
-
-                      <Label>5. Limitation of Liability</Label>
-                      <Text>
-                        Our liability is limited to the number of hops it takes
-                        a bunny to cross a meadow. In other words, we’re not
-                        responsible for any losses, damages, or emotional
-                        distress caused by attending (or not attending) an
-                        event. If things go south, you&apos;ll need to hop on
-                        over to the scammer.
-                      </Text>
-                      <br />
-
-                      <Label>6. Privacy and Data</Label>
-                      <Text>
-                        We respect your privacy like a rabbit respects its
-                        warren. We’ll only share your data with our partners to
-                        make your event experience as smooth as a bunny’s fur.
-                        But if your data ends up in a rabbit hole, don’t blame
-                        us. We’re not magicians, just ticket sellers.
-                      </Text>
-                      <br />
-
-                      <Label>7. Contact Us</Label>
-                      <Text>
-                        If you have any questions, complaints, or just want to
-                        share a funny rabbit joke, feel free to contact us.
-                        We’ll do our best to respond quicker than a jackrabbit
-                        on a hot day.
-                      </Text>
-                      <br />
-
-                      <Text>
-                        Remember, life’s a hop, skip, and a jump. Enjoy the
-                        ride, watch out for sneaky rabbits, and always look
-                        before you leap.
-                      </Text>
-                      <br />
-
-                      <Text>
-                        By purchasing a ticket, you acknowledge that you’ve
-                        read, understood, and agreed to these terms and
-                        conditions. If you didn&apos;t read them, well,
-                        that&apos;s a hare-brained move, but you’re still bound
-                        by them. Happy hopping!
-                      </Text>
-                      <br />
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
-            </span>
-          </label>
-          {errors.agreement && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.agreement.message}
-            </p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
-        >
-          Submit
-        </button>
       </form>
-    </div>
+    </Form>
   );
 };
 

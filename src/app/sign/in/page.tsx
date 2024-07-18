@@ -1,69 +1,138 @@
 "use client";
+
+import { z } from "zod";
+import { Button, Input } from "@/components/forms";
+import { loginDefaultValues } from "@/constants/defaultValues";
+import { loginFormSchema } from "@/shares/libs/validator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import Link from "next/link";
+
+import { handleSignIn } from "./handleSignIn";
+
 import {
   Card,
+  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useFormState } from "react-dom";
-
-const loginInitialState = {
-  message: "",
-  errors: {
-    email: "",
-    password: "",
-    credentials: "",
-    unknown: "",
-  },
-};
 
 const Login = () => {
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: loginDefaultValues,
+  });
+
+  const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
+    try {
+      await handleSignIn(values.email, values.password);
+    } catch (err) {
+      form.setError("password", {
+        type: "manual",
+        message: "Email or Password invalid, let's try again!",
+      });
+    }
+  };
+
   return (
-    <div className="mx-auto max-w-md space-y-6">
-      <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Welcome</h1>
-        <p className="text-muted-foreground">
-          Sign in to your account or create a new one.
-        </p>
-      </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>Sign In</CardTitle>
-          <CardDescription>
-            Enter your email and password below to access your account.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
+    <Card>
+      <CardHeader>
+        <CardTitle>Login</CardTitle>
+        <CardDescription>
+          Enter your email below to login to your account
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            autoComplete="off"
+            className="grid gap-4"
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="w-full grid gap-2">
+                  <FormControl>
+                    <Input
+                      placeholder="john.doe@example.com"
+                      type="email"
+                      label="E-mail"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage>
+                    {form.formState.errors.email?.message}
+                  </FormMessage>
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required />
-          </div>
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button variant="outline">
-            <Link href="#" prefetch={false}>
-              Create Account
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field, fieldState: { error } }) => (
+                <FormItem className="w-full grid gap-2">
+                  <FormControl>
+                    <>
+                      <Input
+                        placeholder="********"
+                        label="Password"
+                        type="password"
+                        {...field}
+                      />
+                      {/* <Link
+                        href="#"
+                        className="ml-auto inline-block text-sm underline"
+                      >
+                        Forgot your password?
+                      </Link> */}
+                    </>
+                  </FormControl>
+                  <FormMessage>
+                    {form.formState.errors.password?.message}
+                    {error?.message}
+                  </FormMessage>
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              className="w-full mt-4"
+            >
+              {form.formState.isSubmitting ? "Please Wait..." : `Login`}
+            </Button>
+            {/* <Button
+            variant="outline"
+            className="w-full"
+            onClick={(e) => {
+              e.preventDefault();
+              handleSignIn("", "", "google");
+            }}
+          >
+            {loading ? "Please Wait..." : `Login with Google`}
+          </Button> */}
+            <Link href="/sign/up" className="text-center">
+              Need an account?
+              <br />
+              <div className="text-primary-500 hover:text-primary-500/75">
+                Sign Up Here!
+              </div>
             </Link>
-          </Button>
-          <Button type="submit">Sign In</Button>
-        </CardFooter>
-      </Card>
-    </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   );
 };
+
 export default Login;

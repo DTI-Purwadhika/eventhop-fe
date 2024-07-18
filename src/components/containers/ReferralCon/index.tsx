@@ -10,11 +10,8 @@ import { DataTableType } from "./type";
 import { Pagination } from "@/components/layouts";
 import { DataTable } from "@/components/elements/Table";
 import { DataType } from "@/shares/types/data";
-import { Heading } from "@/components/typhographies";
-import Icon from "@/shares/assets/Icon";
 import { toast } from "sonner";
-
-const refCode = "UKTIRJNF";
+import Icon from "@/shares/assets/Icon";
 
 const ReferralCon = ({
   title,
@@ -22,12 +19,14 @@ const ReferralCon = ({
   data,
   totalData,
   limit,
+  refCode = " ",
   currentPage,
   setCurrentPage,
-}: DataTableType & DataType) => {
+}: DataTableType & DataType & { refCode: string }) => {
   const handleCopy = () =>
     toast("Your Code Copied!", {
       description: `${refCode} Copied! Invite your friend!`,
+      className: "text-foreground bg-card border",
       action: {
         label: "Ok",
         onClick: () => {},
@@ -45,7 +44,7 @@ const ReferralCon = ({
           </CardHeader>
           <CardContent>
             <div
-              className="text-3xl px-6 py-2 w-full transition-all bg-slate-200 rounded-2xl flex justify-between border border-slate-300 hover:border-slate-600 hover:border-dashed hover:bg-slate-300 hover:cursor-pointer"
+              className="text-black text-3xl px-6 py-2 w-full transition-all bg-slate-200 rounded-2xl flex justify-between border border-slate-300 hover:border-slate-600 hover:border-dashed hover:bg-slate-300 hover:cursor-pointer"
               onClick={handleCopy}
             >
               {refCode}

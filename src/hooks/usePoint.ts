@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 import { SearchType } from "@/shares/types/search";
+import { getSession } from "@/services/auth/services/getSession";
 import getPoints from "@/services/point";
-import { useSession } from "next-auth/react";
 
 export const usePoints = ({ filter, limit, page, sort }: SearchType) => {
   const [collectData, setCollectData] = useState([]);
   const [totalData, setTotalData] = useState(0);
-  const { data: session } = useSession();
-  const user_id = session?.user?.id;
-  filter = `&user_id=${user_id}`;
+  const [session, setSession] = useState<any>();
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const session = await getSession();
+      setSession(session);
+    };
+    fetchSession();
+  }, []);
+
+  const userId = session?.id;
+  filter = `&user_id=${userId}`;
 
   useEffect(() => {
     const fetchTheEvent = async () => {
@@ -23,10 +32,10 @@ export const usePoints = ({ filter, limit, page, sort }: SearchType) => {
         setTotalData(parseInt(points.totalPages!));
       }
     };
-    if (user_id) {
+    if (userId) {
       fetchTheEvent();
     }
-  }, [filter, limit, page, sort, user_id]);
+  }, [filter, limit, page, sort, userId]);
 
   return { collectData, totalData };
 };
