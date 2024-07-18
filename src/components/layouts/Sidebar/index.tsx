@@ -34,15 +34,19 @@ const Sidebar = async () => {
       <div className="flex-1">
         <Command className="flex w-full items-start text-sm lg:text-base font-medium">
           <CommandList className="max-h-screen py-2 w-full">
-            <CommandGroup heading="My Menu" className="ml-2 pl-4 pr-3">
-              {userLinks.map((link, index) => (
-                <SidebarItem
-                  key={index}
-                  icon={link.icon}
-                  label={link.label}
-                  route={link.route}
-                />
-              ))}
+            <CommandGroup
+              heading="My Menu"
+              className={userRole === "user" ? "ml-2 pl-4 pr-3" : "hidden"}
+            >
+              {userRole === "user" &&
+                userLinks.map((link, index) => (
+                  <SidebarItem
+                    key={index}
+                    icon={link.icon}
+                    label={link.label}
+                    route={link.route}
+                  />
+                ))}
             </CommandGroup>
             <CommandGroup
               heading="Organizer"

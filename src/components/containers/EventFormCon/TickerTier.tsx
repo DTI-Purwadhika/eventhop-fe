@@ -29,9 +29,9 @@ const TickerTier = ({
       const newFree = !prevFree;
 
       if (newFree) {
-        setValue(`ticketTiers.${index}.price`, 0);
+        setValue(`ticket_type.${index}.price`, 0);
       } else {
-        setValue(`ticketTiers.${index}.price`, oldPrice);
+        setValue(`ticket_type.${index}.price`, oldPrice);
       }
 
       return newFree;
@@ -45,7 +45,7 @@ const TickerTier = ({
       </legend>
       <FormField
         control={control}
-        name={`ticketTiers.${index}.tier_name`}
+        name={`ticket_type.${index}.tier_name`}
         render={({ field }) => (
           <FormItem className="w-full col-span-2">
             <FormControl>
@@ -56,13 +56,13 @@ const TickerTier = ({
                 onBlur={() => setTierName(field.value)}
               />
             </FormControl>
-            <FormMessage />
+            <FormMessage></FormMessage>
           </FormItem>
         )}
       />
       <FormField
         control={control}
-        name={`ticketTiers.${index}.price`}
+        name={`ticket_type.${index}.price`}
         render={({ field }) => (
           <FormItem className="w-full">
             <FormControl>
@@ -94,7 +94,7 @@ const TickerTier = ({
       />
       <FormField
         control={control}
-        name={`ticketTiers.${index}.quota`}
+        name={`ticket_type.${index}.quota`}
         render={({ field }) => (
           <FormItem className="w-full">
             <FormControl>

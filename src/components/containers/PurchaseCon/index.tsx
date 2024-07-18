@@ -307,9 +307,9 @@ const PurchaseForm = ({ event }: any) => {
             type="submit"
             className="w-fit mt-4"
             icon="Ticket"
-            disabled={!session}
+            disabled={session?.role !== "user"}
           >
-            {session ? "Purchase Ticket" : "Login to Purchase"}
+            {session?.role === "user" ? "Purchase Ticket" : "Login to Purchase"}
           </Button>
         </div>
       </form>

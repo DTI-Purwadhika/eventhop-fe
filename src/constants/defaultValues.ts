@@ -1,17 +1,14 @@
-import Referral from "@/app/dashboard/referral/page";
-
 export const eventDefaultValues = {
   name: "",
-  description: "",
+  detail: "",
   location: "",
-  imageUrl: "",
-  startDateTime: new Date(),
-  endDateTime: new Date(),
-  categoryId: "",
-  url: "",
-  ticketTiers: [
+  main_image: "",
+  start_date: new Date(),
+  end_date: new Date(),
+  category: "",
+  ticket_type: [
     {
-      tier_name: "",
+      name: "",
     },
   ],
 };

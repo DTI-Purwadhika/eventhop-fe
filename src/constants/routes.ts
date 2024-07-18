@@ -35,11 +35,11 @@ export const userLinks: {
     route: "/tickets",
     icon: "Ticket",
   },
-  {
-    label: "My Profile",
-    route: "/profile",
-    icon: "UserRound",
-  },
+  // {
+  //   label: "My Profile",
+  //   route: "/profile",
+  //   icon: "UserRound",
+  // },
   {
     label: "My Referral",
     route: "/referral",
@@ -67,6 +67,11 @@ export const organizerLinks: {
   route: string;
   icon: keyof typeof Icons;
 }[] = [
+  {
+    label: "Home",
+    route: "/",
+    icon: "Home",
+  },
   {
     label: "Manage Event",
     route: "/events",

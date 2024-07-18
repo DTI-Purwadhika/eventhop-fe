@@ -1,6 +1,4 @@
 const checkPoint = () => {
-  return (
-    <div>checkPoint</div>
-  )
-}
-export default checkPoint
+  return null;
+};
+export default checkPoint;

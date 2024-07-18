@@ -63,4 +63,11 @@ const getEvents = async ({
   return { data: response?.result, totalPages: response?.totalData };
 };
 
+export const getLastEventId = async () => {
+  const fetchUrl = `events?_limit=1&_sort=id&_order=desc`;
+  const response = await restService(fetchUrl);
+  const lastEvent = response?.result?.[0];
+  return lastEvent?.id;
+};
+
 export default getEvents;

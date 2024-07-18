@@ -12,11 +12,10 @@ import {
 import { useFieldArray, useForm } from "react-hook-form";
 import { eventDefaultValues } from "@/constants/defaultValues";
 import { eventFormSchema } from "@/shares/libs/validator";
+import { useUploadThing } from "@/shares/libs/uploadthing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProps } from "./type";
 import { useState } from "react";
-
-import "react-datepicker/dist/react-datepicker.css";
 
 import {
   Form,
@@ -28,9 +27,13 @@ import {
 import TickerTier from "./TickerTier";
 import { Label } from "@/components/ui/label";
 import { toTitleCase } from "@/shares/libs/toTitleCase";
+import { getLastEventId } from "@/services/event";
+import { restPost } from "@/services/restService";
 
 const EventForm = ({ type }: FormProps) => {
   const [files, setFiles] = useState<File[]>([]);
+
+  const { startUpload } = useUploadThing("imageUploader");
 
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
@@ -40,12 +43,30 @@ const EventForm = ({ type }: FormProps) => {
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "ticketTiers",
+    name: "ticket_type",
   });
 
-  function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    console.log("submitted");
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+    console.log("values");
+
+    if (files.length > 0) {
+      const uploadedImages = await startUpload(files);
+
+      if (!uploadedImages) {
+        return;
+      }
+
+      values.id = (await getLastEventId()) + 1;
+
+      //@ts-ignore
+      values.start_date = values.start_date.toISOString();
+      //@ts-ignore
+      values.end_date = values.end_date.toISOString();
+      values.main_image = uploadedImages[0].url;
+
+      console.log(values);
+      restPost("events", values);
+    }
   }
 
   return (
@@ -69,13 +90,15 @@ const EventForm = ({ type }: FormProps) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.name?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="description"
+              name="detail"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl className="h-36 md:h-48 lg:h-80">
@@ -85,7 +108,9 @@ const EventForm = ({ type }: FormProps) => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.detail?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -98,7 +123,7 @@ const EventForm = ({ type }: FormProps) => {
 
             <FormField
               control={form.control}
-              name="categoryId"
+              name="category"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
@@ -107,13 +132,15 @@ const EventForm = ({ type }: FormProps) => {
                       value={field.value}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.category?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="imageUrl"
+              name="main_image"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl className="h-72">
@@ -121,7 +148,7 @@ const EventForm = ({ type }: FormProps) => {
                       <Label className="mb-2">Event Picture</Label>
                       <FileInput
                         onFieldChange={field.onChange}
-                        imageUrl={field.value}
+                        imageUrl={field.value || ""}
                         setFiles={setFiles}
                       />
                       <div className="flex items-center justify-between">
@@ -142,7 +169,9 @@ const EventForm = ({ type }: FormProps) => {
                       </div>
                     </>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.main_image?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -161,26 +190,30 @@ const EventForm = ({ type }: FormProps) => {
                     <FormControl>
                       <Input placeholder="Event Location" {...field} />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage>
+                      {form.formState.errors.location?.message}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
-                  name="startDateTime"
+                  name="start_date"
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
                         <DatePicker label="Start Date" {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage>
+                        {form.formState.errors.start_date?.message}
+                      </FormMessage>
                     </FormItem>
                   )}
                 />
                 <FormField
                   control={form.control}
-                  name="endDateTime"
+                  name="end_date"
                   render={({ field }) => (
                     <FormItem className="w-full">
                       <FormControl>
@@ -202,7 +235,9 @@ const EventForm = ({ type }: FormProps) => {
                         </div> */}
                         <DatePicker label="End Date" {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage>
+                        {form.formState.errors.end_date?.message}
+                      </FormMessage>
                     </FormItem>
                   )}
                 />
@@ -225,7 +260,7 @@ const EventForm = ({ type }: FormProps) => {
             <div className="flex justify-end mr-4">
               <Button
                 type="button"
-                onClick={() => append({ tier_name: "", price: 0, quota: 0 })}
+                onClick={() => append({ name: "", price: 0, seats: 0 })}
               >
                 Add Tier
               </Button>

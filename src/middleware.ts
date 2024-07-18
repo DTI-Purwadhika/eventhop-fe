@@ -25,4 +25,14 @@ export default auth((req) => {
       return NextResponse.redirect(new URL(`/dashboard`, req.url));
     }
   }
+  if (
+    reqUrl.pathname.startsWith("/dashboard/tickets") ||
+    reqUrl.pathname.startsWith("/dashboard/referral") ||
+    reqUrl.pathname.startsWith("/dashboard/points") ||
+    reqUrl.pathname.startsWith("/dashboard/purchases")
+  ) {
+    if (!user || user.role !== "user") {
+      return NextResponse.redirect(new URL(`/dashboard`, req.url));
+    }
+  }
 });

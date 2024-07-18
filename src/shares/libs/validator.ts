@@ -1,41 +1,43 @@
 import { z } from "zod";
 
-export const eventFormSchema = z
-  .object({
-    name: z
-      .string()
-      .min(3, { message: "Event Name must be at least 3 characters" })
-      .max(100, { message: "Event Name must be less than 100 characters" }),
-    description: z
-      .string()
-      .min(3, { message: "Description must be at least 3 characters" }),
-    location: z
-      .string()
-      .min(3, { message: "Location must be at least 3 characters" })
-      .max(20, { message: "Location must be less than 20 characters" }),
-    imageUrl: z.string(),
-    startDateTime: z.date(),
-    endDateTime: z.date(),
-    categoryId: z.string(),
-    url: z.string().url().optional(),
-    ticketTiers: z.array(
-      z.object({
-        tier_name: z
-          .string()
-          .min(3, { message: "Tier Name must be at least 3 characters" })
-          .max(100, { message: "Tier Name must be less than 100 characters" }),
-        price: z.coerce
-          .number()
-          .nonnegative({ message: "Price must be non-negative" }),
-        quota: z.coerce
-          .number()
-          .nonnegative({ message: "Quota must be non-negative" }),
-      })
-    ),
-  })
-  .refine((data) => data.endDateTime > data.startDateTime, {
-    message: "End date cannot be earlier than start date.",
-  });
+export const eventFormSchema = z.object({
+  id: z.string().optional(),
+  name: z
+    .string()
+    .min(3, { message: "Event Name must be at least 3 characters" })
+    .max(100, { message: "Event Name must be less than 100 characters" }),
+  detail: z
+    .string()
+    .min(3, { message: "Description must be at least 3 characters" }),
+  location: z
+    .string()
+    .min(3, { message: "Location must be at least 3 characters" })
+    .max(20, { message: "Location must be less than 20 characters" }),
+  main_image: z.string().url(),
+  start_date: z.date(),
+  end_date: z.date(),
+  category: z.string(),
+  ticket_type: z
+    .array(
+      z
+        .object({
+          id: z.string().optional(),
+          name: z
+            .string()
+            .min(3, { message: "Tier Name must be at least 3 characters" })
+            .max(100, {
+              message: "Tier Name must be less than 100 characters",
+            }),
+          price: z.coerce.number().optional(),
+          seats: z.coerce.number().optional(),
+        })
+        .optional()
+    )
+    .optional(),
+});
+// .refine((data) => data.end_date > data.start_date, {
+//   message: "End date cannot be earlier than start date.",
+// });
 
 export const promoFormSchema = z.object({
   id: z.string().optional(),

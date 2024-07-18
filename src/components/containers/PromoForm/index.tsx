@@ -29,11 +29,9 @@ const PromoForm = ({ type }: FormProps) => {
   });
 
   async function onSubmit(values: z.infer<typeof promoFormSchema>) {
-    const expiringDate = values.expire_date;
-    const date = new Date(expiringDate);
     values.id = (await getLastPromotionId()) + 1;
     //@ts-ignore
-    values.expire_date = date.toISOString();
+    values.expire_date = values.expire_date.toISOString();
     restPost("promotions", values);
   }
 

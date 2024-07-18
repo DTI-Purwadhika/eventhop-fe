@@ -31,11 +31,14 @@ const Login = () => {
     defaultValues: loginDefaultValues,
   });
 
-  const onSubmit = (values: z.infer<typeof loginFormSchema>) => {
+  const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
     try {
-      handleSignIn(values.email, values.password);
+      await handleSignIn(values.email, values.password);
     } catch (err) {
-      console.log(err);
+      form.setError("password", {
+        type: "manual",
+        message: "Email or Password invalid, let's try again!",
+      });
     }
   };
 
@@ -67,14 +70,16 @@ const Login = () => {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.email?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="password"
-              render={({ field }) => (
+              render={({ field, fieldState: { error } }) => (
                 <FormItem className="w-full grid gap-2">
                   <FormControl>
                     <>
@@ -92,7 +97,10 @@ const Login = () => {
                       </Link> */}
                     </>
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage>
+                    {form.formState.errors.password?.message}
+                    {error?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             />
