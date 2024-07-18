@@ -6,7 +6,7 @@ export const register = async (
 ) => {
   try {
     const authData = process.env.NEXT_PUBLIC_EVENTH0P_API;
-    const response = await fetch(`${authData}/auth/register`, {
+    const response = await fetch(`${authData}/users/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

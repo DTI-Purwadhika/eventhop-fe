@@ -37,7 +37,7 @@ const CardList = ({
       )}
     </div>
   ) : (
-    <div className="wrapper flex-center text-center min-h-[200px] w-full flex-col gap-3py-28">
+    <div className="wrapper flex-center text-center min-h-[350px] w-full flex-col gap-3py-28">
       <h3 className="p-bold-20 md:h5-bold">No data found</h3>
       <p className="p-regular-14">There is no data for your requirement</p>
     </div>
