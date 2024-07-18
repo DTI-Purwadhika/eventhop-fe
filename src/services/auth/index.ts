@@ -2,7 +2,6 @@ import NextAuth, { NextAuthConfig } from "next-auth";
 import { BASE_PATH } from "@/constants/config";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
-import checkUser from "./services/checkUser";
 
 const authHandler = async (email: string, password: string) => {
   try {
@@ -65,12 +64,12 @@ const authOptions: NextAuthConfig = {
   ],
   callbacks: {
     async signIn({ user }) {
-      const userLogged = await checkUser(user.email || "");
+      // const userLogged = await checkUser(user.email || "");
 
-      if (userLogged) {
-        return true;
-      }
-      return false;
+      // if (userLogged) {
+      return true;
+      // }
+      // return false;
     },
     async session({ session, token }: any) {
       if (token) {

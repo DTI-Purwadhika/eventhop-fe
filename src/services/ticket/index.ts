@@ -12,7 +12,7 @@ const getTickets = async ({
   if (filter && filter !== "") {
     fetchUrl += `${filter}`;
   }
-
+  console.log(fetchUrl);
   //fetchUrl + `&_sort=${sort.replace("_", "")}&_order=${sort.endsWith("Az") ? "asc" : "desc"}`;
 
   switch (sort) {

@@ -22,6 +22,7 @@ import { checkPromoCode } from "@/services/promotion/isAvalable";
 import { restPost } from "@/services/restService";
 import { getLastTicketId } from "@/services/ticket";
 import { useRouter } from "next/navigation";
+import { getTotalPoints } from "@/services/point/checkPoint";
 
 const PurchaseForm = ({ event }: any) => {
   const [session, setSession] = useState<any>();
@@ -30,6 +31,7 @@ const PurchaseForm = ({ event }: any) => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [firstBuy, setFirstBuy] = useState<boolean>(false);
   const [point, setPoint] = useState<number>(0);
+  const [maxPoint, setMaxPoint] = useState<number>(0);
   const [eventId, setEventId] = useState<number>(1);
   const [voucher, setVoucher] = useState<string>("");
   const [voucherStatus, setVoucherStatus] = useState<string>("");
@@ -47,9 +49,9 @@ const PurchaseForm = ({ event }: any) => {
 
   useEffect(() => {
     const ticketPrice = event.ticket_type[eventId - 1].price;
-    setTotalPrice(ticketPrice - discount - point);
+    setTotalPrice(ticketPrice - discount - point - firstDiscount);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [discount, point, eventId]);
+  }, [discount, point, eventId, firstDiscount]);
 
   useEffect(() => {
     const checkFirstTime = async () => {
@@ -62,8 +64,18 @@ const PurchaseForm = ({ event }: any) => {
     checkFirstTime();
   }, [event.ticket_type, eventId, session?.id]);
 
+  useEffect(() => {
+    const checkUserPoint = async () => {
+      const userPoint = await getTotalPoints();
+      if (userPoint) {
+        setMaxPoint(Number(userPoint));
+      }
+    };
+    checkUserPoint();
+  }, [session?.id]);
+
   const handleVoucher = async (voucher: string) => {
-    const promotion = await checkPromoCode(voucher);
+    const promotion = await checkPromoCode(voucher, event.id);
     if (promotion) {
       setVoucherStatus("Voucher Applied");
       setVoucherCode(voucher);
@@ -100,7 +112,6 @@ const PurchaseForm = ({ event }: any) => {
     values.email = session?.email;
     values.voucher = voucherCode;
     values.point = point;
-    console.log(values);
 
     restPost("ticket_purchases", values);
     router.push("/dashboard/tickets");
@@ -196,13 +207,27 @@ const PurchaseForm = ({ event }: any) => {
                 render={({ field }) => (
                   <FormItem className="w-full col-span-2">
                     <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="0"
-                        label="Use Point"
-                        min={0}
-                        onBlur={(e) => setPoint(e.target.value)}
-                      />
+                      <>
+                        <Input
+                          type="number"
+                          placeholder="0"
+                          label="Use Point"
+                          min={0}
+                          max={maxPoint}
+                          onBlur={(e) => {
+                            if (e.target.value > maxPoint) {
+                              setPoint(maxPoint);
+                              e.target.value = maxPoint;
+                            } else if (e.target.value < 0) {
+                              setPoint(0);
+                              e.target.value = 0;
+                            } else {
+                              setPoint(Number(e.target.value));
+                            }
+                          }}
+                        />
+                        <Label>You have {maxPoint} point</Label>
+                      </>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
