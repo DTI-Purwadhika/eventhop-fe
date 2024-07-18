@@ -1,8 +1,35 @@
+"use client";
 import { dateFormatter } from "@/shares/libs/dateFormatter";
 import { CardType } from "./type";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Card = ({ event, hidePrice }: CardType) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Adjust the delay as needed
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="group relative flex min-h-[300px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[375px]">
+        <Skeleton className="pt-4 pl-4 flex-grow bg-gray-50 bg-center text-gray-500 h-[200px]" />
+        <div className="flex min-h-[170px] flex-col gap-2 p-5 md:gap-4">
+          <Skeleton className="h-4 w-32 mb-2" />
+          <Skeleton className="h-6 w-full mb-2" />
+          <Skeleton className="h-6 w-full mb-2" />
+          <Skeleton className="h-4 w-24" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="group relative flex min-h-[300px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[375px]">
       <Link
@@ -46,4 +73,5 @@ const Card = ({ event, hidePrice }: CardType) => {
     </div>
   );
 };
+
 export default Card;
